@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from routes.entrenador import entrenador
 from routes.cliente import cliente
 from routes.peso import pesos
+from routes.tarea import tarea
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -19,5 +20,6 @@ app.add_middleware(
 app.include_router(entrenador)
 app.include_router(cliente)
 app.include_router(pesos)
+app.include_router(tarea)
 
 
