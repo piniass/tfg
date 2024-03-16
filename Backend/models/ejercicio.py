@@ -9,7 +9,7 @@ from sqlalchemy.sql.sqltypes import Integer, String
 ejercicios = Table("ejercicios", meta,
                    Column("id", Integer, primary_key=True, autoincrement=True),
                    Column("nombre",String(255)),
-                   Column("id_sesion", Integer, ForeignKey('sesiones.id'))
+                   Column("id_entrenamiento", Integer, ForeignKey('entrenamientos.id'))
                    )
 
 meta.create_all(engine)
