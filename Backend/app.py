@@ -4,6 +4,7 @@ from routes.cliente import cliente
 from routes.peso import pesos
 from routes.tarea import tarea
 from routes.sesion import ruta_sesiones
+from routes.ejercicio import ruta_ejercicios
 
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -25,6 +26,8 @@ app.include_router(cliente)
 app.include_router(pesos)
 app.include_router(tarea)
 app.include_router(ruta_sesiones)
+app.include_router(ruta_ejercicios)
+
 
 
 
