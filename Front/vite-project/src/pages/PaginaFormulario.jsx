@@ -1,6 +1,5 @@
 import React from 'react'
-import Formulario from './Formulario'
-
+import Formulario from '../components/Formulario'
 export default function PaginaFormulario() {
   return (
     <main className='bg-green-500 w-screen h-screen flex justify-center items-center'>

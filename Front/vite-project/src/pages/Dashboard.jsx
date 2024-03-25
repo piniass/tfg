@@ -1,6 +1,5 @@
 import React from 'react'
-import Aside from './Aside';
-
+import Aside from '../components/Aside';
 export default function Dashboard() {
     var id = sessionStorage.getItem("id");
     console.log("idd")

@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Importa tus componentes
-import PaginaFormulario from './components/PaginaFormulario';
-import Dashboard from './components/Dashboard';
+import PaginaFormulario from './pages/PaginaFormulario';
+import Dashboard from './pages/Dashboard';
 export default function App() {
   return (
       <Router>
