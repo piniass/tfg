@@ -9,6 +9,5 @@ export default function Dashboard() {
       <Aside id={id}/>
       <main className='w-3/4 h-screen bg-blue-500'>Dashboard</main> 
     </div>
-    
   )
 }
