@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function InfoAside({ id }) {
+export default function InfoAside(props) {
+    const id = props.id
     const [nombre, setNombre] = useState("");
     const [apellido, setApellido] = useState("");
     const [error, setError] = useState(null);
@@ -22,7 +23,7 @@ export default function InfoAside({ id }) {
     }, [id]);
 
     return (
-        <section className='flex flex-col items-center justify-center p-5 my-10 gap-4'>
+        <section className='flex flex-col items-center justify-center p-5 my-10 gap-4 text-white'>
             <div className='h-40 w-40 rounded-xl bg-purple-600'></div>
             <h2 className='text-3xl'>
                 {nombre && <span>{nombre}</span>}

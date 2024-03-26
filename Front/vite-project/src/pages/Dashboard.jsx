@@ -1,5 +1,6 @@
 import React from 'react'
 import Aside from '../components/Aside';
+import ClientDashboardCointainer from '../components/ClientDashboardCointainer';
 export default function Dashboard() {
     var id = sessionStorage.getItem("id");
     console.log("idd")
@@ -7,7 +8,7 @@ export default function Dashboard() {
   return (
     <div className='flex'>
       <Aside id={id}/>
-      <main className='w-3/4 h-screen bg-blue-500'>Dashboard</main> 
+      <ClientDashboardCointainer id={id}/>
     </div>
     
   )
