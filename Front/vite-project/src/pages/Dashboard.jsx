@@ -10,6 +10,5 @@ export default function Dashboard() {
       <Aside id={id}/>
       <ClientDashboardCointainer id={id}/>
     </div>
-    
   )
 }
