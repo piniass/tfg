@@ -1,9 +1,10 @@
 import axios from 'axios'
-import { useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
+import ClientCard from './ClientCard'
 
 export default function ClientsContainer(props) {
     const id = props.id
-    const [clientes, setClientes] = useState('');
+    const [clientes, setClientes] = useState([]);
 
     useEffect(() => {
         axios.get(`http://localhost:8000/clientes/entrenador/${id}`)
@@ -14,11 +15,19 @@ export default function ClientsContainer(props) {
             .catch(function (error) {
                 console.log(error);
             });
-    }, []); // Esta array vacía indica que el efecto solo se ejecuta una vez, equivalente a componentDidMount en componentes de clase
+    }, [id]); // Añadí 'id' a la dependencia del efecto para que se vuelva a ejecutar cuando cambie 'id'
 
     return (
         <section>
-            {clientes.length === 0 ? <p>No hay clientes</p> : <p>Hay clientes!s</p>}
+            {clientes.length === 0 ? (
+                <p>No hay clientes</p>
+            ) : (
+                <div>
+                    {clientes.map(cliente => (
+                        <ClientCard key={cliente.id} cliente={cliente} />
+                    ))}
+                </div>
+            )}
         </section>
     );
 }

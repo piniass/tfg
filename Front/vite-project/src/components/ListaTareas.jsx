@@ -24,7 +24,7 @@ export default function ListaDeTareas() {
   };
 
   return (
-    <div className="h-full w-2/4">
+    <div className="h-full w-2/4 p-4">
       <h2 className="text-xl font-semibold mb-4">Lista de Tareas</h2>
       <div className="grid grid-cols-1 gap-4">
         {tareas.map(tarea => (
