@@ -9,6 +9,7 @@ export default function ClientsContainer(props) {
         axios.get(`http://localhost:8000/clientes/entrenador/${id}`)
             .then(function (response) {
                 setClientes(response.data);
+                console.log(clientes)
             })
             .catch(function (error) {
                 console.log(error);
@@ -17,7 +18,7 @@ export default function ClientsContainer(props) {
 
     return (
         <section>
-            {clientes.length === 0 ? <p>No hay clientes</p> : <p>Hay clientes</p>}
+            {clientes.length === 0 ? <p>No hay clientes</p> : <p>Hay clientes!s</p>}
         </section>
     );
 }
