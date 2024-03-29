@@ -1,26 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export default function ListaDeTareas() {
-  const [tareas, setTareas] = useState([
-    { id: 1, texto: 'Tarea 1' },
-    { id: 2, texto: 'Tarea 2' },
-    { id: 3, texto: 'Tarea 3' }
-  ]);
+export default function ListaDeTareas({ id }) {
+  const [tareas, setTareas] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getTareas = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/tareas/entrenador/${id}`);
+        setTareas(response.data);
+      } catch (err) {
+        setError(err);
+      }
+    };
+
+    getTareas();
+  }, [id]);
 
   const handleConfirmar = (id) => {
-    // Aquí puedes agregar la lógica para confirmar la tarea
-    console.log(`Tarea ${id} confirmada`);
+    // Lógica para confirmar la tarea con el ID especificado
+    console.log(`Tarea confirmada con ID: ${id}`);
   };
 
   const handleEditar = (id) => {
-    // Aquí puedes agregar la lógica para editar la tarea
-    console.log(`Editando tarea ${id}`);
+    // Lógica para editar la tarea con el ID especificado
+    console.log(`Editando tarea con ID: ${id}`);
   };
 
   const handleEliminar = (id) => {
-    // Aquí puedes agregar la lógica para eliminar la tarea
-    setTareas(tareas.filter(tarea => tarea.id !== id));
-    console.log(`Tarea ${id} eliminada`);
+    // Lógica para eliminar la tarea con el ID especificado
+    console.log(`Eliminando tarea con ID: ${id}`);
   };
 
   return (
@@ -29,7 +39,7 @@ export default function ListaDeTareas() {
       <div className="grid grid-cols-1 gap-4">
         {tareas.map(tarea => (
           <div key={tarea.id} className="bg-yellow-200 p-4 rounded-md">
-            <p className="text-lg font-semibold mb-2">{tarea.texto}</p>
+            <p className="text-lg font-semibold mb-2">{tarea.tarea}</p>
             <div className="flex justify-between">
               <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleConfirmar(tarea.id)}>Confirmar</button>
               <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleEditar(tarea.id)}>Editar</button>
