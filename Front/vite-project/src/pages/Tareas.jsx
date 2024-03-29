@@ -11,7 +11,7 @@ export default function Tareas() {
       <Aside id={id}/>
       <main className='w-3/4 h-screen bg-blue-500 flex flex-column'>
         <FormulariosTareas/>
-        <ListaDeTareas/>
+        <ListaDeTareas id={id}/>
       </main> 
     </div>
   )

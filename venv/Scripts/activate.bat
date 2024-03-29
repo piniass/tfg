@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=F:\TFG\TFG\venv
+set VIRTUAL_ENV=D:\TFG\Prueba\TFG-Github\tfg\venv
 
 if not defined PROMPT set PROMPT=$P$G
 
