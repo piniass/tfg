@@ -46,7 +46,7 @@ def create_tarea(tarea:str,id_entrenador:int):
     new_tarea = {
         "tarea": tarea,
         "id_entrenador": id_entrenador
-    }
+    } 
     conn.execute(tareas.insert().values(new_tarea))
     conn.commit()
     return {"message": f"Tarea creada"}
@@ -62,7 +62,7 @@ def update_tarea(id:str,tarea:str,id_entrenador:int):
     if result.rowcount == 0:
         raise HTTPException(status_code=404, detail="Tarea no encontrada")
     return {"message": f"Tarea con ID {id} actualizada"}
-    return
+
 
 @tarea.delete("/tareas/{id}")
 def delete_tarea(id:str):
