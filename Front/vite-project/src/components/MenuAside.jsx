@@ -2,7 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import UserIcon from '../svgs/UserIcon';
 import PowerOff from '../svgs/PowerOff';
+
 export default function MenuAside() {
+
   return (
     <nav className='flex items-center justify-center'>
         <ul>

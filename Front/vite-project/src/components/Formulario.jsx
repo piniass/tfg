@@ -24,6 +24,10 @@ export default function Formulario() {
             if (coincidencia) {
                 // Utilizar navigate para navegar a la ruta del dashboard (Home)
                 sessionStorage.setItem("id", coincidencia.id);
+                sessionStorage.setItem("nombre", coincidencia.nombre);
+                sessionStorage.setItem("apellido", coincidencia.apellido);
+                sessionStorage.setItem("foto", coincidencia.avatar);
+
                 console.log(coincidencia.id)
                 navigate('/dashboard');
             } else {

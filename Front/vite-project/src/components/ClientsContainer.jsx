@@ -7,22 +7,26 @@ export default function ClientsContainer(props) {
     const [clientes, setClientes] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/clientes/entrenador/${id}`)
-            .then(function (response) {
+        const fetchClientes = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8000/clientes/entrenador/${id}`);
                 setClientes(response.data);
-                console.log(clientes)
-            })
-            .catch(function (error) {
+                console.log(response.data);
+            } catch (error) {
                 console.log(error);
-            });
+            }
+        };
+
+        fetchClientes(); // Llama a la función asíncrona dentro del useEffect
+
     }, [id]); // Añadí 'id' a la dependencia del efecto para que se vuelva a ejecutar cuando cambie 'id'
 
     return (
-        <section>
+        <section className='p-4'>
             {clientes.length === 0 ? (
                 <p>No hay clientes</p>
             ) : (
-                <div>
+                <div className='grid grid-cols-3 gap-4'>
                     {clientes.map(cliente => (
                         <ClientCard key={cliente.id} cliente={cliente} />
                     ))}

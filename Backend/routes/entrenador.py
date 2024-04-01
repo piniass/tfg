@@ -14,7 +14,7 @@ entrenador = APIRouter()
 
 
 @entrenador.get("/entrenadores")
-def get_entrenadores():
+async def get_entrenadores():
     query = conn.execute(entrenadores.select())
     entrenadores_list = []
     for row in query.fetchall():
@@ -29,7 +29,7 @@ def get_entrenadores():
         entrenadores_list.append(entrenador_dict)
     return entrenadores_list
 @entrenador.get("/entrenadores/{id}")
-def get_entrenadores_byid(id:str):
+async def get_entrenadores_byid(id:str):
     query = conn.execute(entrenadores.select().where(entrenadores.c.id == id))
     entrenadores_list = []
     for row in query:
@@ -45,7 +45,7 @@ def get_entrenadores_byid(id:str):
     return entrenadores_list
 
 @entrenador.post("/entrenadores")
-def create_entrenador(entrenador: Entrenador):
+async def create_entrenador(entrenador: Entrenador):
     new_entrenador = {
         "nombre": entrenador.nombre,
         "apellido": entrenador.apellido,
@@ -58,7 +58,7 @@ def create_entrenador(entrenador: Entrenador):
     return {"message": f"Entrenador {entrenador.nombre} {entrenador.apellido} creado"}
 
 @entrenador.put("/entrenadores/{id}")
-def update_entrenador(id: str, entrenador_data: Entrenador):
+async def update_entrenador(id: str, entrenador_data: Entrenador):
     updated_entrenador = {
         "nombre": entrenador_data.nombre,
         "apellido": entrenador_data.apellido,
@@ -73,7 +73,7 @@ def update_entrenador(id: str, entrenador_data: Entrenador):
     return {"message": f"Entrenador con ID {id} actualizado"}
 
 @entrenador.delete("/entrenadores/{id}")
-def delete_entrenador(id: str):
+async def delete_entrenador(id: str):
     result = conn.execute(entrenadores.delete().where(entrenadores.c.id == id))
     conn.commit()
 
