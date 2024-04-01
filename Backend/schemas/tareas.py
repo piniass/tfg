@@ -7,3 +7,4 @@ class Tarea(BaseModel):
     tarea: str
     fecha_creacion: date
     id_entrenador:int
+    confirmado: bool  # Añadimos la columna confirmado

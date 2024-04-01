@@ -22,6 +22,7 @@ def get_tareas():
             "tarea": row[1],
             "fecha_creacion": row[2],
             "id_entrenador": row[3],
+            "confirmado": row[4]
         }
         tareas_list.append(tarea_dict)
     return tareas_list
@@ -36,6 +37,7 @@ def get_cliente_byentrenador(id:str):
             "tarea": row[1],
             "fecha_creacion": row[2],
             "id_entrenador": row[3],
+            "confirmado": row[4]
         }
         tareas_list.append(tarea_dict)
     return tareas_list
@@ -62,6 +64,14 @@ def update_tarea(id:str,tarea:str,id_entrenador:int):
     if result.rowcount == 0:
         raise HTTPException(status_code=404, detail="Tarea no encontrada")
     return {"message": f"Tarea con ID {id} actualizada"}
+
+@tarea.put("/tareas/{id}/confirmado")
+def update_confirmado_tarea(id: str, confirmado: bool):
+    result = conn.execute(tareas.update().where(tareas.c.id == id).values(confirmado=confirmado))
+    conn.commit()
+    if result.rowcount == 0:
+        raise HTTPException(status_code=404, detail="Tarea no encontrada")
+    return {"message": f"Estado de confirmado de la tarea con ID {id} actualizado a {confirmado}"}
 
 
 @tarea.delete("/tareas/{id}")
