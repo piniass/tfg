@@ -3,6 +3,8 @@ from config.db import conn
 from models.cliente import clientes  # Importa la tabla de clientes
 from schemas.clientes import Cliente
 from fastapi import HTTPException
+from fastapi import Form
+
 
 cliente = APIRouter()  # Cambia el nombre de la variable a cliente_router
 
@@ -57,19 +59,20 @@ def get_cliente_byentrenador(id:str):
         cliente_list.append(cliente_dict)
     return cliente_list
 
+
 @cliente.post("/cliente")
-def create_cliente(cliente: Cliente):
+def create_cliente(nombre: str = Form(...), apellido: str = Form(...), edad: int = Form(...), altura: float = Form(...), patologias: str = Form(...), id_entrenador: int = Form(...)):
     new_cliente = {
-        "nombre": cliente.nombre,
-        "apellido": cliente.apellido,
-        "edad": cliente.edad,
-        "altura": cliente.altura,
-        "patologias": cliente.patologias,
-        "id_entrenador": cliente.id_entrenador
+        "nombre": nombre,
+        "apellido": apellido,
+        "edad": edad,
+        "altura": altura,
+        "patologias": patologias,
+        "id_entrenador": id_entrenador
     }
     conn.execute(clientes.insert().values(new_cliente))
     conn.commit()
-    return {"message": f"Cliente {cliente.nombre} {cliente.apellido} creado"}
+    return {"message": f"Cliente {nombre} {apellido} creado"}
 
 @cliente.put("/cliente/{id}")
 def update_cliente(id: str, cliente: Cliente):

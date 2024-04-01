@@ -14,7 +14,7 @@ entrenador = APIRouter()
 
 
 @entrenador.get("/entrenadores")
-async def get_entrenadores():
+def get_entrenadores():
     query = conn.execute(entrenadores.select())
     entrenadores_list = []
     for row in query.fetchall():
