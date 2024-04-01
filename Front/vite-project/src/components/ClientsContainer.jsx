@@ -17,9 +17,9 @@ export default function ClientsContainer(props) {
             }
         };
 
-        fetchClientes(); // Llama a la función asíncrona dentro del useEffect
+        fetchClientes(); 
 
-    }, [id]); // Añadí 'id' a la dependencia del efecto para que se vuelva a ejecutar cuando cambie 'id'
+    }, [id]); 
 
     return (
         <section className='p-4'>
