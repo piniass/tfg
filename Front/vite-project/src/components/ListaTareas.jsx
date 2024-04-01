@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function ListaDeTareas({ id }) {
+export default function ListaDeTareas(props) {
+  const id = props.id
   const [tareas, setTareas] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const getTareas = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/tareas/entrenador/${id}`);
+        const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
         setTareas(response.data);
       } catch (err) {
         setError(err);
@@ -28,10 +29,20 @@ export default function ListaDeTareas({ id }) {
     console.log(`Editando tarea con ID: ${id}`);
   };
 
-  const handleEliminar = (id) => {
-    // Lógica para eliminar la tarea con el ID especificado
-    console.log(`Eliminando tarea con ID: ${id}`);
+  const handleEliminar = async (id) => {
+    try {
+      const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar esta tarea?");
+      if (confirmDelete) {
+      const response = await axios.delete(`http://127.0.0.1:8000/tareas/${id}`);
+      console.log(response.data.message); 
+      await window.location.reload();
+      }
+
+    } catch (err) {
+      setError(err);
+    }
   };
+  
 
   return (
     <div className="h-full w-2/4 p-4">
