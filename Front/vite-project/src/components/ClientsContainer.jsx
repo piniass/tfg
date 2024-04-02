@@ -21,6 +21,15 @@ export default function ClientsContainer(props) {
 
     }, [id]); 
 
+    const actualizarClientes = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8000/clientes/entrenador/${id}`);
+            setClientes(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <section className='p-4'>
             {clientes.length === 0 ? (
@@ -28,8 +37,8 @@ export default function ClientsContainer(props) {
             ) : (
                 <div className='grid grid-cols-3 gap-4'>
                     {clientes.map(cliente => (
-                        <ClientCard key={cliente.id} cliente={cliente} />
-                    ))}
+                        <ClientCard key={cliente.id} cliente={cliente} actualizarClientes={actualizarClientes}/>
+                        ))}
                 </div>
             )}
         </section>
