@@ -3,6 +3,7 @@ import Edit from '../svgs/Edit';
 import DeleteIcon from '../svgs/Delete';
 import axios from 'axios';
 
+
 export default function ClientCard(props) {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('')
@@ -18,7 +19,7 @@ export default function ClientCard(props) {
         axios.delete(`http://127.0.0.1:8000/cliente/${props.cliente.id}`)
         .then(response => {
             console.log(`Cliente eliminado`);
-            window.location.reload(); //de momento dejar así y ya se actualizará
+            props.actualizarClientes();
           })
           .catch(error => {
             console.error(error);
