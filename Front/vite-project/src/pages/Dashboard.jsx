@@ -6,7 +6,7 @@ export default function Dashboard() {
     console.log("idd")
     console.log(id)
   return (
-    <div className='flex'>
+    <div className='flex h-screen'>
       <Aside id={id}/>
       <ClientDashboardCointainer id={id}/>
     </div>

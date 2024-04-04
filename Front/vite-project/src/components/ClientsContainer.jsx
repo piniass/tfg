@@ -5,9 +5,10 @@ import ClientCard from './ClientCard'
 export default function ClientsContainer(props) {
     const id = props.id
     const [clientes, setClientes] = useState([]);
-    const [busqueda, setBusqueda] = useState(props.buscador);
-
+    const [busqueda, setBusqueda] = useState();
+    const [nuevosClientes,setNuevos] = useState([])
     useEffect(() => {
+        // console.log("Valor inicial de props.buscador:", props.buscador);
         const fetchClientes = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/clientes/entrenador/${id}`);
@@ -19,22 +20,26 @@ export default function ClientsContainer(props) {
         };
     
         const buscarClientes = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8000/clientes/entrenador/${id}/${props.buscador}`);
-                setClientes(response.data);
-                console.log(props.buscador);
-            } catch (error) {
-                console.log(error);
-            }
-            
+            setBusqueda(props.buscador)
+            const clientesFiltrados = clientes.filter(cliente => cliente.nombre.includes(props.buscador) || cliente.apellido.includes(props.buscador));
+            setNuevos(clientesFiltrados);
+
         };
-    
-        if (busqueda !== undefined) {
-            buscarClientes();
-        } else {
-            fetchClientes();
+
+        fetchClientes();
+
+        
+    }, [id ]);
+
+    useEffect(() => {
+        if (props.buscador !== '') {
+            console.log("Me acabo de meter")
+            // buscarClientes();
+            setBusqueda(props.buscador)
+            const clientesFiltrados = clientes.filter(cliente => cliente.nombre.includes(props.buscador) || cliente.apellido.includes(props.buscador));
+            setNuevos(clientesFiltrados);
         }
-    }, [id, props.buscador]);
+    },[props.buscador])
 
     const actualizarClientes = async () => {
         try {
@@ -48,23 +53,20 @@ export default function ClientsContainer(props) {
     
 
     return (
-        <section className='p-4'>
-            {/* Verificar si no hay clientes */}
+        <section className='h-full'>
             {clientes.length === 0 ? (
                 <p>No hay clientes</p>
             ) : (
-                // Si hay clientes, comprobar si busqueda.length es mayor que 0
-                // Si busqueda.length > 0, renderizar ClientCards con otra prop
-                busqueda !== undefined ? (
-                    <div className='grid grid-cols-3 gap-4'>
-                        {clientes.map(cliente => (
-                            // Renderizar ClientCard con otra prop
-                            <ClientCard key={cliente.id} cliente={cliente} actualizarClientes={actualizarClientes}/>
+                // Si el buscador contiene información ejecuta esto
+                props.buscador !== '' ? (
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
+                        {nuevosClientes.map(cliente => (
+                            <ClientCard key={clientes.id} cliente={cliente} actualizarClientes={actualizarClientes}/>
                         ))}
                     </div>
                 ) : (
-                    // Si busqueda.length es 0, hacer el mapeo normalmente
-                    <div className='grid grid-cols-3 gap-4'>
+                    // Si el buscador está así '' imprime todos los clientes
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
                         {clientes.map(cliente => (
                             <ClientCard key={cliente.id} cliente={cliente} actualizarClientes={actualizarClientes}/>
                         ))}
@@ -73,5 +75,4 @@ export default function ClientsContainer(props) {
             )}
         </section>
     );
-    
-}
+                        }

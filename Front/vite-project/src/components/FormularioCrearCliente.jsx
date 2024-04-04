@@ -44,13 +44,16 @@ export default function FormularioCrearCliente(props) {
   }
   
   return (
-    <form className='flex flex-col p-4 bg-slate-400 gap-4'>
-      <input className='p-2' type="text" name="nombre" id="nombre" placeholder='Nombre' onChange={(e) => setNombre(e.target.value)}/>
-      <input className='p-2' type="text" name="apellidos" id="apellidos" placeholder='Apellidos' onChange={(e) => setApellidos(e.target.value)}/>
-      <input className='p-2' type="number" name="edad" id="edad" placeholder='Edad' onChange={(e) => setEdad(e.target.value)}/>
-      <input className='p-2' type="number" step="0.01" name="altura" id="altura" placeholder='Altura' onChange={(e) => setAltura(e.target.value)}/>
-      <textarea className='p-2' name="patologias" id="patologias" placeholder='Introduce las posibles patologias' onChange={(e) => e.target.value === '' ? setPatologias(' ') : setPatologias(e.target.value)}></textarea>
-      <input className='p-2' type="button" value="Enviar" onClick={handleSubmit}/>
-    </form>
+    <section className='w-3/4 flex flex-col items-center justify-center'>
+      <form className='flex flex-col p-4 gap-4 w-full'>
+        <input className='p-2 border-solid border-2 rounded-lg' type="text" name="nombre" id="nombre" placeholder='Nombre' onChange={(e) => setNombre(e.target.value)}/>
+        <input className='p-2 border-solid border-2 rounded-lg' type="text" name="apellidos" id="apellidos" placeholder='Apellidos' onChange={(e) => setApellidos(e.target.value)}/>
+        <input className='p-2 border-solid border-2 rounded-lg' type="number" name="edad" id="edad" placeholder='Edad' onChange={(e) => setEdad(e.target.value)}/>
+        <input className='p-2 border-solid border-2 rounded-lg' type="number" step="0.01" name="altura" id="altura" placeholder='Altura' onChange={(e) => setAltura(e.target.value)}/>
+        <textarea className='p-2 border-solid border-2 rounded-lg resize-none' name="patologias" id="patologias" placeholder='Introduce las posibles patologias' onChange={(e) => e.target.value === '' ? setPatologias(' ') : setPatologias(e.target.value)}></textarea>
+        <input className='p-2 rounded-lg bg-green-500 text-white cursor-pointer hover:bg-green-700' type="button" value="Enviar" onClick={handleSubmit}/>
+      </form>
+    </section>
+    
   );
 }
