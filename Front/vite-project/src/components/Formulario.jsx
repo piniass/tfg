@@ -40,7 +40,9 @@ export default function Formulario() {
     };
   return (
     <section className='p-8'>
-        <form onSubmit={handleSubmit} className='bg-yellow-400 flex flex-col p-8'>
+        <form onSubmit={handleSubmit} className='bg-yellow-400 flex flex-col p-8 gap-4'>
+            <h2 className='text-center text-2xl'>Iniciar Sesion</h2>
+
             <label className=''>Introduce tu correo</label>
             <input 
                 type="text" 
@@ -58,8 +60,15 @@ export default function Formulario() {
                 value={contrasenia} />
             <input 
                 type="submit" 
-                value="Enviar"
+                value="Iniciar Sesion"
+                className='border-solid border-2 rounded cursor-pointer'
                 />
+            <input
+                type='button'
+                value='Registrarse'
+                className='border-solid border-2 rounded cursor-pointer'
+
+            />
         </form>
     </section>
     
