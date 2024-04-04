@@ -44,7 +44,7 @@ def get_cliente_byentrenador(id:str):
 
 
 @tarea.post("/tareas")
-def create_tarea(tarea:str,id_entrenador:int):
+def create_tarea(tarea:str = Form(...),id_entrenador:int= Form(...)):
     new_tarea = {
         "tarea": tarea,
         "id_entrenador": id_entrenador
