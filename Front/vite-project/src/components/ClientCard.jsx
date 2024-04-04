@@ -27,7 +27,7 @@ export default function ClientCard(props) {
     }
  
     return (
-        <div className='bg-orange-500 p-2 flex flex-col justify-center items-center gap-2'>
+        <div className='border-solid border-2 rounded-lg p-2 flex flex-col justify-center items-center gap-2 hover:shadow-md'>
             <div className='h-20 w-20 bg-cyan-400 rounded-full'></div>
             <p className='text-xl'>{nombre} {apellido}</p>
             <div className='flex flex-col items-center justify-center gap-2'>

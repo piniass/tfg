@@ -9,7 +9,7 @@ export default function Tareas() {
   return (
     <div className='flex'>
       <Aside id={id}/>
-      <main className='w-3/4 h-screen bg-blue-500 flex flex-column'>
+      <main className='w-4/5 h-screen bg-blue-500 flex'>
         <FormulariosTareas id={id}/>
         <ListaDeTareas id={id}/>
       </main> 
