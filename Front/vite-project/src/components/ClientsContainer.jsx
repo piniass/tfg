@@ -29,8 +29,11 @@ export default function ClientsContainer(props) {
             console.log("Me acabo de meter")
             // buscarClientes();
             setBusqueda(props.buscador)
-            const clientesFiltrados = clientes.filter(cliente => cliente.nombre.includes(props.buscador) || cliente.apellido.includes(props.buscador));
-            setNuevos(clientesFiltrados);
+            const clientesFiltrados = clientes.filter(cliente => 
+                cliente.nombre.toLowerCase().includes(props.buscador.toLowerCase()) || 
+                cliente.apellido.toLowerCase().includes(props.buscador.toLowerCase())
+            );
+                        setNuevos(clientesFiltrados);
         }
     }, [props.buscador])
 
@@ -44,7 +47,7 @@ export default function ClientsContainer(props) {
     }
 
     return (
-        <section className='h-full'>
+        <section className=''>
             {clientes.length === 0 ? (
                 <p>No hay clientes</p>
             ) : (
@@ -52,7 +55,7 @@ export default function ClientsContainer(props) {
                 props.buscador !== '' ? (
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
                         {nuevosClientes.map(cliente => (
-                            <ClientCard key={clientes.id} cliente={cliente} actualizarClientes={actualizarClientes} />
+                            <ClientCard key={cliente.id} cliente={cliente} actualizarClientes={actualizarClientes} />
                         ))}
                     </div>
                 ) : (

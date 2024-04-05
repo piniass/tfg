@@ -3,8 +3,7 @@ import Aside from '../components/Aside';
 import ClientDashboardCointainer from '../components/ClientDashboardCointainer';
 export default function Dashboard() {
     var id = sessionStorage.getItem("id");
-    console.log("idd")
-    console.log(id)
+    console.log("id entrenador: ", id)
   return (
     <div className='flex h-screen'>
       <Aside id={id}/>
