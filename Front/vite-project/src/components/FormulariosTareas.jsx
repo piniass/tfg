@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
+import useTarea from '../hooks/HookTareas';
 
 export default function FormulariosTareas(props) {
-  const { id } = props;
+  const { id, actualizarTareas } = props;
   const [tareaNueva, setTareaNueva] = useState('');
+  const { getTareas, handleEditar, handleEliminar, handleConfirmar, tareas } = useTarea({ id }); // Pasar el id al hook
+
   const url = 'http://127.0.0.1:8000/tareas';
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
  
   const handleSubmitCrear = async (event) => {
@@ -27,17 +30,45 @@ export default function FormulariosTareas(props) {
 
       const res = await axios(options);
       console.log(res.data);
-
+      console.log(props)
+      // window.location.reload()
+      actualizarTareas()
     } catch (error) {
       console.error('Error al crear tarea:', error);
     }
   };
 
+  const handleSubmitActualizar = (event) => {
+    event.preventDefault();
+    console.log('Se ha enviado el formulario para actualizar la tarea:', tareaNueva);
+    setTareaNueva('');
+  };
+
   return (
     <div className='p-4 flex flex-col w-2/4'>
-      <form className='bg-yellow-400 flex flex-col p-2 mb-2 h-1/2 hover:bg-yellow-500'>
-        <textarea className='p-2 border-solid border-2 rounded-lg resize-none' name="tareaNueva" id="tareaNueva" placeholder='Introduce las posibles patologias' onChange={(e) => e.target.value !== '' ? setTareaNueva(e.target.value):null}></textarea>
-        <input className='p-2 rounded-lg bg-green-500 text-white cursor-pointer hover:bg-green-700' type="button" value="Enviar" onClick={handleSubmitCrear}/>
+      <form onSubmit={handleSubmitCrear} className='bg-yellow-400 flex flex-col p-2 mb-2 h-1/2 hover:bg-yellow-500'>
+        <label htmlFor="tareaNueva" className="text-lg font-semibold mb-2">Introduce una nueva tarea</label>
+        <textarea 
+          id="tareaNueva"
+          value={tareaNueva}
+          onChange={(event) => setTareaNueva(event.target.value)}
+          placeholder="Nueva Tarea"
+          rows={24} 
+          className="resize-none mb-2" 
+        />
+        <button className='bg-green hover:bg-green-dark text-white font-bold py-2 px-4 rounded' type="submit">Crear</button>
+      </form>
+      <form onSubmit={handleSubmitActualizar} className='bg-yellow-400 flex flex-col p-2 h-1/2 hover:bg-yellow-500'>
+        <label htmlFor="tareaActualizada" className="text-lg font-semibold mb-2">Actualiza tarea </label>
+        <textarea 
+          id="tareaActualizada"
+          value={tareaNueva}
+          onChange={(event) => setTareaNueva(event.target.value)}
+          placeholder=""
+          rows={24} 
+          className="resize-none mb-2" 
+        />
+        <button className='bg-green hover:bg-green-dark text-white font-bold py-2 px-4 rounded' type="submit">Actualizar</button>
       </form>
     </div>
   );

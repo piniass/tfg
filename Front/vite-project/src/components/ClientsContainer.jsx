@@ -6,7 +6,7 @@ export default function ClientsContainer(props) {
     const id = props.id
     const [clientes, setClientes] = useState([]);
     const [busqueda, setBusqueda] = useState();
-    const [nuevosClientes,setNuevos] = useState([])
+    const [nuevosClientes, setNuevos] = useState([])
     useEffect(() => {
         // console.log("Valor inicial de props.buscador:", props.buscador);
         const fetchClientes = async () => {
@@ -18,18 +18,11 @@ export default function ClientsContainer(props) {
                 console.log(error);
             }
         };
-    
-        const buscarClientes = async () => {
-            setBusqueda(props.buscador)
-            const clientesFiltrados = clientes.filter(cliente => cliente.nombre.includes(props.buscador) || cliente.apellido.includes(props.buscador));
-            setNuevos(clientesFiltrados);
-
-        };
 
         fetchClientes();
 
-        
-    }, [id ]);
+
+    }, [id]);
 
     useEffect(() => {
         if (props.buscador !== '') {
@@ -39,7 +32,7 @@ export default function ClientsContainer(props) {
             const clientesFiltrados = clientes.filter(cliente => cliente.nombre.includes(props.buscador) || cliente.apellido.includes(props.buscador));
             setNuevos(clientesFiltrados);
         }
-    },[props.buscador])
+    }, [props.buscador])
 
     const actualizarClientes = async () => {
         try {
@@ -50,8 +43,6 @@ export default function ClientsContainer(props) {
         }
     }
 
-    
-
     return (
         <section className='h-full'>
             {clientes.length === 0 ? (
@@ -61,18 +52,18 @@ export default function ClientsContainer(props) {
                 props.buscador !== '' ? (
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
                         {nuevosClientes.map(cliente => (
-                            <ClientCard key={clientes.id} cliente={cliente} actualizarClientes={actualizarClientes}/>
+                            <ClientCard key={clientes.id} cliente={cliente} actualizarClientes={actualizarClientes} />
                         ))}
                     </div>
                 ) : (
                     // Si el buscador está así '' imprime todos los clientes
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
                         {clientes.map(cliente => (
-                            <ClientCard key={cliente.id} cliente={cliente} actualizarClientes={actualizarClientes}/>
+                            <ClientCard key={cliente.id} cliente={cliente} actualizarClientes={actualizarClientes} />
                         ))}
                     </div>
                 )
             )}
         </section>
     );
-                        }
+}
