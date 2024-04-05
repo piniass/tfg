@@ -1,60 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import useTarea from '../hooks/HookTareas';
 
 export default function ListaDeTareas(props) {
-  const id = props.id
-  const [tareas, setTareas] = useState([]);
-  const [error, setError] = useState(null);
+  const { id,tareas, handleEliminar } = props; // Recibiendo la función como prop
+  const { getTareas, handleEditar, handleConfirmar} = useTarea({ id }); //cambiar porque ya no se va a usar
 
-  useEffect(() => {
-    const getTareas = async () => {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
-        setTareas(response.data);
-        console.log('Datos recibidos del backend:', response.data); // Agregar este console.log
-      } catch (err) {
-        setError(err);
-      }
-    };
-
-    getTareas();
-  }, [id]);
-
-  const handleConfirmar = async (id) => {
-    try {
-      // Obtener la tarea actual
-      const tareaActual = tareas.find(tarea => tarea.id === id);
-      // Invertir el estado de confirmado (0 -> 1, 1 -> 0)
-      const nuevoEstadoConfirmado = tareaActual.confirmado ? 0 : 1;
-      // Enviar solicitud PUT para actualizar el estado de confirmado
-      await axios.put(`http://127.0.0.1:8000/tareas/${id}`, { confirmado: nuevoEstadoConfirmado });
-      // Actualizar la lista de tareas después de confirmar
-      const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
-      setTareas(response.data);
-    } catch (err) {
-      setError(err);
-    }
-  };
-
-  const handleEditar = (id) => {
-    // Lógica para editar la tarea con el ID especificado
-    console.log(`Editando tarea con ID: ${id}`);
-  };
-
-  const handleEliminar = async (id) => {
-    try {
-      const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar esta tarea?");
-      if (confirmDelete) {
-        const response = await axios.delete(`http://127.0.0.1:8000/tareas/${id}`);
-        console.log(response.data.message); 
-        await window.location.reload();
-      }
-
-    } catch (err) {
-      setError(err);
-    }
-  };
-  
+  // useEffect(() => {
+  //   getTareas()
+  // }, [id]);
 
   return (
     <div className="h-full w-2/4 p-4">
@@ -74,3 +28,4 @@ export default function ListaDeTareas(props) {
     </div>
   );
 }
+

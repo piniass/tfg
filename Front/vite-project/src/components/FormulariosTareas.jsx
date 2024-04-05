@@ -1,28 +1,41 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
+import useTarea from '../hooks/HookTareas';
 
 export default function FormulariosTareas(props) {
-  const id = props.id;
+  const { id, actualizarTareas } = props;
   const [tareaNueva, setTareaNueva] = useState('');
-  const [error, setError] = useState(null);
+  const { getTareas, handleEditar, handleEliminar, handleConfirmar, tareas } = useTarea({ id }); // Pasar el id al hook
 
+  const url = 'http://127.0.0.1:8000/tareas';
+  // const navigate = useNavigate();
+
+ 
   const handleSubmitCrear = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/tareas`, {
+      const data = {
         tarea: tareaNueva,
-        id_entrenador: parseInt(id)
-      });
-      console.log(tarea);
-      console.log(id);
+        id_entrenador: id
+      };
 
-      // Lógica adicional después de crear la tarea, como redireccionar o mostrar un mensaje de éxito
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        data: qs.stringify(data),
+        url: url,
+      };
+
+      const res = await axios(options);
+      console.log(res.data);
+      console.log(props)
+      // window.location.reload()
+      actualizarTareas()
     } catch (error) {
       console.error('Error al crear tarea:', error);
-      // Manejo de errores, como mostrar un mensaje de error al usuario
-      setError(error);
     }
-    setTareaNueva('');
   };
 
   const handleSubmitActualizar = (event) => {
