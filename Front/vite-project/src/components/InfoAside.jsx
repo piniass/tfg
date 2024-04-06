@@ -14,7 +14,7 @@ export default function InfoAside(props) {
   return (
     <section className="flex flex-col items-center justify-center p-5 my-10 gap-4 text-white">
       <FotoPerfil/>
-      <h2 className="text-3xl">
+      <h2 className="text-3xl text-center">
         {nombre && <span>{nombre}</span>}
         {apellido && <span> {apellido}</span>}
       </h2>
