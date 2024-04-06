@@ -3,6 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
+import AvataresContainer from './AvataresContainer';
 
 export default function FormularioCrearCliente(props) {
   const [nombre, setNombre] = useState('');
@@ -10,6 +11,8 @@ export default function FormularioCrearCliente(props) {
   const [edad, setEdad] = useState('');
   const [altura, setAltura] = useState('');
   const [patologias, setPatologias] = useState(' ');
+  const [avatarSeleccionado, setAvatarSeleccionado] = useState('');
+
   const url = 'http://127.0.0.1:8000/cliente';
   const navigate = useNavigate()
   
@@ -23,6 +26,7 @@ export default function FormularioCrearCliente(props) {
         edad: edad,
         altura: altura,
         patologias: patologias,
+        avatar: avatarSeleccionado,
         id_entrenador: 1
       };
   
@@ -42,15 +46,27 @@ export default function FormularioCrearCliente(props) {
       console.log(error.response);
     }
   }
+
+  const sacarImagen = (src) => {
+    const recortado = src.substring(13);
+
+    setAvatarSeleccionado(recortado);
+  };
+
+  console.log(avatarSeleccionado)
   
   return (
-    <section className='w-3/4 flex flex-col items-center justify-center'>
+    <section className='w-3/4 flex flex-col items-center'>
       <form className='flex flex-col p-4 gap-4 w-full'>
         <input className='p-2 border-solid border-2 rounded-lg' type="text" name="nombre" id="nombre" placeholder='Nombre' onChange={(e) => setNombre(e.target.value)}/>
         <input className='p-2 border-solid border-2 rounded-lg' type="text" name="apellidos" id="apellidos" placeholder='Apellidos' onChange={(e) => setApellidos(e.target.value)}/>
         <input className='p-2 border-solid border-2 rounded-lg' type="number" name="edad" id="edad" placeholder='Edad' onChange={(e) => setEdad(e.target.value)}/>
         <input className='p-2 border-solid border-2 rounded-lg' type="number" step="0.01" name="altura" id="altura" placeholder='Altura' onChange={(e) => setAltura(e.target.value)}/>
         <textarea className='p-2 border-solid border-2 rounded-lg resize-none' name="patologias" id="patologias" placeholder='Introduce las posibles patologias' onChange={(e) => e.target.value === '' ? setPatologias(' ') : setPatologias(e.target.value)}></textarea>
+        <fieldset className='border-2 border-solid overflow-auto h-96'>
+          <legend className='text-xl text-center'>Elige un avatar</legend>
+          <AvataresContainer sacarImagen={sacarImagen} />
+        </fieldset>
         <input className='p-2 rounded-lg bg-green-500 text-white cursor-pointer hover:bg-green-700' type="button" value="Enviar" onClick={handleSubmit}/>
       </form>
     </section>

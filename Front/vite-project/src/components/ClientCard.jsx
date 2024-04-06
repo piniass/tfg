@@ -9,6 +9,7 @@ export default function ClientCard(props) {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('')
     const navigate = useNavigate(); 
+    const ruta = '../../public/'+props.cliente.avatar
 
     useEffect(() => {
         if (props.cliente) {
@@ -34,7 +35,9 @@ export default function ClientCard(props) {
  
     return (
         <div className='border-solid border-2 rounded-lg p-2 flex flex-col justify-center items-center gap-2 hover:shadow-md'>
-            <div className='h-20 w-20 bg-cyan-400 rounded-full'></div>
+            <img 
+                src={ruta}
+                className='h-20 w-20 rounded-full'/>
             <p className='text-xl'>{nombre} {apellido}</p>
             <div className='flex flex-col items-center justify-center gap-2'>
             <button className='px-10 py-1' onClick={verDetalles}>Ver detalles</button>
