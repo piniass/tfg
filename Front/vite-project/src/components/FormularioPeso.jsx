@@ -27,6 +27,7 @@ export default function FormularioPeso(props) {
             const res = await axios(options);
             console.log(res.data);
             // window.location.reload()
+            props.actualizarPeso()
           } catch (error) {
             console.error('Error al crear tarea:', error);
           }
