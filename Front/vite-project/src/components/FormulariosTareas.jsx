@@ -59,9 +59,9 @@ export default function FormulariosTareas(props) {
         <button className='bg-green hover:bg-green-dark text-white font-bold py-2 px-4 rounded' type="submit">Crear</button>
       </form>
       <form onSubmit={handleSubmitActualizar} className='bg-yellow-400 flex flex-col p-2 h-1/2 hover:bg-yellow-500'>
-        <label htmlFor="tareaActualizada" className="text-lg font-semibold mb-2">Actualiza tarea </label>
+        <label htmlFor="tareaActualizada1" className="text-lg font-semibold mb-2">Actualiza tarea </label>
         <textarea 
-          id="tareaActualizada"
+          id="tareaActualizada1"
           value={tareaNueva}
           onChange={(event) => setTareaNueva(event.target.value)}
           placeholder=""
