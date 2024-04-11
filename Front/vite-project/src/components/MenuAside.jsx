@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import UserIcon from '../svgs/UserIcon';
 import PowerOff from '../svgs/PowerOff';
 
-
 export default function MenuAside() {
+  const handleCerrarSesion = () => {
+    sessionStorage.clear()
+    navigate("/")
+  }
 
   return (
     <nav className='flex items-center justify-center'>
@@ -32,7 +35,7 @@ export default function MenuAside() {
             </Link>
           </li>
           <li className='p-2'>
-            <Link to="/dashboard" className='flex items-center text-white gap-4'>
+            <Link to="/" className='flex items-center text-white gap-4' onClick={handleCerrarSesion}>
               <PowerOff/>
               <h2 className='text-xl hidden md:block'>Cerrar Sesion</h2>
             </Link>

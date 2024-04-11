@@ -3,26 +3,26 @@ import { useEffect, useState } from 'react'
 import ClientCard from './ClientCard'
 
 export default function ClientsContainer(props) {
-    const id = props.id
+    const id = sessionStorage.getItem("id");
+
     const [clientes, setClientes] = useState([]);
     const [busqueda, setBusqueda] = useState();
     const [nuevosClientes, setNuevos] = useState([])
+
     useEffect(() => {
-        // console.log("Valor inicial de props.buscador:", props.buscador);
         const fetchClientes = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/clientes/entrenador/${id}`);
                 setClientes(response.data);
-                console.log(response.data);
+                console.log("Datos: ",response.data);
             } catch (error) {
                 console.log(error);
             }
         };
-
+    
         fetchClientes();
-
-
-    }, [id]);
+    
+    }, []);
 
     useEffect(() => {
         if (props.buscador !== '') {

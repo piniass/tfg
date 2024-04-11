@@ -12,6 +12,10 @@ export default function Formulario() {
     const [error, setError] = useState(null);
     const navigate = useNavigate(); 
 
+    const login = () => {
+        navigate("/login")
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -43,16 +47,19 @@ export default function Formulario() {
         <form onSubmit={handleSubmit} className='bg-yellow-400 flex flex-col p-8 gap-4'>
             <h2 className='text-center text-2xl'>Iniciar Sesion</h2>
 
-            <label className=''>Introduce tu correo</label>
+            <label className='' htmlFor='correo'>Introduce tu correo</label>
             <input 
+                className='p-2'
                 type="text" 
                 placeholder="Correo electronico"
                 id="correo"
+                name='email'
                 value={correo}
                 onChange={(e) => setCorreo(e.target.value)}
                 />
-            <label>Contrasenia</label>
+            <label htmlFor='contrasenia'>Contraseña</label>
             <input 
+                className='p-2'
                 type="password" 
                 placeholder="Contraseña"
                 id="contrasenia"
@@ -61,13 +68,13 @@ export default function Formulario() {
             <input 
                 type="submit" 
                 value="Iniciar Sesion"
-                className='border-solid border-2 rounded cursor-pointer'
+                className='rounded cursor-pointer bg-green-600 p-2 text-white'
                 />
             <input
                 type='button'
                 value='Registrarse'
-                className='border-solid border-2 rounded cursor-pointer'
-
+                className='rounded cursor-pointer  bg-blue-600 p-2 text-white'
+                onClick={login}
             />
         </form>
     </section>

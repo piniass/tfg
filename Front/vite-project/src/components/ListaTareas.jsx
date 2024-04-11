@@ -6,10 +6,6 @@ export default function ListaDeTareas(props) {
   const { id,tareas, handleEliminar } = props; // Recibiendo la función como prop
   const { getTareas, handleEditar, handleConfirmar} = useTarea({ id }); //cambiar porque ya no se va a usar
 
-  // useEffect(() => {
-  //   getTareas()
-  // }, [id]);
-
   return (
     <div className="h-full w-2/4 p-4">
       <h2 className="text-xl font-semibold mb-4">Lista de Tareas</h2>
@@ -28,4 +24,3 @@ export default function ListaDeTareas(props) {
     </div>
   );
 }
-
