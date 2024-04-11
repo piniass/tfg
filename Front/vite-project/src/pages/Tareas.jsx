@@ -8,9 +8,10 @@ import { useEffect } from 'react';
 export default function Tareas() {
     var id = sessionStorage.getItem("id");
     const { getTareas, handleEditar, handleEliminar, handleConfirmar, actualizarTareas, tareas } = useTarea({ id });
-
+    
     useEffect(() => {
       getTareas()
+      console.log("prueba")
     }, [id]);
 
 

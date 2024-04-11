@@ -3,8 +3,7 @@ import axios from "axios";
 // import gorila from "../assets/gorila.jpg"
 import FotoPerfil from "./FotoPerfil";
 
-export default function InfoAside(props) {
-  var id = sessionStorage.getItem("id");
+export default function InfoAside() {
   var localNombre = sessionStorage.getItem("nombre");
   var localApellido = sessionStorage.getItem("apellido");
 

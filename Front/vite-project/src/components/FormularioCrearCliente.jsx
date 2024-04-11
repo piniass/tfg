@@ -53,7 +53,7 @@ export default function FormularioCrearCliente(props) {
     setAvatarSeleccionado(recortado);
   };
 
-  console.log(avatarSeleccionado)
+  console.log("Sacar imagen: ",avatarSeleccionado)
   
   return (
     <section className='w-3/4 flex flex-col items-center'>

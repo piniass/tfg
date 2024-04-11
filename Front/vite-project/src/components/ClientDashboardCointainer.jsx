@@ -4,7 +4,7 @@ import Search from '../svgs/Search';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function ClientDashboardContainer(props) {
+export default function ClientDashboardContainer() {
   const navigate = useNavigate()
   const [buscador, setBuscador] = useState('')
   
@@ -34,7 +34,7 @@ export default function ClientDashboardContainer(props) {
         </div>
         <button onClick={goUsuarios} className='bg-blue-600 text-white hover:bg-blue-500'>Crear Usuario</button>
       </div>
-      <ClientsContainer id={props.id} buscador={buscador}/> {/* Pasa la función para actualizar la búsqueda como una prop */}
+      <ClientsContainer buscador={buscador}/> {/* Pasa la función para actualizar la búsqueda como una prop */}
     </section>
   );
 }
