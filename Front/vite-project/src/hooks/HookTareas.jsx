@@ -40,7 +40,7 @@ const useTarea = () => {
   
     const  actualizarTareas = async() => {
       try {
-          const response = await axios.get(`http://127.0.0.1:8000/tareas/`);
+          const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
           console.log("actualizo tareas")
           setTareas(response.data);
           console.log(tareas)

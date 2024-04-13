@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import AvataresContainer from './AvataresContainer';
 
 export default function FormularioCrearCliente(props) {
+  var id = sessionStorage.getItem("id");
   const [nombre, setNombre] = useState('');
   const [apellido, setApellidos] = useState('');
   const [edad, setEdad] = useState('');
@@ -27,7 +28,7 @@ export default function FormularioCrearCliente(props) {
         altura: altura,
         patologias: patologias,
         avatar: avatarSeleccionado,
-        id_entrenador: 1
+        id_entrenador: id
       };
   
       const options = {
