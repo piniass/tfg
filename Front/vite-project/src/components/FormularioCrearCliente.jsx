@@ -45,6 +45,7 @@ export default function FormularioCrearCliente(props) {
   
     } catch(error) {
       console.log("Errores:",error.response.data.detail);
+
     }
   }
 
