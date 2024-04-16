@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import AvataresContainer from './AvataresContainer';
 
 export default function FormularioCrearCliente(props) {
-  var id = sessionStorage.getItem("id");
+  const id = sessionStorage.getItem('id')
   const [nombre, setNombre] = useState('');
   const [apellido, setApellidos] = useState('');
   const [edad, setEdad] = useState('');
@@ -44,7 +44,7 @@ export default function FormularioCrearCliente(props) {
       navigate('/dashboard')
   
     } catch(error) {
-      console.log(error.response);
+      console.log("Errores:",error.response.data.detail);
     }
   }
 

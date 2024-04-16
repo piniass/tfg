@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import ClientCard from './ClientCard'
+import Spinner from './Spinner';
 
 export default function ClientsContainer(props) {
     const id = sessionStorage.getItem("id");
@@ -8,23 +9,28 @@ export default function ClientsContainer(props) {
     const [clientes, setClientes] = useState([]);
     const [busqueda, setBusqueda] = useState();
     const [nuevosClientes, setNuevos] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        const fetchClientes = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8000/clientes/entrenador/${id}`);
-                setClientes(response.data);
-                console.log("Datos: ",response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-    
+        console.log("Entro al useEffect1")
         fetchClientes();
-    
     }, []);
 
+    const fetchClientes = async () => {
+        try {
+            setLoading(true)
+            const response = await axios.get(`http://localhost:8000/clientes/entrenador/${id}`);
+            setClientes(response.data);
+            console.log("Datos: ",response.data);
+            setLoading(false)
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
     useEffect(() => {
+        console.log("Entro al useEffect2")
         if (props.buscador !== '') {
             console.log("Me acabo de meter")
             // buscarClientes();
@@ -33,7 +39,7 @@ export default function ClientsContainer(props) {
                 cliente.nombre.toLowerCase().includes(props.buscador.toLowerCase()) || 
                 cliente.apellido.toLowerCase().includes(props.buscador.toLowerCase())
             );
-                        setNuevos(clientesFiltrados);
+            setNuevos(clientesFiltrados);
         }
     }, [props.buscador])
 
@@ -48,8 +54,11 @@ export default function ClientsContainer(props) {
 
     return (
         <section className=''>
-            {clientes.length === 0 ? (
-                <p>No hay clientes</p>
+            {loading && <Spinner/>}
+            
+            {clientes.length === 0 && !loading ? (
+                    <p>No hay clientes todavía</p>
+            
             ) : (
                 // Si el buscador contiene información ejecuta esto
                 props.buscador !== '' ? (
