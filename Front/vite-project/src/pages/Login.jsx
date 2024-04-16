@@ -49,8 +49,9 @@ export default function Login() {
             const res = await axios(options);
             console.log(res.data);
             navigate("/");
-          }catch(error){
-            setError(error.response.data.detail); // Aquí capturas solo el detalle del error
+          }catch(err){
+            setError(err.response.data.detail); // Aquí capturas solo el detalle del error
+            console.log(error)
           }
 
     }
