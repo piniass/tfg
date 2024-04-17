@@ -17,6 +17,7 @@ export default function Formulario() {
     }
 
     const handleSubmit = async (event) => {
+        console.log("hola")
         event.preventDefault();
         try {
             // Realizar la petición GET a la API

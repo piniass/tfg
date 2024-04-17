@@ -6,10 +6,10 @@ export default function GraficaPeso(props) {
     const { peso } = props;
 
     const pesos = peso.map(item => item.peso);
-    const fechas = peso.map(item => item.fecha);
+    const fechas = peso.map(item => item.fecha.substr(0,10));
 
   return (
-    <div className='h-52 w-full md:w-96'>
+    <div className='h-64 w-full flex items-center justify-center'> 
          <Line
           data={{
             labels: fechas,
