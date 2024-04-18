@@ -5,10 +5,11 @@ import GraficaPeso from './GraficaPeso'
 import usePeso from '../hooks/HookPeso'
 import { useEffect } from 'react'
 import TablaPeso from './TablaPeso'
+import Spinner from './Spinner'
 
 export default function PesoContainer(props) {
     const id = props.state.id
-    const {peso, getPeso, actualizarPeso} = usePeso(id)
+    const {peso, getPeso, actualizarPeso, loading} = usePeso(id)
     const [pesoNuevo, setNuevo] = useState()
 
     const [pesoQt, setPesoQt] = useState(3)
@@ -29,14 +30,20 @@ export default function PesoContainer(props) {
 
   return (
     <div className='flex flex-col border-2 items-center justify-around p-2 w-full'>
-        <div className='grid grid-cols-1 md:grid-cols-2 w-full'>
+      {
+        loading ? <Spinner/>
+        : <>
+          <div className='grid grid-cols-1 md:grid-cols-2 w-full'>
           <FormularioPeso state={props.state} peso={peso}  actualizarPeso={actualizarPeso} />
-          <FormularioEditarPeso state={props.state} peso={peso}  actualizarPeso={actualizarPeso} pesoNuevo={pesoNuevo}/>
+          <FormularioEditarPeso state={props.state} peso={peso}  actualizarPeso={actualizarPeso} pesoNuevo={pesoNuevo} setNuevo={setNuevo}/>
         </div>
         <div className='grid grid-cols-1 md:grid-cols-2 w-full'>
           <TablaPeso nPeso={nPeso} setNuevo={setNuevo} setCurrentPage={setCurrentPage} currentPage={currentPage} nPage={nPage}/>
           <GraficaPeso peso={peso} />
         </div>
+        </>
+      }
+        
     </div>
   )
 }
