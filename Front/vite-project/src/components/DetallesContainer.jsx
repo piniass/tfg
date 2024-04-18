@@ -4,7 +4,7 @@ import PesoContainer from './PesoContainer'
 
 export default function DetallesContainer(props) {
   return (
-    <section className='flex flex-col p-5 w-4/5 gap-2'>
+    <section className='flex flex-col p-3 md:p-5 w-4/5 gap-2 h-screen overflow-auto'>
         <InfoDetalles state={props.state}/>
         <PesoContainer state={props.state}/>
     </section>

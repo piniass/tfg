@@ -6,12 +6,15 @@ const usePeso = (id) => {
     //Le paso la id x parametro pero no hace falta que la declare
     const [error, setError] = useState(null);
     const [peso, setPeso] = useState([]);
+    const [loading, setLoading] = useState(false)
   
     const getPeso = async () => {
       try {
         console.log("Entro al get")
+        setLoading(true)
         const response = await axios.get(`http://127.0.0.1:8000/pesos/cliente/${idPersona}`);
         setPeso(response.data);
+        setLoading(false)
         console.log('Datos recibidos del backend:', response.data); // Agregar este console.log
         return peso
       } catch (err) {
@@ -37,8 +40,10 @@ const usePeso = (id) => {
   
     const  actualizarPeso = async() => {
       try {
+        setLoading(true)
           const response = await axios.get(`http://127.0.0.1:8000/pesos/cliente/${idPersona}`);
           setPeso(response.data);
+          setLoading(false)
       } catch (error) {
           console.log(error);
       }
@@ -49,7 +54,8 @@ const usePeso = (id) => {
     return {
         getPeso,
         actualizarPeso,
-        peso
+        peso,
+        loading
     }
   
   }

@@ -1,4 +1,6 @@
 import React from 'react'
+import Edit from '../svgs/Edit';
+import DeleteIcon from '../svgs/Delete';
 
 export default function TablaPeso(props) {
   const {nPeso, setNuevo, nPage, currentPage, setCurrentPage} = props
@@ -18,25 +20,27 @@ export default function TablaPeso(props) {
   return (
     <><div className='flex flex-col'>
 
-    <table className='table-auto border-collapse table rounded-md w-full'>
-        <thead className=''>
+    <table className='table-auto border border-collapse table rounded-md w-full'>
+        <thead className='border'>
           <tr>
-            <th>Peso</th>
-            <th>Fecha</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
+            <th className='p-2'>Peso</th>
+            <th className='p-2'>Fecha</th>
+            <th className='p-2'>Editar</th>
+            <th className='p-2'>Eliminar</th>
           </tr>
         </thead>
         <tbody className=''>
         {nPeso.map(item => (
             <tr key={item.id} className='border-b text-center'>
-              <th scope="row" className='p-2'>{item.peso} kg</th>
+              <td scope="row" className='p-2'>{item.peso} kg</td>
               <td className='p-2'>{item.fecha.substr(0,10)}</td>
-              <td className='p-2'>
-                <button onClick={() => handleEditar(item)}>Editar</button>
+              <td className='p-2 '>
+                <button className='md:hidden p-1' onClick={() => handleEditar(item)}><Edit/></button>
+                <button className='hidden md:block w-full' onClick={() => handleEditar(item)}>Editar</button>
               </td>
               <td className='p-2'>
-                <button onClick={() => handleEliminar(item.id)}>Eliminar</button>
+                <button className='md:hidden p-1' onClick={() => handleEliminar(item.id)}><DeleteIcon/></button>
+                <button className='hidden md:block w-full' onClick={() => handleEliminar(item.id)}>Eliminar</button>
               </td>
             </tr>
           ))}

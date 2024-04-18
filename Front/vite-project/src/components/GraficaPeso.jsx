@@ -9,7 +9,7 @@ export default function GraficaPeso(props) {
     const fechas = peso.map(item => item.fecha.substr(0,10));
 
   return (
-    <div className='h-64 w-full flex items-center justify-center'> 
+    <div className='h[500px] md:h-64 w-full flex flex-col md:flex-row items-center justify-center'> 
          <Line
           data={{
             labels: fechas,
