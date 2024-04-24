@@ -8,6 +8,7 @@ import Tareas from './pages/Tareas';
 import CrearCliente from './pages/CrearCliente';
 import ClienteDetalles from './pages/ClienteDetalles';
 import Login from './pages/Login';
+import PaginaRutinas from './pages/PaginaRutinas';
 export default function App() {
   return (
       <Router>
@@ -19,6 +20,8 @@ export default function App() {
               <Route path="/registrar" element={<CrearCliente/>} />
               <Route path="/detalles" element={<ClienteDetalles/>} />
               <Route path="/login" element={<Login/>} />
+              <Route path="/rutinas" element={<PaginaRutinas/>} />
+
 
 
           </Routes>
