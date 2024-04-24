@@ -39,7 +39,7 @@ export default function FormularioEditarPeso(props) {
             <h2 className='text-2xl'>Editar peso</h2>
             <div className='flex gap-5 w-full'>
             {
-                props.pesoNuevo ? <input type="number" step="0.01" autofocus name="peso" placeholder={props.pesoNuevo.peso + "kg"} className='w-full border-2 p-2 rounded-lg' onChange={(event) => setPeso(event.target.value)} />
+                props.pesoNuevo ? <input type="number" step="0.01" autoFocus name="peso" placeholder={props.pesoNuevo.peso + "kg"} className='w-full border-2 p-2 rounded-lg' onChange={(event) => setPeso(event.target.value)} />
                     : <input type="number" step="0.01" name="peso" disabled placeholder='Haz click sobre editar peso' className='w-full border-2 p-2 rounded-lg' onChange={(event) => setPeso(event.target.value)} />
 
             }

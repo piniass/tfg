@@ -45,10 +45,10 @@ export default function Formulario() {
     };
   return (
     <section className='p-8'>
-        <form onSubmit={handleSubmit} className='bg-yellow-400 flex flex-col p-8 gap-4'>
-            <h2 className='text-center text-2xl'>Iniciar Sesion</h2>
+        <form onSubmit={handleSubmit} className='border-2 w-80 flex flex-col p-8 gap-4 '>
+            <h2 className='text-center text-2xl text-white'>Iniciar Sesion</h2>
 
-            <label className='' htmlFor='correo'>Introduce tu correo</label>
+            <label className='text-white' htmlFor='correo'>Introduce tu correo</label>
             <input 
                 className='p-2'
                 type="text" 
@@ -58,7 +58,7 @@ export default function Formulario() {
                 value={correo}
                 onChange={(e) => setCorreo(e.target.value)}
                 />
-            <label htmlFor='contrasenia'>Contraseña</label>
+            <label htmlFor='contrasenia' className='text-white'>Contraseña</label>
             <input 
                 className='p-2'
                 type="password" 
