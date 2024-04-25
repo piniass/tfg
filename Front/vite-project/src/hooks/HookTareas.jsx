@@ -8,7 +8,7 @@ const useTarea = () => {
   
     const getTareas = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
+        const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/tareas/entrenador/${id}`);
         setTareas(response.data);
         console.log('Datos recibidos del backend:', response.data); // Agregar este console.log
         return tareas
@@ -28,7 +28,7 @@ const useTarea = () => {
         const confirmDelete = true
 
         if (confirmDelete) {
-          const response = await axios.delete(`http://127.0.0.1:8000/tareas/${id}`);
+          const response = await axios.delete(`https://tfg-backend-piniass-projects.vercel.app/tareas/${id}`);
           console.log(response.data.message); 
           actualizarTareas()
         }
@@ -40,7 +40,7 @@ const useTarea = () => {
   
     const  actualizarTareas = async() => {
       try {
-          const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
+          const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/tareas/entrenador/${id}`);
           console.log("actualizo tareas")
           setTareas(response.data);
           console.log(tareas)
@@ -57,9 +57,9 @@ const useTarea = () => {
         // Invertir el estado de confirmado (0 -> 1, 1 -> 0)
         const nuevoEstadoConfirmado = tareaActual.confirmado ? 0 : 1;
         // Enviar solicitud PUT para actualizar el estado de confirmado
-        await axios.put(`http://127.0.0.1:8000/tareas/${id}`, { confirmado: nuevoEstadoConfirmado });
+        await axios.put(`https://tfg-backend-piniass-projects.vercel.app/tareas/${id}`, { confirmado: nuevoEstadoConfirmado });
         // Actualizar la lista de tareas después de confirmar
-        const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
+        const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/tareas/entrenador/${id}`);
         setTareas(response.data);
       } catch (err) {
         setError(err);

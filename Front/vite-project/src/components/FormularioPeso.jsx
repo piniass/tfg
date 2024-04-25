@@ -7,7 +7,7 @@ export default function FormularioPeso(props) {
     const [peso, setPeso] = useState('')
     const [id, setId] = useState(props.state.id)
     // console.log(props.state.id)
-    const url = `http://127.0.0.1:8000/pesos/cliente`;
+    const url = `https://tfg-backend-piniass-projects.vercel.app/pesos/cliente`;
 
     const handleSubmitCrear = async(ev) => {
         ev.preventDefault()

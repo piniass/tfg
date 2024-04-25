@@ -11,7 +11,7 @@ export default function FormulariosTareas(props) {
   const [tareaNueva, setTareaNueva] = useState('');
   // const { getTareas, handleEditar, handleEliminar, handleConfirmar, tareas } = useTarea({ id }); // Pasar el id al hook
 
-  const url = 'http://127.0.0.1:8000/tareas';
+  const url = 'https://tfg-backend-piniass-projects.vercel.app/tareas';
   // const navigate = useNavigate();
 
  

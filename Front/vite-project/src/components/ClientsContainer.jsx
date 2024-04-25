@@ -19,7 +19,7 @@ export default function ClientsContainer(props) {
     const fetchClientes = async () => {
         try {
             setLoading(true)
-            const response = await axios.get(`http://localhost:8000/clientes/entrenador/${id}`);
+            const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/clientes/entrenador/${id}`);
             setClientes(response.data);
             console.log("Datos: ",response.data);
             setLoading(false)
@@ -45,7 +45,7 @@ export default function ClientsContainer(props) {
 
     const actualizarClientes = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/clientes/entrenador/${id}`);
+            const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/clientes/entrenador/${id}`);
             setClientes(response.data);
         } catch (error) {
             console.log(error);

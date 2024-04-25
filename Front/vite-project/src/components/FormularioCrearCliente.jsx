@@ -14,7 +14,7 @@ export default function FormularioCrearCliente(props) {
   const [patologias, setPatologias] = useState(' ');
   const [avatarSeleccionado, setAvatarSeleccionado] = useState('');
 
-  const url = 'http://127.0.0.1:8000/cliente';
+  const url = 'https://tfg-backend-piniass-projects.vercel.app/cliente';
   const navigate = useNavigate()
   
   const handleSubmit = async (ev) => {

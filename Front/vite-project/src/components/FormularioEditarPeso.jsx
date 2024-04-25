@@ -5,7 +5,7 @@ import qs from 'qs'
 export default function FormularioEditarPeso(props) {
     const [peso, setPeso] = useState('')
     const id = props.state.id
-    const url = `http://127.0.0.1:8000/pesos/${props.pesoNuevo?.id || ''}`;
+    const url = `https://tfg-backend-piniass-projects.vercel.app/pesos/${props.pesoNuevo?.id || ''}`;
 
     const handleCancelar = () => {
         props.setNuevo('');

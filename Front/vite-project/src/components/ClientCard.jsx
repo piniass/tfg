@@ -19,7 +19,7 @@ export default function ClientCard(props) {
     }, [props.cliente]);
 
     const borrarCliente = () => {
-        axios.delete(`http://127.0.0.1:8000/cliente/${props.cliente.id}`)
+        axios.delete(`https://tfg-backend-piniass-projects.vercel.app/cliente/${props.cliente.id}`)
         .then(response => {
             console.log(`Cliente eliminado`);
             props.actualizarClientes();

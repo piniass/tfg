@@ -21,7 +21,7 @@ export default function Formulario() {
         event.preventDefault();
         try {
             // Realizar la petición GET a la API
-            const response = await axios.get('http://127.0.0.1:8000/entrenadores');
+            const response = await axios.get('https://tfg-backend-piniass-projects.vercel.app/entrenadores');
             // Actualizar el estado con los datos recibidos
             setDatosRecibidos(response.data);
             // Verificar coincidencia entre correo y contraseña ingresados y los datos recibidos
