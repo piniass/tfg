@@ -18,8 +18,9 @@ export default function Login() {
 
     const sacarImagen = (src) => {
       console.log("avatar: ", src)
-        const recortado = src.substring(13);
-        setAvatar(recortado);
+        // const recortado = src.substring(13);
+        setAvatar(src);
+        console.log("setAvatar: ",avatar)
     };
 
     const handleSubmit = async(e) => {
