@@ -50,9 +50,9 @@ export default function FormularioCrearCliente(props) {
   }
 
   const sacarImagen = (src) => {
-    const recortado = src.substring(13);
+    // const recortado = src.substring(13);
 
-    setAvatarSeleccionado(recortado);
+    setAvatarSeleccionado(src);
   };
 
   console.log("Sacar imagen: ",avatarSeleccionado)
