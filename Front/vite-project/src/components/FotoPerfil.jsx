@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function FotoPerfil() {
     const localAvatar = sessionStorage.getItem("foto");
-    const ruta = '../../public/'+localAvatar
+    const ruta = '/'+localAvatar
     
     return (
         <img 
