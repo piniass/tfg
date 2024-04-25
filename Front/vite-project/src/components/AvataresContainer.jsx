@@ -24,7 +24,7 @@ const AvataresContainer = ({ sacarImagen }) => {
           src={ruta + avatar}
           alt="Avatar"
           className='size-44 cursor-pointer rounded-full border-3 border-solid border-green-400 hover:shadow-lg'
-          onClick={() => sacarImagen(ruta + avatar)}
+          onClick={() => sacarImagen('/' + avatar)}
         />
       ))}
     </article>

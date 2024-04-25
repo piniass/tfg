@@ -13,7 +13,7 @@ export default function Login() {
     const [pwd, setPwd] = useState()
     const [avatar, setAvatar] = useState()
     const [error, setError] = useState()
-    const url = 'http://127.0.0.1:8000/entrenadores'
+    const url = 'https://tfg-backend-piniass-projects.vercel.app/entrenadores'
     const navigate = useNavigate()
 
     const sacarImagen = (src) => {
@@ -23,11 +23,11 @@ export default function Login() {
 
     const handleSubmit = async(e) => {
         e.preventDefault()
-        // console.log("nombre:", name)
-        // console.log("apellido:", apellido)
-        // console.log("email:", email)
-        // console.log("pwd:", pwd)
-        // console.log("avatar:", avatar)
+        console.log("nombre:", name)
+        console.log("apellido:", apellido)
+        console.log("email:", email)
+        console.log("pwd:", pwd)
+        console.log("avatar:", avatar)
 
         const user = {
             "nombre" : name,
