@@ -9,7 +9,7 @@ export default function ClientCard(props) {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('')
     const navigate = useNavigate(); 
-    const ruta = '/'+props.cliente.avatar
+    const ruta = props.cliente.avatar
 
     useEffect(() => {
         if (props.cliente) {
