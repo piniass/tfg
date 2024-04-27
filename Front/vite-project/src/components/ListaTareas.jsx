@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import FormulariosTareas from './FormulariosTareas';
+import FormularioEditarTarea from './FormularioEditarTarea';
 import axios from 'axios';
 import useTarea from '../hooks/HookTareas';
 
 export default function ListaDeTareas(props) {
   const { id,tareas, handleEliminar, actualizarTareas, handleConfirmar} = props; // Recibiendo la función como prop
   const [taskForm, setEstadoForm] = useState(false)
-  //const { getTareas, /*handleEditar,*/ } = useTarea({ id }); //cambiar porque ya no se va a usar
+  const [taskFormEdit, setEstadoFormEdit] = useState(false)
+  const [tareaEdit, setTareaEdit] = useState(null);
 
-  const handleEditar = (tarea) => {
-    setTareaEdit(tarea)
-  }
+  //const { getTareas, /*,*/ } = useTarea({ id }); //cambiar porque ya no se va a usar
+
 
   const mostrarForm = () => {
     if(!taskForm){
       setEstadoForm(true)
     } else {
       setEstadoForm(false)
+    }
+  }
+  const mostrarFormEditar = (tarea) =>{
+    if(!taskFormEdit){
+      setTareaEdit(tarea);
+      setEstadoFormEdit(true)
+    } else {
+      setEstadoFormEdit(false)
     }
   }
 
@@ -30,6 +39,7 @@ export default function ListaDeTareas(props) {
     {
       taskForm && <FormulariosTareas actualizarTareas={actualizarTareas} setEstadoForm={setEstadoForm}/>
     }
+      
     <div className="h-full p-4 overflow-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-auto">
         {tareas.map(tarea => (
@@ -39,8 +49,11 @@ export default function ListaDeTareas(props) {
               {
                 tarea.confirmado===true ? (<button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleConfirmar(tarea.id,tareas)}>Desconfirmar</button>):
                 <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleConfirmar(tarea.id,tareas)}>Confirmar</button>
-              }           
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleEditar(tarea.id)}>Editar</button>
+              }  
+              {
+                taskFormEdit && <FormularioEditarTarea actualizarTareas={actualizarTareas} setEstadoForm={setEstadoFormEdit} tarea={tareaEdit}/>
+              }         
+              <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => mostrarFormEditar(tarea)}>Editar</button>
               <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleEliminar(tarea.id)}>Eliminar</button>
             </div>
           </div>

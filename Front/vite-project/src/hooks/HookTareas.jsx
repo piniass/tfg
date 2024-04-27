@@ -7,6 +7,7 @@ const useTarea = () => {
     const [error, setError] = useState(null);
     const [tareas, setTareas] = useState([]);
   
+  
     const getTareas = async () => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
@@ -20,10 +21,6 @@ const useTarea = () => {
       }
     };
   
-    const handleEditar = (id) => {
-      // Lógica para editar la tarea con el ID especificado
-      console.log(`Editando tarea con ID: ${id}`);
-    };
   
     const handleEliminar = async (id) => {
       try {
@@ -55,20 +52,14 @@ const useTarea = () => {
   
     const handleConfirmar = async (id,tareas) => {
       try {
-        console.log("confirma");
-        console.log(id);
-        console.log(tareas);
-        // Esperar a que se resuelva la promesa de getTareas()
-        // Obtener la tarea actual
         const tareaActual = tareas.find(tarea => tarea.id === id);
-        // Invertir el estado de confirmado (true -> false, false -> true)
         const nuevoEstadoConfirmado = !tareaActual.confirmado;
-        // Enviar solicitud PUT para actualizar el estado de confirmado
+
         const data = {
           id: id,
           confirmado: nuevoEstadoConfirmado
         };
-        console.log(data)
+
         const options = {
           method: 'PUT',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -76,9 +67,7 @@ const useTarea = () => {
           url: `http://127.0.0.1:8000/tareas/estado/${id}`
         };
         const res = await axios(options);
-        console.log("Sin actualizar:",tareas);
         actualizarTareas() 
-        console.log("Actualizado:",tareas);   
       } catch (err) {
         setError(err);
       }
@@ -87,7 +76,6 @@ const useTarea = () => {
   
     return {
       getTareas,
-      handleEditar,
       actualizarTareas,
       handleEliminar,
       handleConfirmar,
