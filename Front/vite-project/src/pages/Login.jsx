@@ -3,7 +3,11 @@ import AvataresContainer from '../components/AvataresContainer'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
-
+import Multistep_1 from '../components/Multistep_1';
+import Multistep_2 from '../components/Multistep_2';
+import Multistep_3 from '../components/Multistep_3';
+import avatardefault from '../../public/avatardefault.png'
+import ProgesionForm from '../components/ProgesionForm';
 
 export default function Login() {
 
@@ -16,15 +20,17 @@ export default function Login() {
     const url = 'http://127.0.0.1:8000/entrenadores'
     const navigate = useNavigate()
 
-    const sacarImagen = (src) => {
-        const recortado = src.substring(13);
-        setAvatar(recortado);
-    };
+    
+    console.log("nombre:", name)
+    console.log("apellido:", apellido)
+    console.log("email:", email)
+    console.log("pwd:", pwd)
+    console.log("avatar:", avatar)
 
     const handleSubmit = async(e) => {
         e.preventDefault()
-        // console.log("nombre:", name)
-        // console.log("apellido:", apellido)
+        console.log("nombre:", name)
+        console.log("apellido:", apellido)
         // console.log("email:", email)
         // console.log("pwd:", pwd)
         // console.log("avatar:", avatar)
@@ -50,18 +56,48 @@ export default function Login() {
             console.log(res.data);
             navigate("/");
           }catch(err){
-            setError(err.response.data.detail); // Aquí capturas solo el detalle del error
+            setError(err.response.data.detail);
             console.log(error)
           }
 
     }
 
+    const showAvatar = () => {
+      return avatar ? 
+      (<img src={avatar} className='rounded-full p-4'/>)  
+        :
+      (<img className='rounded-full p-4' src={avatardefault} />
+      )
+    
+    }
+
+    const user = {
+      "nombre" : name,
+      "apellido": apellido,
+      "correo": email,
+      "password": pwd,
+      "avatar": avatar
+    }
+
   return (
     <main className='bg-gradient-to-tr from-gray-800 to-purple-500 w-screen h-screen flex items-center justify-center'>
       <section onSubmit={(e) =>handleSubmit(e)} className='flex flex-col items-center justify-center '>
-              <h1 className='text-center p-2 text-white'>Crear Usuario</h1>
-              <form className='flex flex-col gap-2 p-2 border-2'>
-                  <input type="text" name="nombre" id="nombre" placeholder='Introduce tu nombre' className='border-2 rounded-lg p-2' onChange={(e) => setName(e.target.value)}/>
+              <form className='flex flex-col p-3 h-[550px] w-[450px] justify-center z-10 border-2 relative rounded-md'>
+              <div className='w-40 h-40 justify-self-center self-center flex items-center justify-center relative bottom-24'>
+                {showAvatar()}
+              </div>
+                <ProgesionForm user={user}/>
+
+                {(!name && !apellido) && <Multistep_1 setName={setName} setApellido={setApellido}/>}
+                {(name && apellido && (!email || !pwd)) && <Multistep_2 setEmail={setEmail} setPwd={setPwd} setName={setName} setApellido={setApellido}/>}
+                {(name && apellido && email && pwd) && 
+                <>
+                  <Multistep_3 setAvatar={setAvatar} setEmail={setEmail} setPwd={setPwd} setName={setName} setApellido={setApellido}/>
+                  <input type="submit" value="Crear Usuario" className='bg-green-600 text-white cursor-pointer p-2 rounded-lg' />
+                </>       
+                          }
+
+                  {/* <input type="text" name="nombre" id="nombre" placeholder='Introduce tu nombre' className='border-2 rounded-lg p-2' onChange={(e) => setName(e.target.value)}/>
                   <input type="text" name="apellido" id="apellido" placeholder='Introduce tu apellido' className='border-2 rounded-lg p-2' onChange={(e) => setApellido(e.target.value)}/>
                   <input type="email" name="email" id="email" placeholder='Introduce tu correo electronico' className='border-2 rounded-lg p-2' onChange={(e) => setEmail(e.target.value)}/>
                   <input type="password" name="pwd" id="pwd" placeholder='Introduce tu contraseña' className='border-2 rounded-lg p-2' onChange={(e) => setPwd(e.target.value)}/>
@@ -69,7 +105,7 @@ export default function Login() {
                   <div className='overflow-auto h-96'>
                       <AvataresContainer sacarImagen={sacarImagen}/>
                   </div>
-                  <input type="submit" value="Crear Usuario" className='bg-green-600 text-white cursor-pointer p-2 rounded-lg' />
+                  <input type="submit" value="Crear Usuario" className='bg-green-600 text-white cursor-pointer p-2 rounded-lg' /> */}
               </form>
         </section>
     </main>
