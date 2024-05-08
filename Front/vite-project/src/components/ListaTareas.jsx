@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import FormulariosTareas from './FormulariosTareas';
 import FormularioEditarTarea from './FormularioEditarTarea';
+import DeleteIcon from '../svgs/Delete';
+import Edit from '../svgs/Edit';
+import TickIcon from '../svgs/TickIcon';
+import CloseIcon from '../svgs/CloseIcon';
 import axios from 'axios';
 import useTarea from '../hooks/HookTareas';
 
@@ -40,27 +44,29 @@ export default function ListaDeTareas(props) {
       taskForm && <FormulariosTareas actualizarTareas={actualizarTareas} setEstadoForm={setEstadoForm}/>
     }
       
-    <div className="h-full p-4 overflow-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-auto">
-        {tareas.map(tarea => (
-          <div key={tarea.id} className="border-2 p-4 rounded-md">
-            <p className={`text-lg font-semibold mb-2 ${tarea.confirmado ? 'line-through' : ''}`}>{tarea.tarea}</p>
-            <div className="flex justify-between">
-              {
-                tarea.confirmado===true ? (<button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleConfirmar(tarea.id,tareas)}>Desconfirmar</button>):
-                <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleConfirmar(tarea.id,tareas)}>Confirmar</button>
-              }  
-              {
-                taskFormEdit && <FormularioEditarTarea actualizarTareas={actualizarTareas} setEstadoForm={setEstadoFormEdit} tarea={tareaEdit}/>
-              }         
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => mostrarFormEditar(tarea)}>Editar</button>
-              <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleEliminar(tarea.id)}>Eliminar</button>
+      <div className="h-full p-4 overflow-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-auto">
+          {tareas.map(tarea => (
+            <div key={tarea.id} className="border-2 p-4 rounded-md flex items-center justify-between "> {/* Agregué la clase flex y items-center */}
+              <div >
+              <p className={`text-lg font-semibold mb-2 flex-1 flex-wrap  ${tarea.confirmado ? 'line-through' : ''}`}>{tarea.tarea}</p> {/* Agregué la clase flex-1 */}
+              <p className={`text-lg font-semibold mb-2 flex-1 ${tarea.confirmado ? 'line-through' : ''}`}>{tarea.fecha_creacion}</p>
+              </div>
+              <div className="flex items-center ms-auto "> {/* Mantuve esta clase flex para los botones */}
+                {
+                  tarea.confirmado === true ? (<button className=" text-black font-bold py-2 px-4 rounded mr-2" onClick={() => handleConfirmar(tarea.id,tareas)}><CloseIcon/></button>) :
+                  <button className=" text-black font-bold py-2 px-4 rounded mr-2" onClick={() => handleConfirmar(tarea.id,tareas)}><TickIcon/></button>
+                }  
+                {
+                  taskFormEdit && <FormularioEditarTarea actualizarTareas={actualizarTareas} setEstadoForm={setEstadoFormEdit} tarea={tareaEdit}/>
+                }         
+                <button className=" text-black font-bold py-2 px-4 rounded mr-2" onClick={() => mostrarFormEditar(tarea)}><Edit/></button>
+                <button className=" text-black font-bold py-2 px-4 rounded" onClick={() => handleEliminar(tarea.id)}><DeleteIcon/></button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-    </>
-    
+    </>   
   );
 }
