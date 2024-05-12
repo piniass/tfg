@@ -1,12 +1,22 @@
 import React from 'react'
 import { useState } from 'react';
+import { useEffect } from 'react';
 import FormularioCrearRutina from './FormularioCrearRutina';
+import RutinasCard from './RutinasCard';
+import useRutinas from '../hooks/HookRutinas';
 
 export default function RutinasContainer() {
+  const id = sessionStorage.getItem("id");
   const [showForm, setForm] = useState(false);
+  const { getRutinas, rutinas} = useRutinas({ id });
+
   const handleOpenForm = () => {
     setForm(true)
   }
+
+  useEffect(() => {
+    getRutinas()
+  }, []);
 
   return (
     <section className='w-full h-full overflow-auto flex flex-col relative'>
@@ -16,7 +26,12 @@ export default function RutinasContainer() {
         {
           showForm && <FormularioCrearRutina setForm={setForm}/>
         }
-        
+        <article className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'> 
+          <RutinasCard rutinas={rutinas}/>
+          {rutinas.map(rutina => (
+                <RutinasCard key={rutina.id} nombre={rutina.nombre}/>
+          ))}
+        </article>
     </section>
   )
 }
