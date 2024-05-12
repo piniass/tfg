@@ -26,10 +26,10 @@ export default function RutinasContainer() {
         {
           showForm && <FormularioCrearRutina setForm={setForm}/>
         }
-        <article className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'> 
-          <RutinasCard rutinas={rutinas}/>
+        <article className='flex flex-col md:flex-row flex-wrap items-center justify-center lg:justify-between gap-4 p-4'> 
+
           {rutinas.map(rutina => (
-                <RutinasCard key={rutina.id} nombre={rutina.nombre}/>
+                <RutinasCard key={rutina.id} rutina={rutina}/>
           ))}
         </article>
     </section>

@@ -33,14 +33,14 @@ export default function FormularioCrearRutina(props) {
         return formattedText;
     };
   return (
-    <section className='p-4 w-80 border absolute top-52 right-0 left-0 ml-auto mr-auto'>
+    <section className='p-4 w-80 border absolute top-52 right-0 left-0 ml-auto mr-auto bg-white'>
         <div className='w-full flex items-end justify-end'>
             <button onClick={handleCloseForm} className='bg-transparent'>
                 <CloseIcon/>
             </button>
         </div>
 
-        <form className='flex flex-col gap-4 p-2' onSubmit={handleSubmit}>
+        <form className='flex flex-col gap-4 p-2 ' onSubmit={handleSubmit}>
         {selectedImg ? (
                     <img src={ruta} alt="Rutina" />
                 ) : (
