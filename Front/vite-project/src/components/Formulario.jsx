@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import qs from 'qs';
+
 
 
 
@@ -19,13 +21,28 @@ export default function Formulario() {
     const handleSubmit = async (event) => {
         console.log("hola")
         event.preventDefault();
+        console.log("Entro al try")
         try {
             // Realizar la petición GET a la API
-            const response = await axios.get('http://127.0.0.1:8000/entrenadores');
-            // Actualizar el estado con los datos recibidos
-            setDatosRecibidos(response.data);
+            const url = 'http://127.0.0.1:8000/entrenador/login';
+            const data = {
+                correo: correo,
+                password: contrasenia
+            };
+            console.log(data)
+            const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                data: qs.stringify(data),
+                url: url,
+              };
+              console.log("he hecho el post ")
+              console.log(data)
+              const res = await axios(options);
+              console.log(res.data);
+            //setDatosRecibidos(response.data);
             // Verificar coincidencia entre correo y contraseña ingresados y los datos recibidos
-            const coincidencia = response.data.find(entrenador => entrenador.correo === correo && entrenador.password === contrasenia);
+            /*const coincidencia = response.data.find(entrenador => entrenador.correo === correo && entrenador.password === contrasenia);
             if (coincidencia) {
                 // Utilizar navigate para navegar a la ruta del dashboard (Home)
                 sessionStorage.setItem("id", coincidencia.id);
@@ -37,7 +54,7 @@ export default function Formulario() {
                 navigate('/dashboard');
             } else {
                 alert('No se encontraron coincidencias.');
-            }
+            }*/
         } catch (error) {
             // Manejar errores de la petición
             setError(error);
