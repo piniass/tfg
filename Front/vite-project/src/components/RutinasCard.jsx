@@ -7,7 +7,7 @@ export default function RutinasCard(props) {
     return (
     <div>
         {/* <img alt="Imagen rutina"/> */}
-        <h4>{props.rutina.nombre}</h4>
+
         
     </div>
   )
