@@ -8,7 +8,7 @@ import useRutinas from '../hooks/HookRutinas';
 export default function RutinasContainer() {
   const id = sessionStorage.getItem("id");
   const [showForm, setForm] = useState(false);
-  const { getRutinas, rutinas} = useRutinas({ id });
+  const { getRutinas, actualizarRutinas, handleEliminar,rutinas} = useRutinas({ id });
 
   const handleOpenForm = () => {
     setForm(true)
@@ -24,12 +24,12 @@ export default function RutinasContainer() {
           <button className='bg-blue-600 text-white' onClick={handleOpenForm}>Crear Rutina</button>
         </div>
         {
-          showForm && <FormularioCrearRutina setForm={setForm}/>
+          showForm && <FormularioCrearRutina actualizarRutinas={actualizarRutinas} setForm={setForm} />
         }
         <article className='flex flex-col md:flex-row flex-wrap items-center justify-center lg:justify-between gap-4 p-4'> 
 
           {rutinas.map(rutina => (
-                <RutinasCard key={rutina.id} rutina={rutina}/>
+                <RutinasCard key={rutina.id} handleEliminar={handleEliminar} rutina={rutina}/>
           ))}
         </article>
     </section>

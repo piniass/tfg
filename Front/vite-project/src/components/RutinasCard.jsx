@@ -8,13 +8,17 @@ export default function RutinasCard(props) {
     const { id, nombre, foto, fecha_creacion, id_entrenador } = props.rutina;
     const ruta = '../../public/img-rutinas/'+foto
 
+    const handleEliminar = () => {
+        props.handleEliminar(id)
+    }
+
     return (
     <div className='border w-52 md:w-72'>
         <img src={ruta} alt={nombre} className=''/>
         <h4 className='text-xl p-2 text-center'>{nombre}</h4>
         <div className='flex items-center justify-around p-2'>
             <button><Edit/></button>
-            <button><DeleteIcon/></button>
+            <button onClick={handleEliminar}><DeleteIcon/></button>
             <button><Add/></button>
         </div>
     </div>

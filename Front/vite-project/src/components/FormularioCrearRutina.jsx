@@ -11,7 +11,7 @@ export default function FormularioCrearRutina(props) {
     const ruta = "../../public/img-rutinas/" + selectedImg;
     const id_entrenador = sessionStorage.getItem("id");
     const url = `http://127.0.0.1:8000/rutinas/cliente/`;
-    
+    console.log(props)
     const [rutinaNueva, setRutinaNueva] = useState(''); // Estado para el nombre de la rutina
 
     const handleCloseForm = () => {
@@ -52,6 +52,7 @@ export default function FormularioCrearRutina(props) {
         } catch (error) {
             console.log("Errores:", error.response.data.detail);
         }
+        props.actualizarRutinas()
         props.setForm(false);
     };
 
