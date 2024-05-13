@@ -9,8 +9,9 @@ export default function FormularioCrearRutina(props) {
     const imagenes = ["gorila.jpg", "tiburon.jpg", "cocodrilo.jpg", "leon.jpg", "ornitorrinco.jpg", "tortuga.jpg", "lobo.jpg"];
     const [selectedImg, setSelectedImg] = useState('');
     const ruta = "../../public/img-rutinas/" + selectedImg;
-    const url = 'http://127.0.0.1:8000/rutinas/cliente/';
     const id_entrenador = sessionStorage.getItem("id");
+    const url = `http://127.0.0.1:8000/rutinas/cliente/`;
+    
     const [rutinaNueva, setRutinaNueva] = useState(''); // Estado para el nombre de la rutina
 
     const handleCloseForm = () => {
@@ -48,9 +49,6 @@ export default function FormularioCrearRutina(props) {
             const res = await axios(options);
             console.log(res.data);
 
-            // Navega a la página de dashboard si es necesario
-            // navigate('/dashboard');
-
         } catch (error) {
             console.log("Errores:", error.response.data.detail);
         }
@@ -63,7 +61,7 @@ export default function FormularioCrearRutina(props) {
     };
 
     return (
-        <section className='p-4 w-80 border absolute top-52 right-0 left-0 ml-auto mr-auto'>
+        <section className='p-4 w-80 border absolute top-52 right-0 left-0 ml-auto mr-auto bg-white'>
             <div className='w-full flex items-end justify-end'>
                 <button onClick={handleCloseForm} className='bg-transparent'>
                     <CloseIcon />
