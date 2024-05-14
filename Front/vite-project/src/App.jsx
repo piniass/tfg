@@ -9,6 +9,7 @@ import CrearCliente from './pages/CrearCliente';
 import ClienteDetalles from './pages/ClienteDetalles';
 import Login from './pages/Login';
 import PaginaRutinas from './pages/PaginaRutinas';
+import PaginaRutinaId from './pages/PaginaRutinaId';
 export default function App() {
   return (
       <Router>
@@ -21,9 +22,7 @@ export default function App() {
               <Route path="/detalles" element={<ClienteDetalles/>} />
               <Route path="/login" element={<Login/>} />
               <Route path="/rutinas" element={<PaginaRutinas/>} />
-
-
-
+              <Route path="/rutina/:id" element={<PaginaRutinaId/>} />
           </Routes>
       </Router>
   );

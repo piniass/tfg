@@ -26,7 +26,7 @@ export default function RutinasContainer() {
         {
           showForm && <FormularioCrearRutina actualizarRutinas={actualizarRutinas} setForm={setForm} />
         }
-        <article className='flex flex-col md:flex-row flex-wrap items-center justify-center lg:justify-between gap-4 p-4'> 
+        <article className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'> 
 
           {rutinas.map(rutina => (
                 <RutinasCard key={rutina.id} handleEliminar={handleEliminar} rutina={rutina}/>
