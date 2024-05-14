@@ -21,26 +21,35 @@ export default function Formulario() {
     const handleSubmit = async (event) => {
         console.log("hola")
         event.preventDefault();
-        console.log("Entro al try")
-        try {
-            // Realizar la petición GET a la API
-            const url = 'http://127.0.0.1:8000/entrenador/login';
-            const data = {
-                correo: correo,
-                password: contrasenia
-            };
-            console.log(data)
-            const options = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                data: qs.stringify(data),
-                url: url,
-              };
-              console.log("he hecho el post ")
-              console.log(data)
-              const res = await axios(options);
-              console.log(res.data);
-            //setDatosRecibidos(response.data);
+
+    try {
+        // Realizar la petición POST a la API
+        const url = 'http://127.0.0.1:8000/entrenador/login';
+        const data = {
+            correo: correo,
+            password: contrasenia
+        };
+
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            data: qs.stringify(data),
+            url: url,
+        };
+
+        const res = await axios(options);
+
+        if (res.data.token) {
+            const tiempo = 3600
+            const expTime = new Date(new Date().getTime() + (tiempo * 1000));
+
+            // Establecer la cookie
+            document.cookie = `token=${res.data.token}; expires=${expTime.toUTCString()}; path=/`;
+
+            // Redirigir a otra página
+            navigate("/dashboard");
+        }
+            setDatosRecibidos(response.data);
             // Verificar coincidencia entre correo y contraseña ingresados y los datos recibidos
             /*const coincidencia = response.data.find(entrenador => entrenador.correo === correo && entrenador.password === contrasenia);
             if (coincidencia) {
