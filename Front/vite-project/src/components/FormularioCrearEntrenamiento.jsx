@@ -7,7 +7,7 @@ export default function FormularioCrearEntrenamiento(props) {
   const [nombreEntrenamiento, setNombreEntrenamiento] = useState('');
   const [diaSeleccionado, setDiaSeleccionado] = useState('');
   const id = props.rutina.id
- 
+ console.log("props form", props)
 
   const diasSemana = [
     'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
@@ -45,6 +45,7 @@ export default function FormularioCrearEntrenamiento(props) {
 
     // Cerrar el formulario después de enviar
     props.setForm(false);
+    props.getEntrenamiento()
   }
 
   const handleCloseForm = () => {

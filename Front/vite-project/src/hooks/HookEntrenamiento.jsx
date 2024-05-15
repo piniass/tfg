@@ -2,30 +2,20 @@ import axios from 'axios';
 import { useState } from 'react';
 import qs from 'qs'
 
-const useEntrenamiento = () => {
-    var id = sessionStorage.getItem("id");
+const useEntrenamiento = (id_rutina) => {
+    const rutinaId = typeof id_rutina === 'object' ? id_rutina.rutinaId : id_rutina;
     const [error, setError] = useState(null);
     const [entrenamiento, setEntrenamiento] = useState([]);
 
     const getEntrenamiento = async () => {
         try {
-          const response = await axios.get(`http://127.0.0.1:8000/entrenamientos/rutina/${id}`);
+          const response = await axios.get(`http://127.0.0.1:8000/entrenamientos/rutina/${rutinaId}`);
           setEntrenamiento(response.data);
           return tareas
         } catch (err) {
           setError(err);
         }
       };
-
-      const  actualizarEntrenamientos = async() => {
-        try {
-            const response = await axios.get(`http://127.0.0.1:8000/entrenamientos/rutina/${id}`);
-            setEntrenamiento(response.data);
-        } catch (error) {
-            console.log(error);
-        }
-    
-      }
 
       const handleEliminar = async (id) => {
         try {
@@ -35,7 +25,7 @@ const useEntrenamiento = () => {
           if (confirmDelete) {
             const response = await axios.delete(`http://127.0.0.1:8000/entrenamientos/${id}`);
             console.log(response.data.message); 
-            actualizarRutinas()
+            getEntrenamiento()
           }
     
         } catch (err) {
@@ -45,7 +35,6 @@ const useEntrenamiento = () => {
 
       return {
         getEntrenamiento,
-        actualizarEntrenamientos,
         handleEliminar,
         entrenamiento
       }

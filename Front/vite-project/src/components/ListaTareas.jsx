@@ -6,7 +6,6 @@ import Edit from '../svgs/Edit';
 import TickIcon from '../svgs/TickIcon';
 import CloseIcon from '../svgs/CloseIcon';
 import axios from 'axios';
-import useTarea from '../hooks/HookTareas';
 
 export default function ListaDeTareas(props) {
   const { id,tareas, handleEliminar, actualizarTareas, handleConfirmar} = props; // Recibiendo la función como prop
