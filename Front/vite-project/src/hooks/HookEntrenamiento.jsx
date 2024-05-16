@@ -9,7 +9,7 @@ const useEntrenamiento = (id_rutina) => {
 
     const getEntrenamiento = async () => {
         try {
-          // const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/entrenamientos/rutina/${rutinaId}`);
+          const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/entrenamientos/rutina/${rutinaId}`);
           setEntrenamiento(response.data);
           return tareas
         } catch (err) {

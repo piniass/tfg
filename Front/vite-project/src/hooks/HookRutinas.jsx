@@ -10,7 +10,7 @@ const useRutinas = () => {
     const getRutinas = async () => {
         try {
 
-          // const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id}`);
+          const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id}`);
           setRutinas(response.data);
           return tareas
         } catch (err) {
