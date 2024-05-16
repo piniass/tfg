@@ -9,7 +9,7 @@ const useEntrenamiento = (id_rutina) => {
 
     const getEntrenamiento = async () => {
         try {
-          const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/entrenamientos/rutina/${rutinaId}`);
+          // const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/entrenamientos/rutina/${rutinaId}`);
           setEntrenamiento(response.data);
           return tareas
         } catch (err) {
@@ -19,7 +19,6 @@ const useEntrenamiento = (id_rutina) => {
 
       const handleEliminar = async (id) => {
         try {
-          // const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar esta tarea?");
           const confirmDelete = true
   
           if (confirmDelete) {
