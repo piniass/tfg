@@ -10,7 +10,7 @@ const useTarea = () => {
   
     const getTareas = async () => {
       try {
-        const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/tareas/entrenador/${id}`);
+        // const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/tareas/entrenador/${id}`);
         setTareas(response.data);
         console.log(tareas)
 
