@@ -9,7 +9,7 @@ export default function PaginaFormulario() {
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center'
     }}*/>
-      <div className='backdrop-filter backdrop-blur-md bg-opacity-10 w-screen h-screen flex items-center justify-around'>
+      <div className='backdrop-filter backdrop-blur-lg bg-opacity-10 w-screen h-screen flex items-center justify-around flex-col md:flex-row '>
       <section className='p-8 border-2 text-white'>
             <h1>ConexionFit</h1>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 

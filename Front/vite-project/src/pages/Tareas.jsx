@@ -13,7 +13,8 @@ export default function Tareas() {
     useEffect(() => {
       getTareas()
       console.log("prueba")
-    }, [id]);
+    }, []);
+
 
 
    console.log("Estado tareas:",tareas)
@@ -23,7 +24,7 @@ export default function Tareas() {
       <main className='w-4/5 h-screen flex flex-col'>
         {/* <FormulariosTareas id={id} actualizarTareas={actualizarTareas} /> */}
 
-        <ListaDeTareas id={id} tareas={tareas} handleEliminar={handleEliminar} actualizarTareas={actualizarTareas}/> 
+        <ListaDeTareas id={id} tareas={tareas} handleEditar={handleEditar} handleConfirmar={handleConfirmar} handleEliminar={handleEliminar} actualizarTareas={actualizarTareas}/> 
         
       </main> 
     </div>

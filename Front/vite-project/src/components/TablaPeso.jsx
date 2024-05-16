@@ -18,7 +18,8 @@ export default function TablaPeso(props) {
   }
 
   return (
-    <><div className='flex flex-col'>
+    <>
+    <div className='flex flex-col'>
 
     <table className='table-auto border border-collapse table rounded-md w-full'>
         <thead className='border'>
