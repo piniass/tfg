@@ -9,7 +9,7 @@ const useRutinas = () => {
 
     const getRutinas = async () => {
         try {
-          const response = await axios.get(`http://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id}`);
+          const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id}`);
           setRutinas(response.data);
           return tareas
         } catch (err) {
@@ -19,7 +19,7 @@ const useRutinas = () => {
 
       const  actualizarRutinas = async() => {
         try {
-            const response = await axios.get(`http://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id}`);
+            const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id}`);
             console.log("actualizo tareas")
             setRutinas(response.data);
         } catch (error) {
@@ -34,7 +34,7 @@ const useRutinas = () => {
           const confirmDelete = true
   
           if (confirmDelete) {
-            const response = await axios.delete(`http://tfg-backend-piniass-projects.vercel.app/rutinas/${id}`);
+            const response = await axios.delete(`https://tfg-backend-piniass-projects.vercel.app/rutinas/${id}`);
             console.log(response.data.message); 
             actualizarRutinas()
           }
