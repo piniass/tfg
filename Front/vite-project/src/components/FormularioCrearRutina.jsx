@@ -8,9 +8,11 @@ import qs from 'qs'; // Importa qs si lo estás utilizando
 export default function FormularioCrearRutina(props) {
     const imagenes = ["gorila.jpg", "tiburon.jpg", "cocodrilo.jpg", "leon.jpg", "ornitorrinco.jpg", "tortuga.jpg", "lobo.jpg"];
     const [selectedImg, setSelectedImg] = useState('');
-    const ruta = "../../public/img-rutinas/" + selectedImg;
+    // const ruta = "../../public/img-rutinas/" + selectedImg;
+    const ruta = "/img-rutinas/" + selectedImg;
+
     const id_entrenador = sessionStorage.getItem("id");
-    const url = `http://127.0.0.1:8000/rutinas/cliente/`;
+    const url = `https://tfg-backend-piniass-projects.vercel.app/rutinas/cliente/`;
     console.log(props)
     const [rutinaNueva, setRutinaNueva] = useState(''); // Estado para el nombre de la rutina
 
