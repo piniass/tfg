@@ -8,7 +8,9 @@ import { useNavigate } from 'react-router-dom';
 export default function RutinasCard(props) {
     // const foto = props.rutina.foto
     const { id, nombre, foto, fecha_creacion, id_entrenador } = props.rutina;
-    const ruta = '../../public/img-rutinas/'+foto
+    // const ruta = '../../public/img-rutinas/'+foto
+    const ruta = '/img-rutinas/'+foto
+
     const navigate = useNavigate()
 
     const handleEliminar = () => {
