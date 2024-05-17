@@ -51,7 +51,7 @@ export default function PaginaRutinaId() {
             </article>
         </section>
         {showForm && <FormularioCrearEntrenamiento getEntrenamiento={getEntrenamiento} rutina={rutina} setForm={setForm}/>}
-        {entrenamientoObj && <FormularioCrearEjercicio entrenamientoObj={entrenamientoObj}/>}
+        {entrenamientoObj && <FormularioCrearEjercicio entrenamientoObj={entrenamientoObj} setForm={setForm}/>}
       </main> 
     </div>
   )
