@@ -14,7 +14,6 @@ export default function App() {
   return (
       <Router>
           <Routes>
-              {/* Define tus rutas */}
               <Route path="/" element={<PaginaFormulario />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/tareas" element={<Tareas/>} />

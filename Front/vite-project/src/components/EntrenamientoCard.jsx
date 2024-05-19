@@ -11,7 +11,6 @@ export default function EntrenamientoCard(props) {
         props.setObj(props.sesion)
         
     }
-    console.log(props)
     return (
         <div className='p-4 flex flex-col justify-center items-center border rounded-md gap-2 h-52 w-52'>
             <h4 className='text-xl'>{props.sesion.dia_semana}</h4>

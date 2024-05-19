@@ -11,7 +11,7 @@ const useEntrenamiento = (id_rutina) => {
         try {
           const response = await axios.get(`http://127.0.0.1:8000/entrenamientos/rutina/${rutinaId}`);
           setEntrenamiento(response.data);
-          return tareas
+          return entrenamiento
         } catch (err) {
           setError(err);
         }

@@ -46,7 +46,7 @@ export default function FormularioCrearEjercicio(props) {
 
       const res = await axios(options);
       console.log(res.data);
-
+      props.getEjercicios();
       //props.actualizarEjercicios();
     } catch (error) {
       console.log("Errores:", error.response ? error.response.data.detail : error.message);
@@ -61,32 +61,35 @@ export default function FormularioCrearEjercicio(props) {
   return (
     <section className='p-4 w-full flex flex-col'>
       <h4 className='text-xl mb-2'>Añade un ejercicio al día de {props.entrenamientoObj.nombre}</h4>
-      <form className='flex items-center justify-between' onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder='Nombre'
-          className='border rounded-md p-2'
-          value={nombreEjercicio}
-          onChange={(e) => setNombreEjercicio(e.target.value)}
-        />
-        <select
-          name="musculo"
-          id="musculo"
-          className='border rounded-md p-2'
-          value={grupoMuscular}
-          onChange={(e) => setGrupoMuscular(e.target.value)}
-        >
-          <option value="">Grupo Muscular</option>
-          {gruposMusculares.map((grupo, index) => (
-            <option key={index} value={grupo.toLowerCase()}>{grupo}</option>
-          ))}
-        </select>
+      <form className='flex  gap-2 w-full flex-col sm:flex-row' onSubmit={handleSubmit}>
+        <div className='flex flex-col lg:flex-row gap-2'> 
+          <input
+            type="text"
+            placeholder='Nombre'
+            className='border rounded-md p-2 w-full sm:w-40'
+            value={nombreEjercicio}
+            onChange={(e) => setNombreEjercicio(e.target.value)}
+          />
+          <select
+            name="musculo"
+            id="musculo"
+            className='border rounded-md p-2 w-full sm:w-40'
+            value={grupoMuscular}
+            onChange={(e) => setGrupoMuscular(e.target.value)}
+          >
+            <option value="">Grupo Muscular</option>
+            {gruposMusculares.map((grupo, index) => (
+              <option key={index} value={grupo.toLowerCase()}>{grupo}</option>
+            ))}
+          </select>
+        </div>
+        <div className='flex flex-col lg:flex-row gap-2'> 
         <input
           type="number"
           name="series"
           id="series"
           placeholder='Series'
-          className='border rounded-md p-2'
+          className='border rounded-md p-2 w-full sm:w-32'
           value={series}
           onChange={(e) => setSeries(e.target.value)}
         />
@@ -95,11 +98,13 @@ export default function FormularioCrearEjercicio(props) {
           name="repeticiones"
           id="repeticiones"
           placeholder='Repeticiones'
-          className='border rounded-md p-2'
+          className='border rounded-md p-2 w-full sm:w-32'
           value={repeticiones}
           onChange={(e) => setRepeticiones(e.target.value)}
         />
-        <input type="submit" value="Crear ejercicio" className='bg-green-500 text-white p-2 rounded-md cursor-pointer hover:bg-green-600' />
+        </div>
+        
+        <input type="submit" value="Crear ejercicio" className='w-full sm:w-56 bg-green-500 text-white p-2 rounded-md cursor-pointer hover:bg-green-600' />
       </form>
     </section>
   );

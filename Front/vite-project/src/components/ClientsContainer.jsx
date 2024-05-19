@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import ClientCard from './ClientCard'
-import Spinner from './Spinner';
+import Spinner from '../svgs/Spinner';
 
 export default function ClientsContainer(props) {
     const id = sessionStorage.getItem("id");
@@ -54,7 +54,11 @@ export default function ClientsContainer(props) {
 
     return (
         <section className=''>
-            {loading && <Spinner/>}
+            {loading && 
+            <div className='flex items-center justify-center flex-col'>
+                <Spinner/>
+                <p>Cargan clientes...</p>
+            </div>}
             
             {clientes.length === 0 && !loading ? (
                     <p>No hay clientes todavía</p>

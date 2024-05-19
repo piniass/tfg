@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import User from '../svgs/User';
 import Lock from '../svgs/Lock';
-
+import Spinner from '../svgs/Spinner';
 
 export default function Formulario() {
 
@@ -11,6 +11,7 @@ export default function Formulario() {
     const [contrasenia, setContrasenia] = useState('');
     const [datosRecibidos, setDatosRecibidos] = useState(null);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate(); 
 
     const login = () => {
@@ -21,12 +22,14 @@ export default function Formulario() {
         console.log("hola")
         event.preventDefault();
         try {
+            setLoading(true)
             // Realizar la petición GET a la API
             const response = await axios.get('http://127.0.0.1:8000/entrenadores');
             // Actualizar el estado con los datos recibidos
             setDatosRecibidos(response.data);
             // Verificar coincidencia entre correo y contraseña ingresados y los datos recibidos
             const coincidencia = response.data.find(entrenador => entrenador.correo === correo && entrenador.password === contrasenia);
+            setLoading(false)
             if (coincidencia) {
                 // Utilizar navigate para navegar a la ruta del dashboard (Home)
                 sessionStorage.setItem("id", coincidencia.id);
@@ -69,18 +72,24 @@ export default function Formulario() {
                 <Lock />
             </span>
             <input 
-                className='p-2 pl-8 w-full'
+                className='p-2 pl-8 w-full text-black'
                 type="password" 
                 placeholder="Contraseña"
                 id="contrasenia"
                 onChange={(e) => setContrasenia(e.target.value)}
                 value={contrasenia} />
             </label>
-            <input 
-                type="submit" 
-                value="Iniciar Sesion"
-                className='rounded cursor-pointer bg-green-600 p-2 text-white'
-                />
+            {
+                loading ? (<div className='w-full bg-gray-300 p-2 flex items-center justify-center rounded'>
+                    <Spinner/>
+                    </div>)
+                : (<input 
+                    type="submit" 
+                    value="Iniciar Sesion"
+                    className='rounded cursor-pointer bg-green-600 p-2 text-white'
+                    />)
+            }
+            
             <input
                 type='button'
                 value='Registrarse'

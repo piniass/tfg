@@ -5,7 +5,7 @@ import GraficaPeso from './GraficaPeso'
 import usePeso from '../hooks/HookPeso'
 import { useEffect } from 'react'
 import TablaPeso from './TablaPeso'
-import Spinner from './Spinner'
+import Spinner from '../svgs/Spinner'
 
 export default function PesoContainer(props) {
     const id = props.state.id
