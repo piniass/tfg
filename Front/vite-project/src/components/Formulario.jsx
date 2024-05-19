@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import User from '../svgs/User';
+import Lock from '../svgs/Lock';
 
 
 export default function Formulario() {
@@ -44,13 +45,17 @@ export default function Formulario() {
         }
     };
   return (
-    <section className='p-8'>
-        <form onSubmit={handleSubmit} className='border-2 w-80 flex flex-col p-8 gap-4 '>
+    <section className='p-2 md:p-5 h-full w-full'>
+        <form onSubmit={handleSubmit} className='flex flex-col p-2 md:p-5 gap-4 '>
             <h2 className='text-center text-2xl text-white'>Iniciar Sesion</h2>
 
-            <label className='text-white' htmlFor='correo'>Introduce tu correo</label>
+            <label className='text-white relative w-full' htmlFor='correo'>Introduce tu correo
+            <span className='absolute top-8 left-1 text-gray-500'>
+                <User />
+            </span>
+            
             <input 
-                className='p-2'
+                className='p-2 pl-8 w-full'
                 type="text" 
                 placeholder="Correo electronico"
                 id="correo"
@@ -58,14 +63,19 @@ export default function Formulario() {
                 value={correo}
                 onChange={(e) => setCorreo(e.target.value)}
                 />
-            <label htmlFor='contrasenia' className='text-white'>Contraseña</label>
+            </label>
+            <label htmlFor='contrasenia' className='text-white relative w-full'>Contraseña
+            <span className='absolute top-8 left-1 text-gray-500'>
+                <Lock />
+            </span>
             <input 
-                className='p-2'
+                className='p-2 pl-8 w-full'
                 type="password" 
                 placeholder="Contraseña"
                 id="contrasenia"
                 onChange={(e) => setContrasenia(e.target.value)}
                 value={contrasenia} />
+            </label>
             <input 
                 type="submit" 
                 value="Iniciar Sesion"
