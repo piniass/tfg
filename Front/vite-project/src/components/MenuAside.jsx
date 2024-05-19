@@ -15,25 +15,25 @@ export default function MenuAside() {
     <nav className='flex items-center justify-center'>
         <ul className='flex flex-col gap-2'>
           <li className='p-2'>
-            <Link to="/dashboard" className='flex items-center text-white gap-4 '>
+            <Link to="/dashboard" className='flex items-center text-white gap-4 hover:text-white '>
               <UserIcon/>
               <h2 className='text-xl hidden md:block'>Clientes</h2>
             </Link>
           </li>
           <li className='p-2'>
-            <Link to="/tareas" className='flex items-center text-white gap-4'>
+            <Link to="/tareas" className='flex items-center text-white gap-4 hover:text-white'>
               <TareaIcon/>
               <h2 className='text-xl hidden md:block'>Tareas</h2>
             </Link>
           </li>
           <li className='p-2'>
-            <Link to="/rutinas" className='flex items-center text-white gap-4'>
+            <Link to="/rutinas" className='flex items-center text-white gap-4 hover:text-white'>
               <MuscleIcon/>
               <h2 className='text-xl hidden md:block'>Rutinas</h2>
             </Link>
           </li>
           <li className='p-2'>
-            <Link to="/" className='flex items-center text-white gap-4' onClick={handleCerrarSesion}>
+            <Link to="/" className='flex items-center text-white gap-4 hover:text-white' onClick={handleCerrarSesion}>
               <PowerOff/>
               <h2 className='text-xl hidden md:block'>Cerrar Sesion</h2>
             </Link>
