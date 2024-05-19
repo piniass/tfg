@@ -46,7 +46,7 @@ export default function Formulario() {
         console.log(res.data.entrenador);
         setUserId(res.data.entrenador.id);
         // Redirigir a otra página
-        // navigate("/dashboard");
+        navigate("/dashboard");
       }
       setDatosRecibidos(res.data);
     } catch (error) {

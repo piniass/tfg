@@ -2,15 +2,19 @@ import React from 'react'
 import axios from 'axios';
 import { useState } from 'react';
 import qs from 'qs'
+import { useUser } from '../context/UserProvider';
+
 const useTarea = () => {
-    var id = sessionStorage.getItem("id");
+  const { setUserId, userId } = useUser();
+
     const [error, setError] = useState(null);
     const [tareas, setTareas] = useState([]);
   
   
     const getTareas = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
+        console.log("fetch tareas id:",userId)
+        const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${userId}`);
         setTareas(response.data);
         console.log(tareas)
 

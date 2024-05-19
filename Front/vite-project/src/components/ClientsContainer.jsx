@@ -2,9 +2,13 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import ClientCard from './ClientCard'
 import Spinner from './Spinner';
+import { useUser } from '../context/UserProvider';
+
 
 export default function ClientsContainer(props) {
-    const id = sessionStorage.getItem("id");
+    // const id = sessionStorage.getItem("id");
+    const { setUserId, userId } = useUser();
+    const [id,setId] = useState(userId)
 
     const [clientes, setClientes] = useState([]);
     const [busqueda, setBusqueda] = useState();
@@ -19,7 +23,7 @@ export default function ClientsContainer(props) {
     const fetchClientes = async () => {
         try {
             setLoading(true)
-            const response = await axios.get(`http://localhost:8000/clientes/entrenador/${id}`);
+            const response = await axios.get(`http://localhost:8000/clientes/entrenador/${userId}`);
             setClientes(response.data);
             console.log("Datos: ",response.data);
             setLoading(false)
