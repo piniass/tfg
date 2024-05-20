@@ -23,7 +23,7 @@ const useEjercicio = (id_entrenamiento) => {
             //if (confirmDelete) {
                 const response = await axios.delete(`http://127.0.0.1:8000/ejercicios/${id}`);
                 console.log(response.data.message); 
-                getEjercicio();
+                getEjercicios();
                 console.log("hago el get")
             //}
         } catch (err) {
