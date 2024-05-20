@@ -17,14 +17,15 @@ const useEjercicio = (id_entrenamiento) => {
         }
     };
 
-    const handleEliminar = async (id) => {
+    const handleEliminarEjercicio = async (id) => {
         try {
-            const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este ejercicio?");
-            if (confirmDelete) {
+            //const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este ejercicio?");
+            //if (confirmDelete) {
                 const response = await axios.delete(`http://127.0.0.1:8000/ejercicios/${id}`);
                 console.log(response.data.message); 
                 getEjercicio();
-            }
+                console.log("hago el get")
+            //}
         } catch (err) {
             setError(err);
         }
@@ -32,7 +33,7 @@ const useEjercicio = (id_entrenamiento) => {
 
     return {
         getEjercicios,
-        handleEliminar,
+        handleEliminarEjercicio,
         ejercicio,
         error
     };

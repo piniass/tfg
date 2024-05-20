@@ -16,7 +16,7 @@ export default function PaginaRutinaId() {
     const [showForm, setForm] = useState(false);
     const {entrenamiento, getEntrenamiento, handleEliminar} = useEntrenamiento({rutinaId});
     const [entrenamientoId, setEntrenamientoId] = useState('');
-    const {ejercicio, getEjercicios} = useEjercicio({entrenamientoId});
+    const {ejercicio, getEjercicios,handleEliminarEjercicio} = useEjercicio({entrenamientoId});
 
     const [entrenamientoObj, setObj] = useState('');
 
@@ -75,7 +75,7 @@ export default function PaginaRutinaId() {
                 )}
                 {
                   entrenamientoId ? (
-                    <TablaEjercicios entrenamientoId={entrenamientoId} ejercicio={ejercicio}/>
+                    <TablaEjercicios entrenamientoId={entrenamientoId} ejercicio={ejercicio}  handleEliminar={handleEliminarEjercicio} getEjercicios={getEjercicios}/>
                   ) :
                   (
                     <p className='p-4'>Selecciona un entrenamiento</p>
