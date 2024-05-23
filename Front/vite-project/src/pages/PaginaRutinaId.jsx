@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Aside from '../components/Aside';
 import { useLocation } from 'react-router-dom';
 import FormularioCrearEntrenamiento from '../components/FormularioCrearEntrenamiento';
+import FormularioEditarEntrenamiento from '../components/FormularioEditarEntrenamiento';
 import useEntrenamiento from '../hooks/HookEntrenamiento';
 import useEjercicio from '../hooks/HookEjercicio';
 import EntrenamientoCard from '../components/EntrenamientoCard';
@@ -14,10 +15,10 @@ export default function PaginaRutinaId() {
     const nombreRutina = rutina.nombre;
     const rutinaId = Number(rutina.id);
     const [showForm, setForm] = useState(false);
+    const [showFormEdit, setFormEdit] = useState(false);
     const {entrenamiento, getEntrenamiento, handleEliminar} = useEntrenamiento({rutinaId});
     const [entrenamientoId, setEntrenamientoId] = useState('');
     const {ejercicio, getEjercicios,handleEliminarEjercicio} = useEjercicio({entrenamientoId});
-
     const [entrenamientoObj, setObj] = useState('');
 
     const handleShowForm = () => {
@@ -26,6 +27,11 @@ export default function PaginaRutinaId() {
 
     const getEntrenamientoId = (id) => {
         setEntrenamientoId(id);
+    };
+
+    const handleEditForm = (entrenamiento) => {
+        setObj(entrenamiento);
+        setFormEdit(true);
     };
 
     useEffect(() => {
@@ -56,12 +62,13 @@ export default function PaginaRutinaId() {
                     <article className='flex gap-4 overflow-x-auto'>
                         {
                             entrenamiento.map((sesion) => 
-                                <EntrenamientoCard key={sesion.id} sesion={sesion} setObj={setObj} handleEliminar={handleEliminar} />
+                                <EntrenamientoCard key={sesion.id} sesion={sesion} setObj={setObj} handleEliminar={handleEliminar} handleEditForm={handleEditForm}/>
                             )
                         }
                     </article>
                 </section>
                 {showForm && <FormularioCrearEntrenamiento getEntrenamiento={getEntrenamiento} rutina={rutina} setForm={setForm} />}
+                {showFormEdit && <FormularioEditarEntrenamiento getEntrenamiento={getEntrenamiento} rutina={rutina} setFormEdit={setFormEdit}  entrenamiento={entrenamientoObj} />}
                 {entrenamientoObj && <FormularioCrearEjercicio entrenamientoObj={entrenamientoObj} getEjercicios={getEjercicios} setForm={setForm} />}
                 {entrenamiento && (
                     <section className='p-4 flex flex-col gap-2'>
