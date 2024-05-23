@@ -7,6 +7,7 @@ import useEntrenamiento from '../hooks/HookEntrenamiento';
 import useEjercicio from '../hooks/HookEjercicio';
 import EntrenamientoCard from '../components/EntrenamientoCard';
 import FormularioCrearEjercicio from '../components/FormularioCrearEjercicio';
+import FormularioEditarEjercicio from '../components/FormularioEditarEjercicio';
 import TablaEjercicios from '../components/TablaEjercicios';
 
 export default function PaginaRutinaId() {
@@ -15,11 +16,12 @@ export default function PaginaRutinaId() {
     const nombreRutina = rutina.nombre;
     const rutinaId = Number(rutina.id);
     const [showForm, setForm] = useState(false);
-    const [showFormEdit, setFormEdit] = useState(false);
-    const {entrenamiento, getEntrenamiento, handleEliminar} = useEntrenamiento({rutinaId});
+    const [showFormEditEntrenamiento, setFormEditEntrenamiento] = useState(false);
+    const [showFormEditEjercicio, setFormEditEjercicio] = useState(false);
+    const { entrenamiento, getEntrenamiento, handleEliminar } = useEntrenamiento({ rutinaId });
     const [entrenamientoId, setEntrenamientoId] = useState('');
-    const {ejercicio, getEjercicios,handleEliminarEjercicio} = useEjercicio({entrenamientoId});
-    const [entrenamientoObj, setObj] = useState('');
+    const { ejercicio, getEjercicios, handleEliminarEjercicio } = useEjercicio({ entrenamientoId });
+    const [entrenamientoObj, setObj] = useState(null);
 
     const handleShowForm = () => {
         setForm(true);
@@ -29,9 +31,14 @@ export default function PaginaRutinaId() {
         setEntrenamientoId(id);
     };
 
-    const handleEditForm = (entrenamiento) => {
+    const handleEditEntrenamiento = (entrenamiento) => {
         setObj(entrenamiento);
-        setFormEdit(true);
+        setFormEditEntrenamiento(true);
+    };
+
+    const handleEditEjercicio = (ejercicio) => {
+        setObj(ejercicio);
+        setFormEditEjercicio(true);
     };
 
     useEffect(() => {
@@ -40,7 +47,6 @@ export default function PaginaRutinaId() {
 
     useEffect(() => {
         if (entrenamientoId) {
-
             getEjercicios();
         }
     }, [entrenamientoId]);
@@ -60,15 +66,14 @@ export default function PaginaRutinaId() {
                         </button>
                     </div>
                     <article className='flex gap-4 overflow-x-auto'>
-                        {
-                            entrenamiento.map((sesion) => 
-                                <EntrenamientoCard key={sesion.id} sesion={sesion} setObj={setObj} handleEliminar={handleEliminar} handleEditForm={handleEditForm}/>
-                            )
-                        }
+                        {entrenamiento.map((sesion) => 
+                            <EntrenamientoCard key={sesion.id} sesion={sesion} setObj={setObj} handleEliminar={handleEliminar} handleEditEntrenamiento={handleEditEntrenamiento}/>
+                        )}
                     </article>
                 </section>
                 {showForm && <FormularioCrearEntrenamiento getEntrenamiento={getEntrenamiento} rutina={rutina} setForm={setForm} />}
-                {showFormEdit && <FormularioEditarEntrenamiento getEntrenamiento={getEntrenamiento} rutina={rutina} setFormEdit={setFormEdit}  entrenamiento={entrenamientoObj} />}
+                {showFormEditEntrenamiento && <FormularioEditarEntrenamiento getEntrenamiento={getEntrenamiento} rutina={rutina} setFormEdit={setFormEditEntrenamiento} entrenamiento={entrenamientoObj} />}
+                {showFormEditEjercicio && <FormularioEditarEjercicio ejercicio={entrenamientoObj} getEjercicios={getEjercicios} setFormEditEjercicio={setFormEditEjercicio} />}
                 {entrenamientoObj && <FormularioCrearEjercicio entrenamientoObj={entrenamientoObj} getEjercicios={getEjercicios} setForm={setForm} />}
                 {entrenamiento && (
                     <section className='p-4 flex flex-col gap-2'>
@@ -80,14 +85,11 @@ export default function PaginaRutinaId() {
                         </div>
                     </section>
                 )}
-                {
-                  entrenamientoId ? (
-                    <TablaEjercicios entrenamientoId={entrenamientoId} ejercicio={ejercicio}  handleEliminar={handleEliminarEjercicio} getEjercicios={getEjercicios}/>
-                  ) :
-                  (
+                {entrenamientoId ? (
+                    <TablaEjercicios entrenamientoId={entrenamientoId} ejercicio={ejercicio} handleEliminar={handleEliminarEjercicio} handleEditEjercicio={handleEditEjercicio} getEjercicios={getEjercicios}/>
+                ) : (
                     <p className='p-4'>Selecciona un entrenamiento</p>
-                  )
-                }
+                )}
             </main> 
         </div>
     );

@@ -10,11 +10,13 @@ export default function EntrenamientoCard(props) {
     }
 
     const handleDetails = () => {
+        console.log("me meto",props.sesion)
         props.setObj(props.sesion)
         
     }
     const handleEdit = () => {
-        props.handleEditForm(props.sesion); 
+        console.log("pulso")
+        props.handleEditEntrenamiento(props.sesion); 
     };
     return (
         <div className='p-4 flex flex-col justify-center items-center border rounded-md gap-2 h-52 w-52'>
