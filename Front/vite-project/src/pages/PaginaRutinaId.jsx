@@ -16,6 +16,7 @@ export default function PaginaRutinaId() {
     const nombreRutina = rutina.nombre;
     const rutinaId = Number(rutina.id);
     const [showForm, setForm] = useState(false);
+    const [showFormEjercicio, setFormEjercicio] = useState(false);
     const [showFormEditEntrenamiento, setFormEditEntrenamiento] = useState(false);
     const [showFormEditEjercicio, setFormEditEjercicio] = useState(false);
     const { entrenamiento, getEntrenamiento, handleEliminar } = useEntrenamiento({ rutinaId });
@@ -27,6 +28,11 @@ export default function PaginaRutinaId() {
         setForm(true);
     };
 
+    const handleShowFormEjercicio = () => {
+        setFormEjercicio(true);
+        setFormEditEjercicio(false);
+    };
+
     const getEntrenamientoId = (id) => {
         setEntrenamientoId(id);
     };
@@ -34,11 +40,18 @@ export default function PaginaRutinaId() {
     const handleEditEntrenamiento = (entrenamiento) => {
         setObj(entrenamiento);
         setFormEditEntrenamiento(true);
+
     };
+
+    const handleCloseEjercicios=()=>{
+        setFormEditEjercicio(false);
+        setFormEjercicio(false);
+    }
 
     const handleEditEjercicio = (ejercicio) => {
         setObj(ejercicio);
         setFormEditEjercicio(true);
+        setFormEjercicio(false);
     };
 
     useEffect(() => {
@@ -67,14 +80,24 @@ export default function PaginaRutinaId() {
                     </div>
                     <article className='flex gap-4 overflow-x-auto'>
                         {entrenamiento.map((sesion) => 
-                            <EntrenamientoCard key={sesion.id} sesion={sesion} setObj={setObj} handleEliminar={handleEliminar} handleEditEntrenamiento={handleEditEntrenamiento}/>
+                            <EntrenamientoCard 
+                                key={sesion.id} 
+                                sesion={sesion} 
+                                setObj={setObj} 
+                                handleEliminar={handleEliminar} 
+                                getEntrenamiento={getEntrenamiento} // Pasa getEntrenamiento
+                                getEjercicios={getEjercicios} // Pasa getEjercicios
+                                handleEditEntrenamiento={handleEditEntrenamiento}
+                                handleShowFormEjercicio={handleShowFormEjercicio}  
+                                handleCloseEjercicios={handleCloseEjercicios}
+                            />
                         )}
                     </article>
                 </section>
                 {showForm && <FormularioCrearEntrenamiento getEntrenamiento={getEntrenamiento} rutina={rutina} setForm={setForm} />}
                 {showFormEditEntrenamiento && <FormularioEditarEntrenamiento getEntrenamiento={getEntrenamiento} rutina={rutina} setFormEdit={setFormEditEntrenamiento} entrenamiento={entrenamientoObj} />}
                 {showFormEditEjercicio && <FormularioEditarEjercicio ejercicio={entrenamientoObj} getEjercicios={getEjercicios} setFormEditEjercicio={setFormEditEjercicio} />}
-                {entrenamientoObj && <FormularioCrearEjercicio entrenamientoObj={entrenamientoObj} getEjercicios={getEjercicios} setForm={setForm} />}
+                {showFormEjercicio && <FormularioCrearEjercicio entrenamientoObj={entrenamientoObj} getEjercicios={getEjercicios} setFormEjercicio={setFormEjercicio} />}
                 {entrenamiento && (
                     <section className='p-4 flex flex-col gap-2'>
                         <h3 className='text-xl'>Visualiza un entrenamiento: </h3>
@@ -85,7 +108,7 @@ export default function PaginaRutinaId() {
                         </div>
                     </section>
                 )}
-                {entrenamientoId ? (
+                {entrenamientoId  && ejercicio.length > 0 ?(
                     <TablaEjercicios entrenamientoId={entrenamientoId} ejercicio={ejercicio} handleEliminar={handleEliminarEjercicio} handleEditEjercicio={handleEditEjercicio} getEjercicios={getEjercicios}/>
                 ) : (
                     <p className='p-4'>Selecciona un entrenamiento</p>
