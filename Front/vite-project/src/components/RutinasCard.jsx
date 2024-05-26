@@ -19,6 +19,12 @@ export default function RutinasCard(props) {
         navigate(`/rutina/${id}`, { state: props.rutina })
     }
 
+    const handleAdd = () => {
+        props.setRutinaId(id)
+        props.setModal(true)
+        console.log("id rutina: ",id)
+    }
+
     return (
     <div className='border'>
         <img src={ruta} alt={nombre} className=''/>
@@ -26,7 +32,7 @@ export default function RutinasCard(props) {
         <div className='flex items-center justify-around p-2'>
             <button onClick={handleEdit}><Edit/></button>
             <button onClick={handleEliminar}><DeleteIcon/></button>
-            <button><Add/></button>
+            <button onClick={handleAdd}><Add/></button>
         </div>
     </div>
   )
