@@ -17,7 +17,8 @@ export default function RutinasContainer() {
   const { getClientes, cliente} = useCliente();
   const [rutina_id, setRutinaId] = useState(null)
   const [showRutinas, setModal] = useState(false)
-  
+  const [rutinasLoaded, setRutinasLoaded] = useState(false);
+
 
   const handleOpenForm = () => {
     setForm(true)
@@ -27,13 +28,17 @@ export default function RutinasContainer() {
     setRutinaToEdit(rutina);
     setFormEdit(true);
   }
-
   useEffect(() => {
-    getRutinas()
-    getClientes()
-    console.log(cliente)
-   
+    const fetchData = async () => {
+      await getRutinas();
+      await getClientes();
+      console.log(cliente);
+    };
+  
+    fetchData();
   }, []);
+  
+  
 
   return (
     <section className='w-full h-full overflow-auto flex flex-col relative'>
