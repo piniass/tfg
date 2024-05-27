@@ -4,6 +4,7 @@ import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import AvataresContainer from './AvataresContainer';
 import CloseIcon from '../svgs/CloseIcon';
+import useValidaciones from '../hooks/HooksValidaciones';
 
 export default function FormularioEditarCliente(props) {
   const { cliente } = props;
@@ -13,6 +14,8 @@ export default function FormularioEditarCliente(props) {
   const [altura, setAltura] = useState('');
   const [patologias, setPatologias] = useState('');
   const [avatarSeleccionado, setAvatarSeleccionado] = useState('');
+  
+  const { errores, validarCampo } = useValidaciones();
 
   useEffect(() => {
     if (cliente) {
@@ -29,6 +32,36 @@ export default function FormularioEditarCliente(props) {
   
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    const esNombreValido = validarCampo('nombre', nombre);
+    const esApellidoValido = validarCampo('apellido', apellido);
+    const esEdadValido = validarCampo('edad', edad);
+    const esAlturaValido = validarCampo('altura', altura);
+    const esAvatarValido = validarCampo('avatar', avatarSeleccionado);
+
+    if (!esNombreValido) {
+      console.log(nombre)
+      return alert("El nombre debe empezar por mayúscula y no contener ninguna más.");
+  }
+  
+  if (!esApellidoValido) {
+      alert('El apellido ha de empezar por mayuscula.');
+      return;
+  }
+  
+  if (!esEdadValido) {
+      alert('La edad no puede ser negativa ni superior a 100');
+      return;
+  }
+  
+  if (!esAlturaValido) {
+      alert('Laaltura no puede ser superior a 273 o negativa');
+      return;
+  }
+  
+  if (!esAvatarValido) {
+      alert('Por favor, selecciona un avatar.');
+      return;
+  }
   
     try {
       const data = {

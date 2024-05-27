@@ -4,6 +4,7 @@ import avatardefault from '../../public/avatardefault.png';
 import axios from 'axios'; // Importa axios
 import qs from 'qs'; // Importa qs si lo estás utilizando
 // Importa navigate desde @reach/router si es necesario
+import useValidaciones from '../hooks/HooksValidaciones';
 
 export default function FormularioCrearRutina(props) {
     const imagenes = ["gorila.jpg", "tiburon.jpg", "cocodrilo.jpg", "leon.jpg", "ornitorrinco.jpg", "tortuga.jpg", "lobo.jpg"];
@@ -13,6 +14,7 @@ export default function FormularioCrearRutina(props) {
     const url = `http://127.0.0.1:8000/rutinas/cliente/`;
     console.log(props)
     const [rutinaNueva, setRutinaNueva] = useState(''); // Estado para el nombre de la rutina
+    const { errores, validarCampo } = useValidaciones();
 
     const handleCloseForm = () => {
         props.setForm(false);
@@ -31,6 +33,14 @@ export default function FormularioCrearRutina(props) {
 
     const handleSubmit = async (ev) => {
         ev.preventDefault();
+        const nombreValido = validarCampo('rutina', rutinaNueva);
+        const ImgValida = validarCampo('avatar', selectedImg);
+        if (!nombreValido) {
+            return alert("El nombre debe empezar por mayúscula y no contener ninguna más.");
+        }
+        if (!ImgValida) {
+            return alert('Por favor, selecciona una Imagen.');;
+        }
 
         try {
             const data = {

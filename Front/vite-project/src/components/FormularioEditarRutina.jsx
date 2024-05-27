@@ -3,6 +3,8 @@ import CloseIcon from '../svgs/CloseIcon';
 import avatardefault from '../../public/avatardefault.png';
 import axios from 'axios'; // Importa axios
 import qs from 'qs'; // Importa qs si lo estás utilizando
+import useValidaciones from '../hooks/HooksValidaciones';
+
 
 export default function FormularioEditarRutina({ rutina, actualizarRutinas, setForm }) {
     const imagenes = ["gorila.jpg", "tiburon.jpg", "cocodrilo.jpg", "leon.jpg", "ornitorrinco.jpg", "tortuga.jpg", "lobo.jpg"];
@@ -11,6 +13,8 @@ export default function FormularioEditarRutina({ rutina, actualizarRutinas, setF
     const ruta = "../../public/img-rutinas/" + selectedImg;
     const id_entrenador = sessionStorage.getItem("id");
     const url = `http://127.0.0.1:8000/rutinas/${rutina.id}/`;
+    const { errores, validarCampo } = useValidaciones();
+
 
     useEffect(() => {
         setSelectedImg(rutina.foto || '');
@@ -34,6 +38,14 @@ export default function FormularioEditarRutina({ rutina, actualizarRutinas, setF
 
     const handleSubmit = async (ev) => {
         ev.preventDefault();
+        const nombreValido = validarCampo('rutina', nombreRutina);
+        const ImgValida = validarCampo('avatar', selectedImg);
+        if (!nombreValido) {
+            return alert("El nombre debe empezar por mayúscula y no contener ninguna más.");
+        }
+        if (!ImgValida) {
+            return alert('Por favor, selecciona una Imagen.');;
+        }
 
         try {
             const data = {
