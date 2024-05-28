@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import qs from 'qs';
+import useValidaciones from '../hooks/HooksValidaciones';
 
 export default function FormularioEditarEjercicio(props) {
   const { ejercicio, getEjercicios, setFormEditEjercicio } = props;
@@ -16,6 +17,8 @@ export default function FormularioEditarEjercicio(props) {
   ];
   
   const url = `http://127.0.0.1:8000/ejercicios/${ejercicio.id}`;
+  const { errores, validarCampo } = useValidaciones();
+
 
   const [nombreEjercicio, setNombreEjercicio] = useState(ejercicio.nombre || '');
   const [grupoMuscular, setGrupoMuscular] = useState(ejercicio.grupo_muscular || '');
@@ -24,6 +27,24 @@ export default function FormularioEditarEjercicio(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const nombreValido = validarCampo('nombre', nombreEjercicio);
+    const musculoValido = validarCampo('grupoMuscular', grupoMuscular);
+    const seriesValidas = validarCampo('series', series);
+    const repeticionesValidas = validarCampo('repeticiones', repeticiones);
+
+    if (!nombreValido) {
+        return alert("El nombre debe empezar por mayúscula y no contener ninguna más.");
+    }
+    if (!musculoValido) {
+      console.log(musculoValido)
+        return alert('Por favor, selecciona un grupo muscular.');;
+    }
+    if (!seriesValidas) {
+      return alert('Series y repeticiones deben ser mayores que 0.');;
+    }
+    if (!repeticionesValidas) {
+      return alert('Series y repeticiones deben ser mayores que 0');;
+    }
     
     try {
       const data = {

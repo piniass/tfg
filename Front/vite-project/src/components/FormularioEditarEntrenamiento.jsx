@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import CloseIcon from '../svgs/CloseIcon';
 import axios from 'axios';
 import qs from 'qs';
+import useValidaciones from '../hooks/HooksValidaciones';
+
 
 export default function FormularioEditarEntrenamiento(props) {
   const [nombreEntrenamiento, setNombreEntrenamiento] = useState(props.entrenamiento.nombre || '');
@@ -15,9 +17,19 @@ export default function FormularioEditarEntrenamiento(props) {
       console.log(nombreEntrenamiento)
       console.log(diaSeleccionado)
   const url = `http://127.0.0.1:8000/entrenamientos/${id}`;
+  const { errores, validarCampo } = useValidaciones();
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const nombreValido = validarCampo('rutina', nombreEntrenamiento);
+    const diaValido = validarCampo('dia', diaSeleccionado);
+    if (!nombreValido) {
+        return alert("El nombre debe empezar por mayúscula y no contener ninguna más.");
+    }
+    if (!diaValido) {
+        return alert('Por favor, selecciona un dia de la semana.');;
+    }
     
     try {
       

@@ -34,12 +34,14 @@ const useValidaciones = () => {
 
   const validarDiaSemana = (dia) => ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'].includes(dia);
 
-  const validarGrupoMuscular = (grupo) => grupo !== 'Grupo muscular';
+  const validarGrupoMuscular = (grupo) => ['pectoral','bíceps','tríceps','cuádriceps','espalda','deltoides','gemelos','glúteo'].includes(grupo);
 
   const validarSeriesRepes = (valor) => valor > 0;
 
   const validarCampo = (campo, valor) => {
     const nuevosErrores = { ...errores };
+    console.log(valor)
+
 
     switch (campo) {
       case 'email':
@@ -150,7 +152,8 @@ const useValidaciones = () => {
         }
         break;
       case 'grupoMuscular':
-        if (!validarGrupoMuscular(valor)) {
+        console.log(valor)
+        if (!validarGrupoMuscular(valor.toLowerCase())) {
           nuevosErrores[campo] = 'Grupo muscular no válido';
         } else {
           delete nuevosErrores[campo];
