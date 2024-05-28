@@ -10,14 +10,8 @@ export default function ClientsContainer(props) {
     const [nuevosClientes, setNuevos] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // Eliminado el llamado directo a getClientes
-    // const getClientes = props.getClientes()
-
-
     useEffect(() => {
-        console.log("Entro al useEffect2");
         if (props.buscador !== '') {
-            console.log("Me acabo de meter");
             setBusqueda(props.buscador);
             const clientesFiltrados = cliente.filter(cliente => 
                 cliente.nombre.toLowerCase().includes(props.buscador.toLowerCase()) || 

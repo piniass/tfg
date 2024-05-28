@@ -6,6 +6,9 @@ export default function FormularioCrearEjercicio(props) {
   // Definir los grupos musculares disponibles
   const idEntrenamiento = props.entrenamientoObj.id;
   const gruposMusculares = [
+    'Abductor',
+    'Aductor',
+    'Abdominales',
     'Pectoral',
     'Bíceps',
     'Tríceps',
@@ -13,6 +16,7 @@ export default function FormularioCrearEjercicio(props) {
     'Espalda',
     'Deltoides',
     'Gemelos',
+    'Femoral',
     'Glúteo'
   ];
   
@@ -79,7 +83,7 @@ export default function FormularioCrearEjercicio(props) {
           >
             <option value="">Grupo Muscular</option>
             {gruposMusculares.map((grupo, index) => (
-              <option key={index} value={grupo.toLowerCase()}>{grupo}</option>
+              <option key={index} value={grupo}>{grupo}</option>
             ))}
           </select>
         </div>
