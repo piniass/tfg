@@ -7,8 +7,12 @@ const useContador = () => {
   const [loading, setLoading] = useState(false)
   
   const getCounter = async (id_cliente) => {
+    setLoading(true)
+    setTimeout(() => {
+
+    }, 4000);
     try {
-        setLoading(true)
+        
         const response = await axios.get(`http://localhost:8000/ejercicios/rutina/cliente/${id_cliente}`);
         setLoading(false)
         setCounter(response.data);

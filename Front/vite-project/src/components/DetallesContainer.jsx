@@ -14,10 +14,9 @@ export default function DetallesContainer(props) {
 
 
   useEffect(() => {
-    if (id) {
-      getPeso(); // Llamar a getPeso solo si id es válido
+      getPeso();
       getRutinasId(id)
-    }
+    
   }, [id]);
 
   return (

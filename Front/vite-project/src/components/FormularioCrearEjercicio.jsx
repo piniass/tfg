@@ -8,7 +8,6 @@ export default function FormularioCrearEjercicio(props) {
   const idEntrenamiento = props.entrenamientoObj.id;
   const gruposMusculares = [
     'Abductor',
-    'Aductor',
     'Abdominales',
     'Pectoral',
     'Bíceps',
