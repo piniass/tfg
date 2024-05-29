@@ -8,6 +8,7 @@ import Multistep_2 from '../components/Multistep_2';
 import Multistep_3 from '../components/Multistep_3';
 import avatardefault from '../../public/avatardefault.png'
 import ProgesionForm from '../components/ProgesionForm';
+import useValidaciones from '../hooks/HooksValidaciones';
 
 export default function Login() {
 
@@ -19,6 +20,7 @@ export default function Login() {
     const [error, setError] = useState()
     const url = 'http://127.0.0.1:8000/entrenadores'
     const navigate = useNavigate()
+    const { errores, validarCampo } = useValidaciones();
 
     
     console.log("nombre:", name)
@@ -34,6 +36,27 @@ export default function Login() {
         // console.log("email:", email)
         // console.log("pwd:", pwd)
         // console.log("avatar:", avatar)
+        const esNombreValido = validarCampo('nombre', name);
+        const esApellidoValido = validarCampo('apellido', apellido);
+        const esEmailValido = validarCampo('email', email);
+        const esPwdValido = validarCampo('password', pwd);
+        const esAvatarValido = validarCampo('avatar', avatar);
+
+        if (!esNombreValido) {
+          return alert("El nombre debe empezar por mayúscula y no contener ninguna más.");
+      } else if (!esApellidoValido) {
+          return alert("El apellido debe empezar por mayúscula.");
+      } else if (!esEmailValido) {
+          return alert("El correo debe contener un '@' y un dominio válido.");
+      } else if (!esPwdValido) {
+          return alert("La contraseña debe contener al menos 1 número, tener entre 5 y 12 caracteres.");
+      } else if (!esAvatarValido) {
+          return alert("El avatar no puede estar vacío. Haz clic sobre la imagen.");
+      } else {
+          // Si todos los campos son válidos, continuar con el envío del formulario
+          // Código para enviar el formulario
+      
+      
 
         const user = {
             "nombre" : name,
@@ -49,7 +72,7 @@ export default function Login() {
             data: qs.stringify(user),
             url,
           };
-      
+        
           try{
             console.log(user)
             const res = await axios(options);
@@ -59,7 +82,7 @@ export default function Login() {
             setError(err.response.data.detail);
             console.log(error)
           }
-
+        }
     }
 
     const showAvatar = () => {
@@ -78,7 +101,7 @@ export default function Login() {
       "password": pwd,
       "avatar": avatar
     }
-
+    
   return (
     <main className='bg-gradient-to-tr from-gray-800 to-purple-500 w-screen h-screen flex items-center justify-center'>
       <section onSubmit={(e) =>handleSubmit(e)} className='flex flex-col items-center justify-center '>
