@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import qs from 'qs'
+import useValidaciones from '../hooks/HooksValidaciones';
 
 export default function FormularioEditarPeso(props) {
     const [peso, setPeso] = useState('')
     const id = props.state.id
     const url = `http://127.0.0.1:8000/pesos/${props.pesoNuevo?.id || ''}`;
+    const { errores, validarCampo } = useValidaciones();
 
     const handleCancelar = () => {
         props.setNuevo('');
@@ -14,6 +16,10 @@ export default function FormularioEditarPeso(props) {
     const handleSubmitEditar = async (ev) => {
         ev.preventDefault()
         try {
+            const pesoValido = validarCampo('peso', peso);
+          if (!pesoValido) {
+              return alert("El peso tiene que ser entre 0 y 150");
+          }
             const data = {
                 id: props.pesoNuevo.id,
                 peso: peso
