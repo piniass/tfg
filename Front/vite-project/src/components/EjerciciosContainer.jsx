@@ -2,26 +2,20 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import GraficaGruposMusc from './GraficaGruposMusc';
 import VerRutina from './VerRutina';
+import Spinner from '../svgs/Spinner';
+import useContador from '../hooks/HookContador';
+
 export default function EjerciciosContainer(props) {
     const id = props.state.id;
     const id_rutina = props.state.id_rutina
-    const [counterEj, setCounter] = useState(null);
-    const [error, setError] = useState(null);
+    const {counterEj, getCounter,loading} = useContador( {id} );
+
 
     useEffect(() => {
-        const fetchData = async (id_cliente) => {
-            try {
-                const response = await axios.get(`http://localhost:8000/ejercicios/rutina/cliente/${id_cliente}`);
-                setCounter(response.data);
-            } catch (err) {
-                setError(err);
-                console.log(error);
-            }
-        };
-    
+
         const fetchDataAsync = async () => {
             if (id) {
-                await fetchData(id);
+                await getCounter(id);
             }
         };
     
@@ -33,7 +27,16 @@ export default function EjerciciosContainer(props) {
     return (
         <section className='border-2 p-4 flex justify-between'>
             <VerRutina id={id} id_rutina={id_rutina}/>
-            <GraficaGruposMusc counterEj={counterEj}/>
+            {
+                !loading ?  
+                <GraficaGruposMusc counterEj={counterEj}/>
+                :
+                <div className='flex flex-col items-center justify-center'>
+                    <Spinner/>
+                    <p>Cargan información</p>
+                </div> 
+            }
+           
         </section>
     );
 }
