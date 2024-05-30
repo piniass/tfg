@@ -1,77 +1,60 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import ClientCard from './ClientCard'
-import Spinner from './Spinner';
+import Spinner from '../svgs/Spinner';
 
 export default function ClientsContainer(props) {
     const id = sessionStorage.getItem("id");
-
-    const [clientes, setClientes] = useState([]);
-    const [busqueda, setBusqueda] = useState();
-    const [nuevosClientes, setNuevos] = useState([])
-    const [loading, setLoading] = useState(false)
-
-    useEffect(() => {
-        console.log("Entro al useEffect1")
-        fetchClientes();
-    }, []);
-
-    const fetchClientes = async () => {
-        try {
-            setLoading(true)
-            const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/clientes/entrenador/${id}`);
-            setClientes(response.data);
-            console.log("Datos: ",response.data);
-            setLoading(false)
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
+    const cliente = props.cliente;
+    const [busqueda, setBusqueda] = useState('');
+    const [nuevosClientes, setNuevos] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        console.log("Entro al useEffect2")
         if (props.buscador !== '') {
-            console.log("Me acabo de meter")
-            // buscarClientes();
-            setBusqueda(props.buscador)
-            const clientesFiltrados = clientes.filter(cliente => 
+            setBusqueda(props.buscador);
+            const clientesFiltrados = cliente.filter(cliente => 
                 cliente.nombre.toLowerCase().includes(props.buscador.toLowerCase()) || 
                 cliente.apellido.toLowerCase().includes(props.buscador.toLowerCase())
             );
             setNuevos(clientesFiltrados);
         }
-    }, [props.buscador])
-
-    const actualizarClientes = async () => {
-        try {
-            const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/clientes/entrenador/${id}`);
-            setClientes(response.data);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    }, [props.buscador, cliente]);
 
     return (
         <section className=''>
-            {loading && <Spinner/>}
+            {loading && 
+            <div className='flex items-center justify-center flex-col'>
+                <Spinner />
+                <p>Cargando clientes...</p>
+            </div>}
             
-            {clientes.length === 0 && !loading ? (
-                    <p>No hay clientes todavía</p>
-            
+            {cliente.length === 0 && !loading ? (
+                <p>No hay clientes todavía</p>
             ) : (
-                // Si el buscador contiene información ejecuta esto
                 props.buscador !== '' ? (
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
                         {nuevosClientes.map(cliente => (
-                            <ClientCard key={cliente.id} cliente={cliente} actualizarClientes={actualizarClientes} />
-                        ))}
+                            <ClientCard 
+                                key={cliente.id} 
+                                cliente={cliente} 
+                                getClientes={props.getClientes} 
+                                setEdit={props.setEdit} 
+                                setSelectedClientId={props.setClienteId} 
+                                handleEliminar={props.handleEliminar} 
+                            />                        ))}
                     </div>
                 ) : (
-                    // Si el buscador está así '' imprime todos los clientes
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
-                        {clientes.map(cliente => (
-                            <ClientCard key={cliente.id} cliente={cliente} actualizarClientes={actualizarClientes} />
+                        {cliente.map(cliente => (
+                            <ClientCard 
+                                key={cliente.id} 
+                                cliente={cliente} 
+                                getClientes={props.getClientes} 
+                                setEdit={props.setEdit} 
+                                setSelectedClientId={props.setClienteId} 
+                                handleEliminar={props.handleEliminar} 
+                            />
                         ))}
                     </div>
                 )

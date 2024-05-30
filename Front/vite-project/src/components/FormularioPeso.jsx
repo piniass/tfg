@@ -2,16 +2,22 @@ import React from 'react'
 import axios from 'axios';
 import qs from 'qs';
 import { useState } from 'react';
+import useValidaciones from '../hooks/HooksValidaciones';
 
 export default function FormularioPeso(props) {
     const [peso, setPeso] = useState('')
     const [id, setId] = useState(props.state.id)
     // console.log(props.state.id)
-    const url = `https://tfg-backend-piniass-projects.vercel.app/pesos/cliente`;
+    const url = `http://127.0.0.1:8000/pesos/cliente`;
+    const { errores, validarCampo } = useValidaciones();
 
     const handleSubmitCrear = async(ev) => {
         ev.preventDefault()
         try {
+          const pesoValido = validarCampo('peso', peso);
+          if (!pesoValido) {
+              return alert("El peso tiene que ser entre 0 y 150");
+          }
             const data = {
                 id_cliente: id,
                 peso: peso

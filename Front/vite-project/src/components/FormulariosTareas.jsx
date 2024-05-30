@@ -3,20 +3,27 @@ import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import CloseIcon from '../svgs/CloseIcon';
+import useValidaciones from '../hooks/HooksValidaciones';
+
 
 export default function FormulariosTareas(props) {
   var id_entrenador = sessionStorage.getItem("id");
 
   const { id, actualizarTareas, handleEditar, setEstadoForm} = props;
   const [tareaNueva, setTareaNueva] = useState('');
-  // const { getTareas, handleEditar, handleEliminar, handleConfirmar, tareas } = useTarea({ id }); // Pasar el id al hook
+  const { validarCampo, errores } = useValidaciones(); // Usa el hook de validaciones
 
-  const url = 'https://tfg-backend-piniass-projects.vercel.app/tareas';
-  // const navigate = useNavigate();
+  const url = 'http://127.0.0.1:8000/tareas';
 
- 
   const handleSubmitCrear = async (event) => {
     event.preventDefault();
+    
+    // Validar el campo de la tarea
+    const esTareaValida = validarCampo('tarea', tareaNueva);
+    if (!esTareaValida) {
+      return alert('El campo no puede estar vacio ');;
+    }
+    
     try {
       const data = {
         tarea: tareaNueva,
@@ -29,21 +36,18 @@ export default function FormulariosTareas(props) {
         data: qs.stringify(data),
         url: url,
       };
-      console.log(data)
+
       const res = await axios(options);
       console.log(res.data);
-      console.log(props)
-      // window.location.reload()
-      actualizarTareas() //esto no funciona bien
-      setEstadoForm(false)
+      actualizarTareas();
+      setEstadoForm(false);
     } catch (error) {
       console.error('Error al crear tarea:', error);
     }
   };
 
-
   const cerrarForm = () => {
-    setEstadoForm(false)
+    setEstadoForm(false);
   }
 
   return (
@@ -52,10 +56,8 @@ export default function FormulariosTareas(props) {
         <div className='flex items-center justify-between mb-2'>
           <label htmlFor="tareaNueva" className="text-lg font-semibold mb-2">Introduce una nueva tarea</label>
           <button className='bg-transparent' onClick={cerrarForm}>
-          <CloseIcon /> 
-
+            <CloseIcon /> 
           </button>
-          {/* no funciona esta funcion, revisar */}
         </div>
         <textarea 
           id="tareaNueva"

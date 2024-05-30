@@ -11,7 +11,7 @@ const useEntrenamiento = (id_rutina) => {
         try {
           const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/entrenamientos/rutina/${rutinaId}`);
           setEntrenamiento(response.data);
-          return tareas
+          return entrenamiento
         } catch (err) {
           setError(err);
         }

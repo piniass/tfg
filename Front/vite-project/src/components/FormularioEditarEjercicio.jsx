@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import qs from 'qs';
 import useValidaciones from '../hooks/HooksValidaciones';
 
-export default function FormularioCrearEjercicio(props) {
-  // Definir los grupos musculares disponibles
-  const idEntrenamiento = props.entrenamientoObj.id;
+export default function FormularioEditarEjercicio(props) {
+  const { ejercicio, getEjercicios, setFormEditEjercicio } = props;
   const gruposMusculares = [
-    'Abductor',
-    'Abdominales',
     'Pectoral',
     'Bíceps',
     'Tríceps',
@@ -16,24 +13,20 @@ export default function FormularioCrearEjercicio(props) {
     'Espalda',
     'Deltoides',
     'Gemelos',
-    'Femoral',
     'Glúteo'
   ];
   
-  const url = `http://127.0.0.1:8000/ejercicios/entreanmiento`;
+  const url = `http://127.0.0.1:8000/ejercicios/${ejercicio.id}`;
   const { errores, validarCampo } = useValidaciones();
 
-  const [nombreEjercicio, setNombreEjercicio] = useState('');
-  const [grupoMuscular, setGrupoMuscular] = useState('');
-  const [series, setSeries] = useState('');
-  const [repeticiones, setRepeticiones] = useState('');
+
+  const [nombreEjercicio, setNombreEjercicio] = useState(ejercicio.nombre || '');
+  const [grupoMuscular, setGrupoMuscular] = useState(ejercicio.grupo_muscular || '');
+  const [series, setSeries] = useState(ejercicio.series || '');
+  const [repeticiones, setRepeticiones] = useState(ejercicio.repeticiones || '');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(nombreEjercicio)
-    console.log(grupoMuscular)
-    console.log(series)
-    console.log(repeticiones)
     const nombreValido = validarCampo('nombre', nombreEjercicio);
     const musculoValido = validarCampo('grupoMuscular', grupoMuscular);
     const seriesValidas = validarCampo('series', series);
@@ -58,14 +51,13 @@ export default function FormularioCrearEjercicio(props) {
         nombre: nombreEjercicio,
         grupo_muscular: grupoMuscular,
         series: series,
-        repeticiones: repeticiones,
-        id_entrenamiento: idEntrenamiento
+        repeticiones: repeticiones
       };
 
       console.log(data);
 
       const options = {
-        method: 'POST',
+        method: 'PUT', 
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         data: qs.stringify(data),
         url,
@@ -73,22 +65,17 @@ export default function FormularioCrearEjercicio(props) {
 
       const res = await axios(options);
       console.log(res.data);
-      props.getEjercicios();
-      //props.actualizarEjercicios();
+      getEjercicios();
+      setFormEditEjercicio(false);
     } catch (error) {
       console.log("Errores:", error.response ? error.response.data.detail : error.message);
     }
-
-    // Cerrar el formulario después de enviar
-    //props.setForm(false);
-    //props.getEjercicios();
   };
-
 
   return (
     <section className='p-4 w-full flex flex-col'>
-      <h4 className='text-xl mb-2'>Añade un ejercicio al día de {props.entrenamientoObj.nombre}</h4>
-      <form className='flex  gap-2 w-full flex-col sm:flex-row' onSubmit={handleSubmit}>
+      <h4 className='text-xl mb-2'>Edita el ejercicio {ejercicio.nombre}</h4>
+      <form className='flex gap-2 w-full flex-col sm:flex-row' onSubmit={handleSubmit}>
         <div className='flex flex-col lg:flex-row gap-2'> 
           <input
             type="text"
@@ -106,32 +93,31 @@ export default function FormularioCrearEjercicio(props) {
           >
             <option value="">Grupo Muscular</option>
             {gruposMusculares.map((grupo, index) => (
-              <option key={index} value={grupo}>{grupo}</option>
+              <option key={index} value={grupo.toLowerCase()}>{grupo}</option>
             ))}
           </select>
         </div>
         <div className='flex flex-col lg:flex-row gap-2'> 
-        <input
-          type="number"
-          name="series"
-          id="series"
-          placeholder='Series'
-          className='border rounded-md p-2 w-full sm:w-32'
-          value={series}
-          onChange={(e) => setSeries(e.target.value)}
-        />
-        <input
-          type="number"
-          name="repeticiones"
-          id="repeticiones"
-          placeholder='Repeticiones'
-          className='border rounded-md p-2 w-full sm:w-32'
-          value={repeticiones}
-          onChange={(e) => setRepeticiones(e.target.value)}
-        />
+          <input
+            type="number"
+            name="series"
+            id="series"
+            placeholder='Series'
+            className='border rounded-md p-2 w-full sm:w-32'
+            value={series}
+            onChange={(e) => setSeries(e.target.value)}
+          />
+          <input
+            type="number"
+            name="repeticiones"
+            id="repeticiones"
+            placeholder='Repeticiones'
+            className='border rounded-md p-2 w-full sm:w-32'
+            value={repeticiones}
+            onChange={(e) => setRepeticiones(e.target.value)}
+          />
         </div>
-        
-        <input type="submit" value="Crear ejercicio" className='w-full sm:w-56 bg-green-500 text-white p-2 rounded-md cursor-pointer hover:bg-green-600' />
+        <input type="submit" value="Editar ejercicio" className='w-full sm:w-56 bg-green-500 text-white p-2 rounded-md cursor-pointer hover:bg-green-600' />
       </form>
     </section>
   );

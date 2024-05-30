@@ -37,7 +37,7 @@ export default function ListaDeTareas(props) {
     <>
     <div className='p-2 flex'>
       <h2 className="text-xl p-4 pb-0 font-semibold mb-4">Lista de Tareas</h2>
-      <button onClick={mostrarForm}>Crear Tarea</button>
+      <button className='bg-blue-600 text-white' onClick={mostrarForm}>Crear Tarea</button>
     </div>
     {
       taskForm && <FormulariosTareas actualizarTareas={actualizarTareas} setEstadoForm={setEstadoForm}/>

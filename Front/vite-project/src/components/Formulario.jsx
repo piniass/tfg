@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-
+import User from '../svgs/User';
+import Lock from '../svgs/Lock';
+import Spinner from '../svgs/Spinner';
 
 export default function Formulario() {
 
@@ -10,6 +11,7 @@ export default function Formulario() {
     const [contrasenia, setContrasenia] = useState('');
     const [datosRecibidos, setDatosRecibidos] = useState(null);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate(); 
 
     const login = () => {
@@ -20,12 +22,14 @@ export default function Formulario() {
         console.log("hola")
         event.preventDefault();
         try {
+            setLoading(true)
             // Realizar la petición GET a la API
             const response = await axios.get('https://tfg-backend-piniass-projects.vercel.app/entrenadores');
             // Actualizar el estado con los datos recibidos
             setDatosRecibidos(response.data);
             // Verificar coincidencia entre correo y contraseña ingresados y los datos recibidos
             const coincidencia = response.data.find(entrenador => entrenador.correo === correo && entrenador.password === contrasenia);
+            setLoading(false)
             if (coincidencia) {
                 // Utilizar navigate para navegar a la ruta del dashboard (Home)
                 sessionStorage.setItem("id", coincidencia.id);
@@ -44,13 +48,17 @@ export default function Formulario() {
         }
     };
   return (
-    <section className='p-8'>
-        <form onSubmit={handleSubmit} className='border-2 w-80 flex flex-col p-8 gap-4 '>
+    <section className='p-2 md:p-5 h-full w-full'>
+        <form onSubmit={handleSubmit} className='flex flex-col p-2 md:p-5 gap-4 '>
             <h2 className='text-center text-2xl text-white'>Iniciar Sesion</h2>
 
-            <label className='text-white' htmlFor='correo'>Introduce tu correo</label>
+            <label className='text-black relative w-full' htmlFor='correo'>Introduce tu correo
+            <span className='absolute top-8 left-1 text-gray-500'>
+                <User />
+            </span>
+            
             <input 
-                className='p-2'
+                className='p-2 pl-8 w-full'
                 type="text" 
                 placeholder="Correo electronico"
                 id="correo"
@@ -58,19 +66,30 @@ export default function Formulario() {
                 value={correo}
                 onChange={(e) => setCorreo(e.target.value)}
                 />
-            <label htmlFor='contrasenia' className='text-white'>Contraseña</label>
+            </label>
+            <label htmlFor='contrasenia' className='text-white relative w-full'>Contraseña
+            <span className='absolute top-8 left-1 text-gray-500'>
+                <Lock />
+            </span>
             <input 
-                className='p-2'
+                className='p-2 pl-8 w-full text-black'
                 type="password" 
                 placeholder="Contraseña"
                 id="contrasenia"
                 onChange={(e) => setContrasenia(e.target.value)}
                 value={contrasenia} />
-            <input 
-                type="submit" 
-                value="Iniciar Sesion"
-                className='rounded cursor-pointer bg-green-600 p-2 text-white'
-                />
+            </label>
+            {
+                loading ? (<div className='w-full bg-gray-300 p-2 flex items-center justify-center rounded'>
+                    <Spinner/>
+                    </div>)
+                : (<input 
+                    type="submit" 
+                    value="Iniciar Sesion"
+                    className='rounded cursor-pointer bg-green-600 p-2 text-white'
+                    />)
+            }
+            
             <input
                 type='button'
                 value='Registrarse'

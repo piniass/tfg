@@ -1,25 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CloseIcon from '../svgs/CloseIcon';
 import avatardefault from '../../public/avatardefault.png';
 import axios from 'axios'; // Importa axios
 import qs from 'qs'; // Importa qs si lo estás utilizando
-// Importa navigate desde @reach/router si es necesario
 import useValidaciones from '../hooks/HooksValidaciones';
 
-export default function FormularioCrearRutina(props) {
-    const imagenes = ["gorila.jpg", "tiburon.jpg", "cocodrilo.jpg", "leon.jpg", "ornitorrinco.jpg", "tortuga.jpg", "lobo.jpg"];
-    const [selectedImg, setSelectedImg] = useState('');
-    // const ruta = "../../public/img-rutinas/" + selectedImg;
-    const ruta = "/img-rutinas/" + selectedImg;
 
+export default function FormularioEditarRutina({ rutina, actualizarRutinas, setForm }) {
+    const imagenes = ["gorila.jpg", "tiburon.jpg", "cocodrilo.jpg", "leon.jpg", "ornitorrinco.jpg", "tortuga.jpg", "lobo.jpg"];
+    const [selectedImg, setSelectedImg] = useState(rutina.foto || '');
+    const [nombreRutina, setNombreRutina] = useState(rutina.nombre || '');
+    const ruta = "../../public/img-rutinas/" + selectedImg;
     const id_entrenador = sessionStorage.getItem("id");
-    const url = `https://tfg-backend-piniass-projects.vercel.app/rutinas/cliente/`;
-    console.log(props)
-    const [rutinaNueva, setRutinaNueva] = useState(''); // Estado para el nombre de la rutina
+    const url = `http://127.0.0.1:8000/rutinas/${rutina.id}/`;
     const { errores, validarCampo } = useValidaciones();
 
+
+    useEffect(() => {
+        setSelectedImg(rutina.foto || '');
+        setNombreRutina(rutina.nombre || '');
+    }, [rutina]);
+
     const handleCloseForm = () => {
-        props.setForm(false);
+        setForm(false);
     };
 
     const handleImgChange = (event) => {
@@ -30,12 +33,12 @@ export default function FormularioCrearRutina(props) {
 
     const handleNombreChange = (event) => {
         const nuevoNombre = event.target.value;
-        setRutinaNueva(nuevoNombre);
+        setNombreRutina(nuevoNombre);
     };
 
     const handleSubmit = async (ev) => {
         ev.preventDefault();
-        const nombreValido = validarCampo('rutina', rutinaNueva);
+        const nombreValido = validarCampo('rutina', nombreRutina);
         const ImgValida = validarCampo('avatar', selectedImg);
         if (!nombreValido) {
             return alert("El nombre debe empezar por mayúscula y no contener ninguna más.");
@@ -46,13 +49,13 @@ export default function FormularioCrearRutina(props) {
 
         try {
             const data = {
-                nombre: rutinaNueva, // Usar el estado rutinaNueva
+                nombre: nombreRutina, 
                 foto: selectedImg,
-                id: id_entrenador
+                id_entrenador: id_entrenador
             };
-            console.log(data)
+            console.log(data);
             const options = {
-                method: 'POST',
+                method: 'PUT',
                 headers: { 'content-type': 'application/x-www-form-urlencoded' },
                 data: qs.stringify(data),
                 url,
@@ -61,11 +64,12 @@ export default function FormularioCrearRutina(props) {
             const res = await axios(options);
             console.log(res.data);
 
+            actualizarRutinas(); 
+            setForm(false); 
+
         } catch (error) {
             console.log("Errores:", error.response.data.detail);
         }
-        props.actualizarRutinas()
-        props.setForm(false);
     };
 
     const formatOptionText = (imagen) => {
@@ -96,8 +100,8 @@ export default function FormularioCrearRutina(props) {
                         </option>
                     ))}
                 </select>
-                <input value={rutinaNueva} onChange={handleNombreChange} type="text" placeholder='Introduce el nombre de la rutina' className='p-2 border' />
-                <input type="submit" value="Crear rutina" className='bg-green-500 p-2 text-white cursor-pointer' />
+                <input value={nombreRutina} onChange={handleNombreChange} type="text" placeholder='Introduce el nombre de la rutina' className='p-2 border' />
+                <input type="submit" value="Actualizar rutina" className='bg-green-500 p-2 text-white cursor-pointer' />
             </form>
         </section>
     );

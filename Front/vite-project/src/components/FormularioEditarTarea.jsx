@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import CloseIcon from '../svgs/CloseIcon';
 import qs from 'qs';
 import axios from 'axios';
+import useValidaciones from '../hooks/HooksValidaciones';
+
 
 export default function FormularioEditarTarea(props) {
   var id_entrenador = sessionStorage.getItem("id");
@@ -9,9 +11,15 @@ export default function FormularioEditarTarea(props) {
   const id = tarea.id
   const tareaAntigua = tarea.tarea;
   const [tareaNueva, setTareaNueva] = useState(tareaAntigua);
+  const { validarCampo, errores } = useValidaciones(); // Usa el hook de validaciones
+
 
   const handleSubmitActualizar = async (event) => {
     event.preventDefault();
+    const esTareaValida = validarCampo('tarea', tareaNueva);
+    if (!esTareaValida) {
+      return alert('El campo no puede estar vacio ');;
+    }
     try {
       const data = {
         tarea: tareaNueva,
