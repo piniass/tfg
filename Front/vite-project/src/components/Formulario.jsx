@@ -58,7 +58,7 @@ export default function Formulario() {
             </span>
             
             <input 
-                className='p-2 pl-8 w-full'
+                className='p-2 pl-8 w-full text-black'
                 type="text" 
                 placeholder="Correo electronico"
                 id="correo"
