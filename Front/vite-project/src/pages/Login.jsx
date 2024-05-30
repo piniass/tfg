@@ -11,7 +11,6 @@ import ProgesionForm from '../components/ProgesionForm';
 import useValidaciones from '../hooks/HooksValidaciones';
 
 export default function Login() {
-
     const [name, setName] = useState()
     const [apellido, setApellido] = useState()
     const [email, setEmail] = useState()
@@ -77,7 +76,11 @@ export default function Login() {
             console.log(user)
             const res = await axios(options);
             console.log(res.data);
-            navigate("/");
+            sessionStorage.setItem("id", coincidencia.id);
+            sessionStorage.setItem("nombre", coincidencia.nombre);
+            sessionStorage.setItem("apellido", coincidencia.apellido);
+            sessionStorage.setItem("foto", coincidencia.avatar);
+            navigate("/dashboard");
           }catch(err){
             setError(err.response.data.detail);
             console.log(error)
