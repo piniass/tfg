@@ -72,7 +72,7 @@ export default function Login() {
             url,
           };
         
-          try{
+          try {
             console.log(user)
             const res = await axios(options);
             console.log(res.data);
@@ -81,10 +81,16 @@ export default function Login() {
             sessionStorage.setItem("apellido", apellido);
             sessionStorage.setItem("foto", avatar);
             navigate("/dashboard");
-          }catch(err){
-            setError(err.response.data.detail);
-            console.log(error)
+          } catch (err) {
+            if (err.response && err.response.data && err.response.data.detail) {
+              setError(err.response.data.detail);
+              console.log(err.response.data.detail);
+            } else {
+              setError("Error desconocido al procesar la solicitud.");
+              console.error("Error desconocido:", err);
+            }
           }
+          
         }
     }
 
