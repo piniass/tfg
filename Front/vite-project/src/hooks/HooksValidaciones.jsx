@@ -16,9 +16,10 @@ const useValidaciones = () => {
   };
 
   const validarNombreApellido = (nombreApellido) => {
-    const regex = /^[A-Z][a-z]+$/;
+    const regex = /^[A-ZÑ][a-zñ]+$/;
     return regex.test(nombreApellido);
-  };
+};
+
 
   const validarNoVacio = (campo) => campo.trim() !== '';
 
