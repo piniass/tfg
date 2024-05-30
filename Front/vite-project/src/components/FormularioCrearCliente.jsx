@@ -42,7 +42,7 @@ export default function FormularioCrearCliente(props) {
   }
   
   if (!esAlturaValido) {
-      alert('Laaltura no puede ser superior a 273 o negativa');
+      alert('La altura no puede ser superior a 273 o negativa');
       return;
   }
   
