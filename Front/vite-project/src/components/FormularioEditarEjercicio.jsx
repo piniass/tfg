@@ -27,7 +27,7 @@ export default function FormularioEditarEjercicio(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const nombreValido = validarCampo('nombre', nombreEjercicio);
+    const nombreValido = validarCampo('ejercicio', nombreEjercicio);
     const musculoValido = validarCampo('grupoMuscular', grupoMuscular);
     const seriesValidas = validarCampo('series', series);
     const repeticionesValidas = validarCampo('repeticiones', repeticiones);
