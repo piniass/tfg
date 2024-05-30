@@ -12,7 +12,7 @@ export default function FormularioEditarRutina({ rutina, actualizarRutinas, setF
     const [nombreRutina, setNombreRutina] = useState(rutina.nombre || '');
     const ruta = "../../public/img-rutinas/" + selectedImg;
     const id_entrenador = sessionStorage.getItem("id");
-    const url = `http://127.0.0.1:8000/rutinas/${rutina.id}/`;
+    const url = `http://tfg-backend-piniass-projects.vercel.app/rutinas/${rutina.id}/`;
     const { errores, validarCampo } = useValidaciones();
 
 

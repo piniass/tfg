@@ -16,7 +16,7 @@ export default function FormularioEditarEjercicio(props) {
     'Glúteo'
   ];
   
-  const url = `http://127.0.0.1:8000/ejercicios/${ejercicio.id}`;
+  const url = `http://tfg-backend-piniass-projects.vercel.app/ejercicios/${ejercicio.id}`;
   const { errores, validarCampo } = useValidaciones();
 
 

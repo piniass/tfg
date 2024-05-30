@@ -16,7 +16,7 @@ export default function FormularioEditarEntrenamiento(props) {
   ];
       console.log(nombreEntrenamiento)
       console.log(diaSeleccionado)
-  const url = `http://127.0.0.1:8000/entrenamientos/${id}`;
+  const url = `http://tfg-backend-piniass-projects.vercel.app/entrenamientos/${id}`;
   const { errores, validarCampo } = useValidaciones();
 
 

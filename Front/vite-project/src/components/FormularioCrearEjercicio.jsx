@@ -20,7 +20,7 @@ export default function FormularioCrearEjercicio(props) {
     'Glúteo'
   ];
   
-  const url = `http://127.0.0.1:8000/ejercicios/entreanmiento`;
+  const url = `http://tfg-backend-piniass-projects.vercel.app/ejercicios/entreanmiento`;
   const { errores, validarCampo } = useValidaciones();
 
   const [nombreEjercicio, setNombreEjercicio] = useState('');

@@ -28,7 +28,7 @@ export default function FormularioEditarCliente(props) {
     }
   }, [cliente]);
 
-  const url = `http://127.0.0.1:8000/cliente/${cliente.id}`;
+  const url = `http://tfg-backend-piniass-projects.vercel.app/cliente/${cliente.id}`;
   
   const handleSubmit = async (ev) => {
     ev.preventDefault();

@@ -6,7 +6,7 @@ import useValidaciones from '../hooks/HooksValidaciones';
 export default function FormularioEditarPeso(props) {
     const [peso, setPeso] = useState('')
     const id = props.state.id
-    const url = `http://127.0.0.1:8000/pesos/${props.pesoNuevo?.id || ''}`;
+    const url = `http://tfg-backend-piniass-projects.vercel.app/pesos/${props.pesoNuevo?.id || ''}`;
     const { errores, validarCampo } = useValidaciones();
 
     const handleCancelar = () => {
