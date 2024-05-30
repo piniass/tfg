@@ -29,20 +29,14 @@ export default function EjerciciosContainer(props) {
             <VerRutina id={id} id_rutina={id_rutina}/>
             {
                 !loading ?  
-                (
-                    counterEj !== null ? 
-                    (counterEj.length === 0 ? 
-                        <p>No hay ejercicios disponibles.</p> :
-                        <GraficaGruposMusc counterEj={counterEj}/>
-                    ) :
-                    <p>No hay información disponible.</p>
-                ) :
+                <GraficaGruposMusc counterEj={counterEj}/>
+                :
                 <div className='flex flex-col items-center justify-center'>
                     <Spinner/>
-                    <p>Cargando información</p>
+                    <p>Cargan información</p>
                 </div> 
-            }   
+            }
+           
         </section>
     );
-    
 }
