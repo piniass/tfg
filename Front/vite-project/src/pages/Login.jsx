@@ -76,10 +76,10 @@ export default function Login() {
             console.log(user)
             const res = await axios(options);
             console.log(res.data);
-            sessionStorage.setItem("id", coincidencia.id);
-            sessionStorage.setItem("nombre", coincidencia.nombre);
-            sessionStorage.setItem("apellido", coincidencia.apellido);
-            sessionStorage.setItem("foto", coincidencia.avatar);
+            sessionStorage.setItem("id", id);
+            sessionStorage.setItem("nombre", nombre);
+            sessionStorage.setItem("apellido", apellido);
+            sessionStorage.setItem("foto", avatar);
             navigate("/dashboard");
           }catch(err){
             setError(err.response.data.detail);
