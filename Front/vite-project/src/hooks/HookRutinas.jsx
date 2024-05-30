@@ -19,7 +19,7 @@ const useRutinas = () => {
 
       const getRutinasId = async (id_cliente) => {
         try {
-          const response = await axios.get(`http://127.0.0.1:8000/rutinas/entrenador/${id_cliente}`);
+          const response = await axios.get(`http://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id_cliente}`);
           setRutinas(response.data);
         } catch (err) {
           setError(err);

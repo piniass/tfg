@@ -10,7 +10,7 @@ const useCliente = () => {
     console.log("entro al try")
     try {
       console.log("hago peticion")
-      const response = await axios.get(`http://localhost:8000/clientes/entrenador/${id}`);
+      const response = await axios.get(`http://tfg-backend-piniass-projects.vercel.app/clientes/entrenador/${id}`);
       setCliente(response.data);
       console.log("devuelvo peticion")
     } catch (err) {
@@ -24,7 +24,7 @@ const useCliente = () => {
     try {
       const confirmDelete = true;
       if (confirmDelete) {
-        await axios.delete(`http://127.0.0.1:8000/cliente/${cliente}`);
+        await axios.delete(`http://tfg-backend-piniass-projects.vercel.app/cliente/${cliente}`);
         getClientes(); // Refresca la lista de clientes después de eliminar
       }
     } catch (err) {

@@ -8,7 +8,7 @@ const useEjercicio = (id_entrenamiento) => {
     
     const getEjercicios = async () => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/ejercicios/entrenamiento/${entrenamientoId}`);
+            const response = await axios.get(`http://tfg-backend-piniass-projects.vercel.app/ejercicios/entrenamiento/${entrenamientoId}`);
             setEjercicio(response.data);
             console.log("Fetch ejercicios", ejercicio)
             return ejercicio;
@@ -21,7 +21,7 @@ const useEjercicio = (id_entrenamiento) => {
         try {
             //const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este ejercicio?");
             //if (confirmDelete) {
-                const response = await axios.delete(`http://127.0.0.1:8000/ejercicios/${id}`);
+                const response = await axios.delete(`http://tfg-backend-piniass-projects.vercel.app/ejercicios/${id}`);
                 console.log(response.data.message); 
                 getEjercicios();
                 console.log("hago el get")
