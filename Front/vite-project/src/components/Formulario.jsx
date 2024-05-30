@@ -52,13 +52,13 @@ export default function Formulario() {
         <form onSubmit={handleSubmit} className='flex flex-col p-2 md:p-5 gap-4 '>
             <h2 className='text-center text-2xl text-white'>Iniciar Sesion</h2>
 
-            <label className='text-black relative w-full' htmlFor='correo'>Introduce tu correo
+            <label className='text-white relative w-full' htmlFor='correo'>Introduce tu correo
             <span className='absolute top-8 left-1 text-gray-500'>
                 <User />
             </span>
             
             <input 
-                className='p-2 pl-8 w-full'
+                className='p-2 pl-8 w-full text-black'
                 type="text" 
                 placeholder="Correo electronico"
                 id="correo"
