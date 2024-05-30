@@ -19,7 +19,8 @@ export default function FormularioCrearCliente(props) {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-    console.log(nombre)
+    console.log("foto: ",avatarSeleccionado)
+
     const esNombreValido = validarCampo('nombre', nombre);
     const esApellidoValido = validarCampo('apellido', apellido);
     const esEdadValido = validarCampo('edad', edad);
@@ -81,8 +82,8 @@ export default function FormularioCrearCliente(props) {
   };
 
   const sacarImagen = (src) => {
-    const recortado = src.substring(13);
-    setAvatarSeleccionado(recortado);
+    // const recortado = src.substring(13);
+    setAvatarSeleccionado(src);
   };
 
   const handleClose = () => {

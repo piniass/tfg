@@ -8,9 +8,9 @@ const useContador = () => {
   
   const getCounter = async (id_cliente) => {
     setLoading(true)
-    setTimeout(() => {
+    // setTimeout(() => {
 
-    }, 4000);
+    // }, 4000);
     try {
         
         const response = await axios.get(`http://tfg-backend-piniass-projects.vercel.app/ejercicios/rutina/cliente/${id_cliente}`);

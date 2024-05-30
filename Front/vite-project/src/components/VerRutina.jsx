@@ -6,9 +6,13 @@ export default function VerRutina(props) {
     const { rutinas, getRutinasId } = useRutinas();
     const [rutinaObj, setRutinaObj] = useState(null); // Usar useState para inicializar el estado
 
+    console.log("id rutina para rutinas",id_rutina)
+    console.log("id para rutinas",id)
+
+
     useEffect(() => {
         if (id) {
-            getRutinasId(id);
+            getRutinasId(id_rutina);
         }
     }, [id]);
 

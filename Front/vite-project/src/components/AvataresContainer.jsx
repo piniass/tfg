@@ -1,9 +1,6 @@
 import React from 'react';
 
 const AvataresContainer = ({ sacarImagen }) => {
-  // const ruta = '../../public/';
-  const ruta = '/';
-  
   const avatares = [
     "gorila.jpg",
     "elefante.jpg",
@@ -15,16 +12,22 @@ const AvataresContainer = ({ sacarImagen }) => {
     "tiburon.jpg",
     "pantera.jpg"
   ];
+  
+  const handleClick = (avatar) => {
+    const imagenSrc =  avatar;
+    console.log("Imagen seleccionada:", imagenSrc);
+    sacarImagen(imagenSrc);
+  };
 
   return (
     <article className='grid justify-items-center items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-2 overflow-auto'>
       {avatares.map((avatar, index) => (
         <img
           key={index}
-          src={ruta + avatar}
+          src={avatar}
           alt="Avatar"
           className='size-28 cursor-pointer rounded-full  hover:shadow-lg'
-          onClick={() => sacarImagen(ruta + avatar)}
+          onClick={() => handleClick(avatar)}
         />
       ))}
     </article>

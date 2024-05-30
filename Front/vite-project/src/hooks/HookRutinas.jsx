@@ -18,9 +18,11 @@ const useRutinas = () => {
       };
 
       const getRutinasId = async (id_cliente) => {
+        console.log("id parametro hook: ",id_cliente)
         try {
           const response = await axios.get(`http://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id_cliente}`);
           setRutinas(response.data);
+          console.log("Rutina: ",response.data)
         } catch (err) {
           setError(err);
         }
