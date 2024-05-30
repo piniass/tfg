@@ -18,7 +18,7 @@ export default function Login() {
     const [pwd, setPwd] = useState()
     const [avatar, setAvatar] = useState()
     const [error, setError] = useState()
-    const url = 'http://127.0.0.1:8000/entrenadores'
+    const url = 'http://tfg-backend-piniass-projects.vercel.app/entrenadores'
     const navigate = useNavigate()
     const { errores, validarCampo } = useValidaciones();
 
