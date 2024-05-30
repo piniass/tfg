@@ -34,7 +34,7 @@ export default function FormularioCrearEjercicio(props) {
     console.log(grupoMuscular)
     console.log(series)
     console.log(repeticiones)
-    const nombreValido = validarCampo('nombre', nombreEjercicio);
+    const nombreValido = validarCampo('ejercicio', nombreEjercicio);
     const musculoValido = validarCampo('grupoMuscular', grupoMuscular);
     const seriesValidas = validarCampo('series', series);
     const repeticionesValidas = validarCampo('repeticiones', repeticiones);
