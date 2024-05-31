@@ -25,7 +25,7 @@ export default function ModalClientes(props) {
 
     const handlePutRutina = async (userId) => {
         try {
-            const url = `http://127.0.0.1:8000/cliente/rutina/${userId}`;
+            const url = `http://tfg-backend-piniass-projects.vercel.app/cliente/rutina/${userId}`;
             const data = {
                 id_rutina: rutina.id
             };
