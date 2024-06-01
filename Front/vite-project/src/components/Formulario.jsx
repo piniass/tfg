@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
-import { useUser } from '../context/UserProvider';
+
 
 export default function Formulario() {
-  const { setUserId, userId } = useUser();
+
 
   const [correo, setCorreo] = useState('');
   const [contrasenia, setContrasenia] = useState('');
@@ -38,15 +38,21 @@ export default function Formulario() {
       const res = await axios(options);
 
       if (res.data.token) {
-        const tiempo = 3600;
+        const tiempo = 10;
         const expTime = new Date(new Date().getTime() + (tiempo * 1000));
 
         // Establecer la cookie
         document.cookie = `token=${res.data.token}; expires=${expTime.toUTCString()}; path=/`;
         console.log(res.data.entrenador);
-        setUserId(res.data.entrenador.id);
+        sessionStorage.setItem("id", res.data.entrenador.id);
+        sessionStorage.setItem("nombre", res.data.entrenador.nombre);
+        sessionStorage.setItem("apellido", res.data.entrenador.apellido);
+        sessionStorage.setItem("foto", res.data.entrenador.avatar);
+
         // Redirigir a otra página
         navigate("/dashboard");
+      }else{
+        alert(res.data)
       }
       setDatosRecibidos(res.data);
     } catch (error) {
@@ -56,9 +62,6 @@ export default function Formulario() {
   };
 
   // Efecto para imprimir el userId cuando cambia
-  useEffect(() => {
-    console.log("User ID updated:", userId);
-  }, [userId]);
 
   return (
     <section className='p-8'>

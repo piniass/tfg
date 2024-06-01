@@ -35,7 +35,7 @@ const useValidaciones = () => {
 
   const validarDiaSemana = (dia) => ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'].includes(dia);
 
-  const validarGrupoMuscular = (grupo) => ['abductor','abdominales','pectoral','bíceps','tríceps','cuádriceps','espalda','deltoides','gemelos','glúteo'].includes(grupo);
+  const validarGrupoMuscular = (grupo) => ['abductor','abdominales','pectoral','bíceps','tríceps','cuádriceps','espalda','deltoides','femoral','gemelos','glúteo'].includes(grupo);
 
   const validarSeriesRepes = (valor) => valor > 0;
 

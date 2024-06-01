@@ -5,7 +5,7 @@ import qs from 'qs'
 import { useUser } from '../context/UserProvider';
 
 const useTarea = () => {
-  const { setUserId, userId } = useUser();
+  const id = sessionStorage.getItem('id');
 
     const [error, setError] = useState(null);
     const [tareas, setTareas] = useState([]);
@@ -13,8 +13,8 @@ const useTarea = () => {
   
     const getTareas = async () => {
       try {
-        console.log("fetch tareas id:",userId)
-        const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${userId}`);
+        console.log("fetch tareas id:",id)
+        const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
         setTareas(response.data);
         console.log(tareas)
 
