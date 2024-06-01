@@ -11,7 +11,15 @@ const useRutinas = () => {
         try {
           const response = await axios.get(`http://127.0.0.1:8000/rutinas/entrenador/${id}`);
           setRutinas(response.data);
-          return tareas
+        } catch (err) {
+          setError(err);
+        }
+      };
+
+      const getRutinasId = async (id_cliente) => {
+        try {
+          const response = await axios.get(`http://127.0.0.1:8000/rutinas/entrenador/${id_cliente}`);
+          setRutinas(response.data);
         } catch (err) {
           setError(err);
         }
@@ -47,6 +55,7 @@ const useRutinas = () => {
       return {
         getRutinas,
         actualizarRutinas,
+        getRutinasId,
         handleEliminar,
         rutinas
       }

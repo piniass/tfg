@@ -1,25 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
 import AvataresContainer from './AvataresContainer';
 import CloseIcon from '../svgs/CloseIcon';
 import useValidaciones from '../hooks/HooksValidaciones';
 
-export default function FormularioCrearCliente(props) {
-  const id = sessionStorage.getItem('id');
+export default function FormularioEditarCliente(props) {
+  const { cliente } = props;
   const [nombre, setNombre] = useState('');
   const [apellido, setApellidos] = useState('');
   const [edad, setEdad] = useState('');
   const [altura, setAltura] = useState('');
-  const [patologias, setPatologias] = useState(' ');
+  const [patologias, setPatologias] = useState('');
   const [avatarSeleccionado, setAvatarSeleccionado] = useState('');
-
+  
   const { errores, validarCampo } = useValidaciones();
-  const url = 'http://127.0.0.1:8000/cliente';
 
+  useEffect(() => {
+    if (cliente) {
+      setNombre(cliente.nombre || '');
+      setApellidos(cliente.apellido || '');
+      setEdad(cliente.edad || '');
+      setAltura(cliente.altura || '');
+      setPatologias(cliente.patologias || '');
+      setAvatarSeleccionado(cliente.avatar || '');
+    }
+  }, [cliente]);
+
+  const url = `http://127.0.0.1:8000/cliente/${cliente.id}`;
+  
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-    console.log(nombre)
     const esNombreValido = validarCampo('nombre', nombre);
     const esApellidoValido = validarCampo('apellido', apellido);
     const esEdadValido = validarCampo('edad', edad);
@@ -42,7 +54,7 @@ export default function FormularioCrearCliente(props) {
   }
   
   if (!esAlturaValido) {
-      alert('La altura no puede ser superior a 273 o negativa');
+      alert('Laaltura no puede ser superior a 273 o negativa');
       return;
   }
   
@@ -50,8 +62,7 @@ export default function FormularioCrearCliente(props) {
       alert('Por favor, selecciona un avatar.');
       return;
   }
-
-
+  
     try {
       const data = {
         nombre,
@@ -60,25 +71,24 @@ export default function FormularioCrearCliente(props) {
         altura,
         patologias,
         avatar: avatarSeleccionado,
-        id_entrenador: id,
       };
-
+  
       const options = {
-        method: 'POST',
+        method: 'PUT',
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
         data: qs.stringify(data),
         url,
       };
-
+      
       const res = await axios(options);
       console.log(res.data);
       props.getClientes();
-      props.setForm(false);
-
-    } catch (error) {
+      props.setEdit(false);
+  
+    } catch(error) {
       console.log("Errores:", error.response.data.detail);
     }
-  };
+  }
 
   const sacarImagen = (src) => {
     const recortado = src.substring(13);
@@ -86,15 +96,15 @@ export default function FormularioCrearCliente(props) {
   };
 
   const handleClose = () => {
-    props.setForm(false);
-  };
+    props.setEdit(false);
+  }
 
   return (
     <section className='w-[450px] border-2 p-2 bg-white flex flex-col absolute top-11 right-0 left-0 ml-auto mr-auto'>
       <button className='bg-transparent self-end' onClick={handleClose}>
         <CloseIcon />
       </button>
-      <h2 className='text-xl p-2 pt-0 pb-0 text-center'>Crear Cliente</h2>
+      <h2 className='text-xl p-2 pt-0 pb-0 text-center'>Editar Cliente</h2>
       <form className='flex flex-col p-4 gap-4 w-full' onSubmit={handleSubmit}>
         <input
           className='p-2 border-solid border-2 rounded-lg'
@@ -105,7 +115,6 @@ export default function FormularioCrearCliente(props) {
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
         />
-        {errores.nombre && <span className="error">{errores.nombre}</span>}
         <input
           className='p-2 border-solid border-2 rounded-lg'
           type="text"
@@ -115,7 +124,6 @@ export default function FormularioCrearCliente(props) {
           value={apellido}
           onChange={(e) => setApellidos(e.target.value)}
         />
-        {errores.apellido && <span className="error">{errores.apellido}</span>}
         <input
           className='p-2 border-solid border-2 rounded-lg'
           type="number"
@@ -125,7 +133,6 @@ export default function FormularioCrearCliente(props) {
           value={edad}
           onChange={(e) => setEdad(e.target.value)}
         />
-        {errores.edad && <span className="error">{errores.edad}</span>}
         <input
           className='p-2 border-solid border-2 rounded-lg'
           type="number"
@@ -136,21 +143,18 @@ export default function FormularioCrearCliente(props) {
           value={altura}
           onChange={(e) => setAltura(e.target.value)}
         />
-        {errores.altura && <span className="error">{errores.altura}</span>}
         <textarea
           className='p-2 border-solid border-2 rounded-lg resize-none'
           name="patologias"
           id="patologias"
           placeholder='Introduce las posibles patologias'
           value={patologias}
-          onChange={(e) => setPatologias(e.target.value === '' ? ' ' : e.target.value)}
+          onChange={(e) => setPatologias(e.target.value)}
         ></textarea>
-        {errores.patologia && <span className="error">{errores.patologia}</span>}
         <fieldset className='border-2 border-solid overflow-auto h-64'>
           <legend className='text-xl text-center'>Elige un avatar</legend>
           <AvataresContainer sacarImagen={sacarImagen} />
         </fieldset>
-        {errores.avatar && <span className="error">{errores.avatar}</span>}
         <input
           className='p-2 rounded-lg bg-green-500 text-white cursor-pointer hover:bg-green-700'
           type="submit"

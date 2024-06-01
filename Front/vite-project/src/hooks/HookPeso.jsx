@@ -9,9 +9,13 @@ const usePeso = (id) => {
     const [loading, setLoading] = useState(false)
   
     const getPeso = async () => {
+      setLoading(true)
+      setTimeout(() => {
+
+      }, 3000);
       try {
         console.log("Entro al get")
-        setLoading(true)
+        
         const response = await axios.get(`http://127.0.0.1:8000/pesos/cliente/${idPersona}`);
         setPeso(response.data);
         setLoading(false)
