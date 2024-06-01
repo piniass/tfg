@@ -3,9 +3,9 @@ import Add from '../svgs/Add';
 import qs from 'qs';
 import axios from 'axios';
 import CheckIcon from '../svgs/CheckIcon'
+import CloseIcon from '../svgs/CloseIcon';
 
-
-export default function ModalRutinas({ rutinas, id_usuario, getRutinas, id_rutina,id_entrenador,updateState }) {
+export default function ModalRutinas({ rutinas, id_usuario, getRutinas, id_rutina,id_entrenador,updateState,setModal }) {
     console.log("modal rutinas props", { rutinas, id_usuario, getRutinas, id_rutina });
     const [rutinaActual,setRutina] = useState(null)
 
@@ -46,9 +46,18 @@ export default function ModalRutinas({ rutinas, id_usuario, getRutinas, id_rutin
         }
     }
 
+    const closeModal = () => {
+        setModal(false)
+    }
+
     return (
-        <div className='p-2 bg-slate-300'>
-            <ul className='flex flex-col gap-2'>
+        <div className='p-2 bg-white border rounded-md absolute top-52 left-0 right-0 ml-auto mr-auto w-72'>
+            <div className='w-full flex items-center justify-between mb-2'>
+                <h3 className='text-xl'>Elige una rutina</h3>
+                <button className='bg-transparent' onClick={closeModal}><CloseIcon/></button>
+
+            </div>
+            <ul className='flex flex-col gap-2 '>
                 {rutinas && rutinas.length > 0 ? (
                     rutinas.map((rutina) => (
                         rutina && (

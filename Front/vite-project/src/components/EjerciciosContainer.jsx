@@ -27,11 +27,13 @@ export default function EjerciciosContainer(props) {
 
 
     return (
-        <section className='border-2 p-4 flex justify-between'>
+        <section className='border-2 p-4 flex flex-col md:flex-row justify-between'>
             <VerRutina id={id} id_rutina={id_rutina} id_entrenador={id_entrenador} updateState={updateState}/>
             {
                 !loading ?  
+                <div className='flex items-center justify-center'>
                     <GraficaGruposMusc counterEj={counterEj}/>
+                </div>
                 :
                 <div className='flex flex-col items-center justify-center'>
                     <Spinner/>

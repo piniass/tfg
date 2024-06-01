@@ -32,8 +32,8 @@ export default function VerRutina(props) {
     return (
         <div className="p-4">
             {rutinaObj ? <p>Nombre de la rutina: {rutinaObj.nombre}</p> : <p>No hay una rutina asignada</p>}
-            <button onClick={openModal}>{rutinaObj ? (<p>Cambiar rutina</p>) : <p>Agregar rutina</p>}</button> 
-            {showModal && <ModalRutinas rutinas={rutinas} id_usuario={id} id_rutina={id_rutina} getRutinas={getRutinasId} id_entrenador={id_entrenador} updateState={updateState}/>}
+            <button className="mt-2 bg-transparent border-red-600" onClick={openModal}>{rutinaObj ? (<p>Cambiar rutina</p>) : <p>Agregar rutina</p>}</button> 
+            {showModal && <ModalRutinas rutinas={rutinas} id_usuario={id} id_rutina={id_rutina} getRutinas={getRutinasId} id_entrenador={id_entrenador} updateState={updateState} setModal={setModal}/>}
             
             {/* <ul>
                 {rutinas.map((rutina) => {
