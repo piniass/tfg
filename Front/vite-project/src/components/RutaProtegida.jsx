@@ -4,9 +4,9 @@ import { Navigate } from 'react-router-dom';
 import { useAutenticacion } from '../hooks/HookAutenticacion';
 
 const RutaProtegida = ({ element }) => {
-  const isAuthenticated = useAutenticacion();
+  const autenticado = useAutenticacion();
 
-  if (!isAuthenticated) {
+  if (!autenticado) {
     return <Navigate to="/" />;
   }
 

@@ -38,7 +38,7 @@ export default function Formulario() {
       const res = await axios(options);
 
       if (res.data.token) {
-        const tiempo = 10;
+        const tiempo = 1800;
         const expTime = new Date(new Date().getTime() + (tiempo * 1000));
 
         // Establecer la cookie
