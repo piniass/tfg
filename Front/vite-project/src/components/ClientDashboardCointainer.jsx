@@ -17,7 +17,6 @@ export default function ClientDashboardContainer() {
 
   useEffect(() => {
       getClientes();
-      console.log(cliente)
   }, [id]);
 
   const handleForm = async () => {
