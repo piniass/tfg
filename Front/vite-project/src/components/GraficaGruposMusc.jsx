@@ -7,7 +7,7 @@ export default function GraficaGruposMusc(props) {
     const valores = grupos ? Object.values(grupos) : []; 
     
     return (
-        <div className='w-[450px]'>
+        <div className='w-[250px] md:w-[450px]'>
             <h3 className='text-center text-xl'>Grafica de ejercicios</h3>
             <Pie 
                 data = {{

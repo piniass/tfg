@@ -7,16 +7,12 @@ const useCliente = () => {
   const [cliente, setCliente] = useState([]);
   
   const getClientes = async () => {
-    console.log("entro al try")
     try {
-      console.log("hago peticion")
       const response = await axios.get(`http://localhost:8000/clientes/entrenador/${id}`);
       setCliente(response.data);
-      console.log("devuelvo peticion")
     } catch (err) {
       setError(err);
     }
-    console.log("salgo del catch")
   };
 
   const handleEliminar = async (cliente) => {
