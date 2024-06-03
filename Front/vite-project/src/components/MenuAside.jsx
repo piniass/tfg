@@ -8,6 +8,7 @@ import MuscleIcon from '../svgs/MuscleIcon';
 export default function MenuAside() {
   const handleCerrarSesion = () => {
     sessionStorage.clear()
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     navigate("/")
   }
 

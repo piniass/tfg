@@ -105,7 +105,6 @@ export default function FormularioCrearCliente(props) {
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
         />
-        {errores.nombre && <span className="error">{errores.nombre}</span>}
         <input
           className='p-2 border-solid border-2 rounded-lg'
           type="text"
@@ -115,7 +114,6 @@ export default function FormularioCrearCliente(props) {
           value={apellido}
           onChange={(e) => setApellidos(e.target.value)}
         />
-        {errores.apellido && <span className="error">{errores.apellido}</span>}
         <input
           className='p-2 border-solid border-2 rounded-lg'
           type="number"
@@ -125,7 +123,6 @@ export default function FormularioCrearCliente(props) {
           value={edad}
           onChange={(e) => setEdad(e.target.value)}
         />
-        {errores.edad && <span className="error">{errores.edad}</span>}
         <input
           className='p-2 border-solid border-2 rounded-lg'
           type="number"
@@ -136,7 +133,6 @@ export default function FormularioCrearCliente(props) {
           value={altura}
           onChange={(e) => setAltura(e.target.value)}
         />
-        {errores.altura && <span className="error">{errores.altura}</span>}
         <textarea
           className='p-2 border-solid border-2 rounded-lg resize-none'
           name="patologias"
@@ -150,7 +146,6 @@ export default function FormularioCrearCliente(props) {
           <legend className='text-xl text-center'>Elige un avatar</legend>
           <AvataresContainer sacarImagen={sacarImagen} />
         </fieldset>
-        {errores.avatar && <span className="error">{errores.avatar}</span>}
         <input
           className='p-2 rounded-lg bg-green-500 text-white cursor-pointer hover:bg-green-700'
           type="submit"

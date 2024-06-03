@@ -20,7 +20,7 @@ export default function Login() {
     const [error, setError] = useState()
     const url = 'http://127.0.0.1:8000/entrenadores'
     const navigate = useNavigate()
-    const { errores, validarCampo } = useValidaciones();
+    const { validarCampo } = useValidaciones();
 
     
     console.log("nombre:", name)
@@ -31,28 +31,17 @@ export default function Login() {
 
     const handleSubmit = async(e) => {
         e.preventDefault()
-        console.log("nombre:", name)
-        console.log("apellido:", apellido)
+        console.log("nombre submit:", name)
+        console.log("apellido submit:", apellido)
         // console.log("email:", email)
         // console.log("pwd:", pwd)
         // console.log("avatar:", avatar)
-        const esNombreValido = validarCampo('nombre', name);
-        const esApellidoValido = validarCampo('apellido', apellido);
-        const esEmailValido = validarCampo('email', email);
-        const esPwdValido = validarCampo('password', pwd);
-        const esAvatarValido = validarCampo('avatar', avatar);
+        const esAvatar = validarCampo('avatar',avatar)
 
-        if (!esNombreValido) {
-          return alert("El nombre debe empezar por mayúscula y no contener ninguna más.");
-      } else if (!esApellidoValido) {
-          return alert("El apellido debe empezar por mayúscula.");
-      } else if (!esEmailValido) {
-          return alert("El correo debe contener un '@' y un dominio válido.");
-      } else if (!esPwdValido) {
-          return alert("La contraseña debe contener al menos 1 número, tener entre 5 y 12 caracteres.");
-      } else if (!esAvatarValido) {
-          return alert("El avatar no puede estar vacío. Haz clic sobre la imagen.");
-      } else {
+        if(!esAvatar){
+          alert("Selecciona un avatar")
+        }else{
+
           // Si todos los campos son válidos, continuar con el envío del formulario
           // Código para enviar el formulario
       
