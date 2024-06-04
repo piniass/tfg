@@ -14,10 +14,27 @@ export default function DetallesContainer(props) {
   const [state, setState] = useState(props.state);
 
   useEffect(() => {
-    console.log("primer use effect: ", props.state);
-    getPeso();
-    getRutinasId(id);
-  }, [id]);
+    const fetchData = async () => {
+        try {
+            // Ejecutamos getRutinasId con el id
+            await getRutinasId(id);
+            await getPeso();
+        } catch (error) {
+            console.error("Error fetching data: ", error);
+            // Verificar si el error es debido a CORS
+            if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+                // Vuelve a ejecutar la función para intentar nuevamente
+                console.log('Error de CORS. Volviendo a ejecutar la función...');
+                fetchData();
+            }
+        }
+    };
+
+    fetchData(); // Llama a la función para que ejecute las llamadas
+}, [id]);
+
+  
+  
 
   // Función para actualizar el estado
   const updateState = (newState) => {

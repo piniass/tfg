@@ -14,10 +14,19 @@ export default function EjerciciosContainer(props) {
     const updateState  = props.updateState 
     
     useEffect(() => {
-
         const fetchDataAsync = async () => {
-            if (id) {
-                await getCounter(id);
+            try {
+                if (id) {
+                    await getCounter(id);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                // Verifica si el error es debido a CORS
+                if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+                    // Vuelve a ejecutar la función de obtención de datos
+                    console.log('Error de CORS. Volviendo a ejecutar la función...');
+                    fetchDataAsync();
+                }
             }
         };
     
