@@ -14,12 +14,12 @@ const usePeso = (id) => {
 
       }, 3000);
       try {
-        console.log("Entro al get")
+        // console.log("Entro al get")
         
         const response = await axios.get(`http://127.0.0.1:8000/pesos/cliente/${idPersona}`);
         setPeso(response.data);
         setLoading(false)
-        console.log('Datos recibidos del backend:', response.data); // Agregar este console.log
+        // console.log('Datos recibidos del backend:', response.data); // Agregar este console.log
         return peso
       } catch (err) {
         setError(err);

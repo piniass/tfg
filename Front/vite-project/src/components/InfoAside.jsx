@@ -11,9 +11,9 @@ export default function InfoAside() {
   const [apellido, setApellido] = useState(localApellido);
  
   return (
-    <section className="flex flex-col items-center justify-center p-5 my-10 gap-4 text-white">
+    <section className="flex flex-col items-center justify-center p-2 my-10 gap-4 text-white">
       <FotoPerfil/>
-      <h2 className="text-3xl text-center">
+      <h2 className="text-2xl text-center hidden md:block">
         {nombre && <span>{nombre}</span>}
         {apellido && <span> {apellido}</span>}
       </h2>

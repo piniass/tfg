@@ -6,14 +6,18 @@ export default function TablaEjercicios(props) {
   const { ejercicio, handleEliminar, handleEditEjercicio } = props;
 
   return (
-    <section className='p-4'>
+    <section className='md:p-4'>
       <table className='table-auto border border-collapse table rounded-md w-full'>
         <thead className='border'>
           <tr>
             <th className='p-2'>Nombre</th>
-            <th className='p-2'>Grupo Muscular</th>
+            {
+              handleEliminar && handleEditEjercicio 
+              ? <th className='p-2'>Grupo Muscular</th>
+              :<th className='p-2 hidden md:block'>Grupo Muscular</th>
+            }
             <th className='p-2'>Series</th>
-            <th className='p-2'>Repeticiones</th>
+            <th className='p-2'>Reps</th>
             {/* Condición para mostrar los encabezados de Editar y Eliminar */}
             {handleEliminar && handleEditEjercicio && (
               <>
@@ -27,7 +31,12 @@ export default function TablaEjercicios(props) {
           {ejercicio.map((ej) => (
             <tr key={ej.id} className='border-b text-center'>
               <td className='p-2'>{ej.nombre}</td>
-              <td className='p-2'>{ej.grupo_muscular}</td>
+              {
+                handleEliminar && handleEditEjercicio 
+                ? <td className='p-2'>{ej.grupo_muscular}</td>
+                : <td className='p-2 hidden md:block'>{ej.grupo_muscular}</td>
+
+              }
               <td className='p-2'>{ej.series}</td>
               <td className='p-2'>{ej.repeticiones}</td>
               {/* Condición para mostrar los botones de Editar y Eliminar */}

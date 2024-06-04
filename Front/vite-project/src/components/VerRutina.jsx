@@ -29,7 +29,7 @@ export default function VerRutina(props) {
         const handleRutinas = () => {
             if (rutinas && rutinas.length > 0) {
                 const rutinaUsada = rutinas.find((rutina) => rutina.id === id_rutina);
-                console.log("Rutina usada: ", rutinaUsada);
+                // console.log("Rutina usada: ", rutinaUsada);
                 setRutinaObj(rutinaUsada);
             }
         };
@@ -70,7 +70,7 @@ export default function VerRutina(props) {
                 })}
             </ul> */}
             {entrenamiento.length > 0 ? 
-            <div className="flex gap-2 w-full">{ entrenamiento.map((training) => 
+            <div className="flex flex-col md:flex-row gap-2 w-full">{ entrenamiento.map((training) => 
                 <button key={training.id} onClick={() => getEntrenamientoId(training.id)}>{training.nombre}</button>)
                 }
             </div>

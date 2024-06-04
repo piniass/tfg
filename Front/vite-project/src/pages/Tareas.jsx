@@ -12,12 +12,12 @@ export default function Tareas() {
 
     useEffect(() => {
       getTareas()
-      console.log("prueba")
+      // console.log("prueba")
     }, []);
 
 
 
-   console.log("Estado tareas:",tareas)
+  //  console.log("Estado tareas:",tareas)
   return (
     <div className='flex'>
       <Aside id={id}/>

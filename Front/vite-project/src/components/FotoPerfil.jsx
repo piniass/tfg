@@ -9,7 +9,7 @@ export default function FotoPerfil() {
         <img 
             src={ruta}
             alt="Foto de Perfil"
-            className='rounded-full w-20 h-20 bg-cyan-500'
+            className='rounded-full w-12 h-12 md:w-20 md:h-20 bg-cyan-500'
         />
     );
 }
