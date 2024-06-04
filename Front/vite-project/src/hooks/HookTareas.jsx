@@ -16,9 +16,9 @@ const useTarea = () => {
         console.log("fetch tareas id:",id)
         const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
         setTareas(response.data);
-        console.log(tareas)
+        // console.log(tareas)
 
-        console.log('Datos recibidos del backend:', response.data); // Agregar este console.log
+        // console.log('Datos recibidos del backend:', response.data); // Agregar este console.log
         return tareas
       } catch (err) {
         setError(err);

@@ -6,7 +6,7 @@ import Spinner from '../svgs/Spinner';
 import useContador from '../hooks/HookContador';
 
 export default function EjerciciosContainer(props) {
-    console.log("props del contenedor de ejercicio", props)
+    // console.log("props del contenedor de ejercicio", props)
     const id = props.state.id;
     const id_rutina = props.state.id_rutina
     const id_entrenador = props.state.id_entrenador
@@ -36,7 +36,7 @@ export default function EjerciciosContainer(props) {
 
 
     return (
-        <section className='border-2 p-4 flex flex-col md:flex-row justify-between'>
+        <section className='border-2 p-4 flex flex-col lg:flex-row justify-between'>
             <VerRutina id={id} id_rutina={id_rutina} id_entrenador={id_entrenador} updateState={updateState}/>
             {
                 !loading ?  

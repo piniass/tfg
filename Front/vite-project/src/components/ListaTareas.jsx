@@ -44,23 +44,23 @@ export default function ListaDeTareas(props) {
     }
       
       <div className="h-full p-4 overflow-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-auto grid-flow-row-dense">
           {tareas.map(tarea => (
             <div key={tarea.id} className="border-2 p-4 rounded-md flex items-center justify-between "> {/* Agregué la clase flex y items-center */}
-              <div >
+              <div className='overflow-auto'>
               <p className={`text-lg font-semibold mb-2 flex-1 flex-wrap  ${tarea.confirmado ? 'line-through' : ''}`}>{tarea.tarea}</p> {/* Agregué la clase flex-1 */}
-              <p className={`text-lg font-semibold mb-2 flex-1 ${tarea.confirmado ? 'line-through' : ''}`}>{tarea.fecha_creacion}</p>
+              <p className={`text-lg font-semibold mb-2 flex-1 ${tarea.confirmado ? 'line-through' : ''}`}>Fecha de creacion: <br/>{tarea.fecha_creacion.substr(0,10)}</p>
               </div>
-              <div className="flex items-center ms-auto "> {/* Mantuve esta clase flex para los botones */}
+              <div className="flex items-center ms-auto flex-col md:flex-row gap-2"> {/* Mantuve esta clase flex para los botones */}
                 {
                   tarea.confirmado === true ? (<button className=" text-black font-bold py-2 px-4 rounded mr-2" onClick={() => handleConfirmar(tarea.id,tareas)}><CloseIcon/></button>) :
-                  <button className=" text-black font-bold py-2 px-4 rounded mr-2" onClick={() => handleConfirmar(tarea.id,tareas)}><TickIcon/></button>
+                  <button className=" text-black font-bold py-2 px-4 rounded hover:border-green-500" onClick={() => handleConfirmar(tarea.id,tareas)}><TickIcon/></button>
                 }  
                 {
                   taskFormEdit && <FormularioEditarTarea actualizarTareas={actualizarTareas} setEstadoForm={setEstadoFormEdit} tarea={tareaEdit}/>
                 }         
-                <button className=" text-black font-bold py-2 px-4 rounded mr-2" onClick={() => mostrarFormEditar(tarea)}><Edit/></button>
-                <button className=" text-black font-bold py-2 px-4 rounded" onClick={() => handleEliminar(tarea.id)}><DeleteIcon/></button>
+                <button className=" text-black font-bold py-2 px-4 rounded hover:border-yellow-400" onClick={() => mostrarFormEditar(tarea)}><Edit/></button>
+                <button className=" text-black font-bold py-2 px-4 rounded hover:border-red-500" onClick={() => handleEliminar(tarea.id)}><DeleteIcon/></button>
               </div>
             </div>
           ))}

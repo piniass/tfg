@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 export default function InfoDetalles(props) {
-    console.log(props)
+    // console.log(props)
     const [detalles, setDetalles] = useState(props.state)
     const ruta = '/' + detalles.avatar
     const nombre = detalles.nombre + ' ' + detalles.apellido
@@ -14,7 +14,6 @@ export default function InfoDetalles(props) {
         <p className='text-xl'>{nombre}, {edad}</p>
         <p className='text-xl'>Altura: {altura}</p>
         {patologia === ' ' ? <p className='text-xl'>Patologia: Ninguna</p> : <p className='text-xl'>Patologia: {patologia}</p>}
-        <button>Editar</button>
     </section>
   )
 }
