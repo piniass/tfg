@@ -3,7 +3,7 @@ import Edit from '../svgs/Edit';
 import DeleteIcon from '../svgs/Delete';
 
 export default function TablaPeso(props) {
-  const {nPeso, setNuevo, nPage, currentPage, setCurrentPage} = props
+  const {nPeso, setNuevo, nPage, currentPage, setCurrentPage, handleEliminar} = props
   // console.log(peso)
 
   const next = () => {
@@ -15,6 +15,10 @@ export default function TablaPeso(props) {
   }
   const handleEditar = (peso) => {
     setNuevo(peso)
+  }
+
+  const handleDelete = (id) => {
+    handleEliminar(id)
   }
 
   return (
@@ -41,7 +45,7 @@ export default function TablaPeso(props) {
               </td>
               <td className='p-2'>
                 <button className='md:hidden p-1' onClick={() => handleEliminar(item.id)}><DeleteIcon/></button>
-                <button className='hidden md:block w-full' onClick={() => handleEliminar(item.id)}>Eliminar</button>
+                <button className='hidden md:block w-full' onClick={() => handleDelete(item.id)}>Eliminar</button>
               </td>
             </tr>
           ))}

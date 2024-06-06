@@ -12,7 +12,7 @@ const usePeso = (id) => {
       setLoading(true)
       setTimeout(() => {
 
-      }, 3000);
+      }, 1000);
       try {
         // console.log("Entro al get")
         
@@ -34,7 +34,7 @@ const usePeso = (id) => {
         if (confirmDelete) {
           const response = await axios.delete(`http://127.0.0.1:8000/pesos/cliente/${id}`);
           console.log(response.data.message); 
-          actualizarTareas()
+          getPeso()
         }
   
       } catch (err) {
@@ -59,6 +59,7 @@ const usePeso = (id) => {
         getPeso,
         actualizarPeso,
         peso,
+        handleEliminar,
         loading
     }
   

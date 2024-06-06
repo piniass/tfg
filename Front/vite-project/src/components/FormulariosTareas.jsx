@@ -12,7 +12,7 @@ export default function FormulariosTareas(props) {
   const { id, actualizarTareas, handleEditar, setEstadoForm} = props;
   const [tareaNueva, setTareaNueva] = useState('');
   const { validarCampo, errores } = useValidaciones(); // Usa el hook de validaciones
-
+  const [tareaValida, setValida] = useState(true)
   const url = 'http://127.0.0.1:8000/tareas';
 
   const handleSubmitCrear = async (event) => {
@@ -21,32 +21,36 @@ export default function FormulariosTareas(props) {
     // Validar el campo de la tarea
     const esTareaValida = validarCampo('tarea', tareaNueva);
     if (!esTareaValida) {
-      return alert('El campo no puede estar vacio ');;
+      setValida(false)
+    }
+    if(esTareaValida){
+      try {
+        const data = {
+          tarea: tareaNueva,
+          id_entrenador: id_entrenador
+        };
+  
+        const options = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          data: qs.stringify(data),
+          url: url,
+        };
+  
+        const res = await axios(options);
+        console.log(res.data);
+        actualizarTareas();
+        setEstadoForm(false);
+      } catch (error) {
+        console.error('Error al crear tarea:', error);
+      }
     }
     
-    try {
-      const data = {
-        tarea: tareaNueva,
-        id_entrenador: id_entrenador
-      };
-
-      const options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        data: qs.stringify(data),
-        url: url,
-      };
-
-      const res = await axios(options);
-      console.log(res.data);
-      actualizarTareas();
-      setEstadoForm(false);
-    } catch (error) {
-      console.error('Error al crear tarea:', error);
-    }
   };
 
   const cerrarForm = () => {
+    setValida(true)
+
     setEstadoForm(false);
   }
 
@@ -66,6 +70,7 @@ export default function FormulariosTareas(props) {
           placeholder="Nueva Tarea"
           className="resize-none mb-2 p-2 border-2" 
         />
+        {!tareaValida && <p className='p-1 mb-2 bg-red-500 text-white rounded-md'>El campo no puede estar vacio </p>}
         <button className='bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded' type="submit">Crear</button>
       </form>
     </div>

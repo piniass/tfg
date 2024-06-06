@@ -58,6 +58,7 @@ export default function Formulario() {
     } catch (error) {
       // Manejar errores de la petición
       setError(error);
+      console.log(error)
     }
   };
 
