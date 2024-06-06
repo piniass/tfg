@@ -48,11 +48,13 @@ export default function Formulario() {
         sessionStorage.setItem("nombre", res.data.entrenador.nombre);
         sessionStorage.setItem("apellido", res.data.entrenador.apellido);
         sessionStorage.setItem("foto", res.data.entrenador.avatar);
+        setError(null)
 
         // Redirigir a otra página
         navigate("/dashboard");
       }else{
-        alert(res.data)
+        setError(res.data)
+        // alert(res.data)
       }
       setDatosRecibidos(res.data);
     } catch (error) {
@@ -65,8 +67,8 @@ export default function Formulario() {
   // Efecto para imprimir el userId cuando cambia
 
   return (
-    <section className='p-8'>
-      <form onSubmit={handleSubmit} className='border-2 w-80 flex flex-col p-8 gap-4 '>
+    <section className=''>
+      <form onSubmit={handleSubmit} className=' w-80 flex flex-col p-8 gap-4 '>
         <h2 className='text-center text-2xl text-white'>Iniciar Sesion</h2>
 
         <label className='text-white' htmlFor='correo'>Introduce tu correo</label>
@@ -88,6 +90,7 @@ export default function Formulario() {
           onChange={(e) => setContrasenia(e.target.value)}
           value={contrasenia} 
         />
+        { error && <p className='text-white'>{error}</p>}
         <input 
           type="submit" 
           value="Iniciar Sesion"
