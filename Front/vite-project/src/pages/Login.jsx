@@ -41,10 +41,6 @@ export default function Login() {
         if(!esAvatar){
           alert("Selecciona un avatar")
         }else{
-
-          // Si todos los campos son válidos, continuar con el envío del formulario
-          // Código para enviar el formulario
-      
       
 
         const user = {
@@ -69,6 +65,7 @@ export default function Login() {
             navigate("/");
           }catch(err){
             setError(err.response.data.detail);
+            alert(err.response.data.detail)
             console.log(error)
           }
         }
@@ -121,7 +118,5 @@ export default function Login() {
               </form>
         </section>
     </main>
-    
-    
   )
 }
