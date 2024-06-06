@@ -22,13 +22,11 @@ const useRutinas = () => {
 
       const getRutinasId = async (id_cliente) => {
         try {
-          setTimeout(() => {
-
-          }, 2000);
           const response = await axios.get(`http://127.0.0.1:8000/rutinas/entrenador/${id_cliente}`);
           setRutinas(response.data);
         } catch (err) {
           setError(err);
+          console.log(err)
         }
       };
 
