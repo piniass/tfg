@@ -3,9 +3,11 @@ import axios from 'axios';
 import { useState } from 'react';
 import qs from 'qs'
 // import { useUser } from '../context/UserProvider';
+import useHasheo from '../hooks/HookHasheo';
 
 const useTarea = () => {
-  const id = sessionStorage.getItem('id');
+  const {decryptData } = useHasheo();
+  const id = decryptData(sessionStorage.getItem("id"));
 
     const [error, setError] = useState(null);
     const [tareas, setTareas] = useState([]);

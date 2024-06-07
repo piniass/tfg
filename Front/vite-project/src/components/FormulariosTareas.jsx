@@ -4,10 +4,12 @@ import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import CloseIcon from '../svgs/CloseIcon';
 import useValidaciones from '../hooks/HooksValidaciones';
+import useHasheo from '../hooks/HookHasheo';
 
 
 export default function FormulariosTareas(props) {
-  var id_entrenador = sessionStorage.getItem("id");
+  const {decryptData } = useHasheo();
+  const id_entrenador = decryptData(sessionStorage.getItem("id"));
 
   const { id, actualizarTareas, handleEditar, setEstadoForm} = props;
   const [tareaNueva, setTareaNueva] = useState('');

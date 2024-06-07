@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
+import useHasheo from '../hooks/HookHasheo';
 
 const useCliente = () => {
-  const id = sessionStorage.getItem('id');
+  const {decryptData } = useHasheo();
+  const id = decryptData(sessionStorage.getItem("id"));
   const [error, setError] = useState(null);
   const [cliente, setCliente] = useState([]);
   

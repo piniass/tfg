@@ -5,13 +5,15 @@ import axios from 'axios'; // Importa axios
 import qs from 'qs'; // Importa qs si lo estás utilizando
 // Importa navigate desde @reach/router si es necesario
 import useValidaciones from '../hooks/HooksValidaciones';
+import useHasheo from '../hooks/HookHasheo';
 
 export default function FormularioCrearRutina(props) {
     const imagenes = ["gorila.jpg", "tiburon.jpg", "cocodrilo.jpg", "leon.jpg", "ornitorrinco.jpg", "tortuga.jpg", "lobo.jpg"];
     const [selectedImg, setSelectedImg] = useState('');
     const [rutinaNueva, setRutinaNueva] = useState('');
     const [ImgValida, setImgValida] = useState(true);
-    const id_entrenador = sessionStorage.getItem("id");
+    const {decryptData } = useHasheo();
+    const id_entrenador = decryptData(sessionStorage.getItem("id"));
     const url = `http://127.0.0.1:8000/rutinas/cliente/`;
     const [nombreValido, setNombre] = useState(true)
     const { errores, validarCampo } = useValidaciones();

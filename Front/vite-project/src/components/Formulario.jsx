@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
+import useHasheo from '../hooks/HookHasheo';
 
 
 export default function Formulario() {
@@ -12,6 +13,7 @@ export default function Formulario() {
   const [datosRecibidos, setDatosRecibidos] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
+  const {  encryptData } = useHasheo();
 
   const login = () => {
     navigate("/login");
@@ -43,11 +45,16 @@ export default function Formulario() {
 
         // Establecer la cookie
         document.cookie = `token=${res.data.token}; expires=${expTime.toUTCString()}; path=/`;
-        console.log(res.data.entrenador);
-        sessionStorage.setItem("id", res.data.entrenador.id);
-        sessionStorage.setItem("nombre", res.data.entrenador.nombre);
-        sessionStorage.setItem("apellido", res.data.entrenador.apellido);
-        sessionStorage.setItem("foto", res.data.entrenador.avatar);
+        const encryptedId = encryptData(res.data.entrenador.id.toString());
+        const encryptedNombre = encryptData(res.data.entrenador.nombre);
+        const encryptedApellido = encryptData(res.data.entrenador.apellido);
+        const encryptedFoto = encryptData(res.data.entrenador.avatar);
+    
+        // Almacenar en sessionStorage
+        sessionStorage.setItem("id", encryptedId);
+        sessionStorage.setItem("nombre", encryptedNombre);
+        sessionStorage.setItem("apellido", encryptedApellido);
+        sessionStorage.setItem("foto", encryptedFoto);
         setError(null)
 
         // Redirigir a otra página

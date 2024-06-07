@@ -4,9 +4,11 @@ import qs from 'qs';
 import AvataresContainer from './AvataresContainer';
 import CloseIcon from '../svgs/CloseIcon';
 import useValidaciones from '../hooks/HooksValidaciones';
+import useHasheo from '../hooks/HookHasheo';
 
 export default function FormularioCrearCliente(props) {
-  const id = sessionStorage.getItem('id');
+  const {decryptData } = useHasheo();
+  const id = decryptData(sessionStorage.getItem("id"));
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',

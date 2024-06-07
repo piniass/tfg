@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
 import qs from 'qs'
+import useHasheo from '../hooks/HookHasheo';
 
 const useRutinas = () => {
-    var id = sessionStorage.getItem("id");
+  const {decryptData } = useHasheo();
+  const id = decryptData(sessionStorage.getItem("id"));
     const [error, setError] = useState(null);
     const [rutinas, setRutinas] = useState([]);
 
