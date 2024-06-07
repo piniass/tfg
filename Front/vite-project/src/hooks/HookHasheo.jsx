@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import CryptoJS from 'crypto-js';
 
-const secretKey = 'abcdñ1234'; // Debes almacenar esto de forma segura, por ejemplo, en variables de entorno
+const secretKey = 'TANG"5MY=z6QII-KkTqVñ'; // Debes almacenar esto de forma segura, por ejemplo, en variables de entorno
 
 const useHasheo = () => {
   const [key] = useState(secretKey);
