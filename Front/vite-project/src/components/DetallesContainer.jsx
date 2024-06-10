@@ -24,7 +24,7 @@ export default function DetallesContainer(props) {
             // Verificar si el error es debido a CORS
             if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
                 // Vuelve a ejecutar la función para intentar nuevamente
-                console.log('Error de CORS. Volviendo a ejecutar la función...');
+                // console.log('Error de CORS. Volviendo a ejecutar la función...');
                 fetchData();
             }
         }

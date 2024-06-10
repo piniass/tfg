@@ -95,7 +95,7 @@ export default function FormularioCrearRutina(props) {
 
             <form className='flex flex-col gap-4 p-2' onSubmit={handleSubmit}>
                 {selectedImg ? (
-                    <img src={`../../public/img-rutinas/${selectedImg}`} alt="Rutina" />
+                    <img src={`${selectedImg}`} alt="Rutina" />
                 ) : (
                     <img src={avatardefault} alt="Avatar por defecto" />
                 )}

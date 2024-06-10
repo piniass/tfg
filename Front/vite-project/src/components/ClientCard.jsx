@@ -20,7 +20,7 @@ export default function ClientCard(props) {
     }, [props.cliente]);
 
     const borrarCliente = () => {
-        console.log(props.cliente.id)
+        // console.log(props.cliente.id)
         props.handleEliminar(props.cliente.id)
     }
 
