@@ -8,17 +8,17 @@ const useContador = () => {
   
   const getCounter = async (id_cliente) => {
     setLoading(true)
-    // setTimeout(() => {
+    setTimeout(() => {
 
-    // }, 4000);
+    }, 2000);
     try {
         
-        const response = await axios.get(`http://tfg-backend-piniass-projects.vercel.app/ejercicios/rutina/cliente/${id_cliente}`);
+        const response = await axios.get(`http://localhost:8000/ejercicios/rutina/cliente/${id_cliente}`);
         setLoading(false)
         setCounter(response.data);
     } catch (err) {
         setError(err);
-        console.log(error);
+        // console.log(error);
     }
   };
 

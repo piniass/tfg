@@ -4,55 +4,96 @@ import qs from 'qs';
 import useValidaciones from '../hooks/HooksValidaciones';
 
 export default function FormularioCrearEjercicio(props) {
-  // Definir los grupos musculares disponibles
   const idEntrenamiento = props.entrenamientoObj.id;
-  const gruposMusculares = [
-    'Abductor',
-    'Abdominales',
-    'Pectoral',
-    'Bíceps',
-    'Tríceps',
-    'Cuádriceps',
-    'Espalda',
-    'Deltoides',
-    'Gemelos',
-    'Femoral',
-    'Glúteo'
-  ];
-  
-  const url = `http://tfg-backend-piniass-projects.vercel.app/ejercicios/entreanmiento`;
+
+  const ejercicios = {
+    "Press de Banca": "Pectoral",
+    "Curl de Bíceps": "Bíceps",
+    "Extensiones de Tríceps": "Tríceps",
+    "Sentadillas": "Cuádriceps",
+    "Peso Muerto": "Espalda",
+    "Press Militar": "Deltoides",
+    "Elevación de Gemelos": "Gemelos",
+    "Curl Femoral": "Femoral",
+    "Hip Thrust": "Glúteo",
+    "Crunch Abdominal": "Abdominales",
+    "Aducción de Cadera": "Abductor",
+    "Dominadas": "Espalda",
+    "Remo con Barra": "Espalda",
+    "Remo con Mancuernas": "Espalda",
+    "Press Inclinado": "Pectoral",
+    "Aperturas con Mancuernas": "Pectoral",
+    "Curl de Martillo": "Bíceps",
+    "Flexiones": "Pectoral",
+    "Dips de Tríceps": "Tríceps",
+    "Press Francés": "Tríceps",
+    "Lunges": "Cuádriceps",
+    "Prensa de Piernas": "Cuádriceps",
+    "Extensiones de Cuádriceps": "Cuádriceps",
+    "Encogimientos de Hombros": "Deltoides",
+    "Elevaciones Laterales": "Deltoides",
+    "Elevaciones Frontales": "Deltoides",
+    "Planchas": "Abdominales",
+    "Russian Twist": "Abdominales",
+    "Bicicleta Abdominal": "Abdominales",
+    "Patada de Glúteo": "Glúteo",
+    "Peso Muerto Rumano": "Femoral",
+  };
+
+  const url = `http://127.0.0.1:8000/ejercicios/entreanmiento`;
   const { errores, validarCampo } = useValidaciones();
 
   const [nombreEjercicio, setNombreEjercicio] = useState('');
   const [grupoMuscular, setGrupoMuscular] = useState('');
   const [series, setSeries] = useState('');
   const [repeticiones, setRepeticiones] = useState('');
+  const [errors, setErrors] = useState({
+    nombre: '',
+    musculo: '',
+    series: '',
+    repeticiones: ''
+  });
+
+  const handleEjercicioChange = (e) => {
+    const selectedEjercicio = e.target.value;
+    setNombreEjercicio(selectedEjercicio);
+    setGrupoMuscular(ejercicios[selectedEjercicio]);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(nombreEjercicio)
-    console.log(grupoMuscular)
-    console.log(series)
-    console.log(repeticiones)
+
     const nombreValido = validarCampo('ejercicio', nombreEjercicio);
     const musculoValido = validarCampo('grupoMuscular', grupoMuscular);
     const seriesValidas = validarCampo('series', series);
     const repeticionesValidas = validarCampo('repeticiones', repeticiones);
 
+    let formErrors = {
+      nombre: '',
+      musculo: '',
+      series: '',
+      repeticiones: ''
+    };
+
     if (!nombreValido) {
-        return alert("El nombre debe empezar por mayúscula y no contener ninguna más.");
+      formErrors.nombre = "El nombre debe empezar por mayúscula y no contener ninguna más.";
     }
     if (!musculoValido) {
-      console.log(musculoValido)
-        return alert('Por favor, selecciona un grupo muscular.');;
+      formErrors.musculo = 'Por favor, selecciona un grupo muscular.';
     }
     if (!seriesValidas) {
-      return alert('Series y repeticiones deben ser mayores que 0.');;
+      formErrors.series = 'Series y repeticiones deben ser mayores que 0.';
     }
     if (!repeticionesValidas) {
-      return alert('Series y repeticiones deben ser mayores que 0');;
+      formErrors.repeticiones = 'Series y repeticiones deben ser mayores que 0';
     }
-    
+
+    setErrors(formErrors);
+
+    if (!nombreValido || !musculoValido || !seriesValidas || !repeticionesValidas) {
+      return;
+    }
+
     try {
       const data = {
         nombre: nombreEjercicio,
@@ -62,8 +103,6 @@ export default function FormularioCrearEjercicio(props) {
         id_entrenamiento: idEntrenamiento
       };
 
-      console.log(data);
-
       const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -72,67 +111,56 @@ export default function FormularioCrearEjercicio(props) {
       };
 
       const res = await axios(options);
-      console.log(res.data);
+      // console.log(res.data);
       props.getEjercicios();
-      //props.actualizarEjercicios();
     } catch (error) {
-      console.log("Errores:", error.response ? error.response.data.detail : error.message);
+      // console.log("Errores:", error.response ? error.response.data.detail : error.message);
     }
-
-    // Cerrar el formulario después de enviar
-    //props.setForm(false);
-    //props.getEjercicios();
   };
-
 
   return (
     <section className='p-4 w-full flex flex-col'>
       <h4 className='text-xl mb-2'>Añade un ejercicio al día de {props.entrenamientoObj.nombre}</h4>
-      <form className='flex  gap-2 w-full flex-col sm:flex-row' onSubmit={handleSubmit}>
-        <div className='flex flex-col lg:flex-row gap-2'> 
-          <input
-            type="text"
-            placeholder='Nombre'
+      <form className='flex gap-2 w-full flex-col sm:flex-row' onSubmit={handleSubmit}>
+        <div className='flex flex-col lg:flex-row gap-2'>
+          <select
+            name="ejercicio"
+            id="ejercicio"
             className='border rounded-md p-2 w-full sm:w-40'
             value={nombreEjercicio}
-            onChange={(e) => setNombreEjercicio(e.target.value)}
-          />
-          <select
-            name="musculo"
-            id="musculo"
-            className='border rounded-md p-2 w-full sm:w-40'
-            value={grupoMuscular}
-            onChange={(e) => setGrupoMuscular(e.target.value)}
+            onChange={handleEjercicioChange}
           >
-            <option value="">Grupo Muscular</option>
-            {gruposMusculares.map((grupo, index) => (
-              <option key={index} value={grupo}>{grupo}</option>
+            <option value="">Selecciona un ejercicio</option>
+            {Object.keys(ejercicios).map((ejercicio, index) => (
+              <option key={index} value={ejercicio}>{ejercicio}</option>
             ))}
           </select>
         </div>
-        <div className='flex flex-col lg:flex-row gap-2'> 
-        <input
-          type="number"
-          name="series"
-          id="series"
-          placeholder='Series'
-          className='border rounded-md p-2 w-full sm:w-32'
-          value={series}
-          onChange={(e) => setSeries(e.target.value)}
-        />
-        <input
-          type="number"
-          name="repeticiones"
-          id="repeticiones"
-          placeholder='Repeticiones'
-          className='border rounded-md p-2 w-full sm:w-32'
-          value={repeticiones}
-          onChange={(e) => setRepeticiones(e.target.value)}
-        />
+        <div className='flex flex-col lg:flex-row gap-2'>
+          <input
+            type="number"
+            name="series"
+            id="series"
+            placeholder='Series'
+            className='border rounded-md p-2 w-full sm:w-32'
+            value={series}
+            onChange={(e) => setSeries(e.target.value)}
+          />
+          <input
+            type="number"
+            name="repeticiones"
+            id="repeticiones"
+            placeholder='Repeticiones'
+            className='border rounded-md p-2 w-full sm:w-32'
+            value={repeticiones}
+            onChange={(e) => setRepeticiones(e.target.value)}
+          />
         </div>
-        
         <input type="submit" value="Crear ejercicio" className='w-full sm:w-56 bg-green-500 text-white p-2 rounded-md cursor-pointer hover:bg-green-600' />
+        {errors.series && <p className='p-1 bg-red-500 text-white rounded-md'>{errors.series}</p>}
+        {errors.repeticiones && <p className='p-1 bg-red-500 text-white rounded-md'>{errors.repeticiones}</p>}
       </form>
+      
     </section>
   );
 }

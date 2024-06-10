@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const AvataresContainer = ({ sacarImagen }) => {
+  const ruta = '../../public/';
+  // const ruta = '/';
   const avatares = [
     "gorila.jpg",
     "elefante.jpg",
@@ -12,11 +14,12 @@ const AvataresContainer = ({ sacarImagen }) => {
     "tiburon.jpg",
     "pantera.jpg"
   ];
-  
-  const handleClick = (avatar) => {
-    const imagenSrc =  avatar;
-    console.log("Imagen seleccionada:", imagenSrc);
-    sacarImagen(imagenSrc);
+
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
+
+  const handleClick = (avatarUrl) => {
+    setSelectedAvatar(avatarUrl);
+    sacarImagen(avatarUrl);
   };
 
   return (
@@ -24,10 +27,10 @@ const AvataresContainer = ({ sacarImagen }) => {
       {avatares.map((avatar, index) => (
         <img
           key={index}
-          src={avatar}
+          src={ruta + avatar}
           alt="Avatar"
-          className='size-28 cursor-pointer rounded-full  hover:shadow-lg'
-          onClick={() => handleClick(avatar)}
+          className={`size-28 cursor-pointer rounded-full hover:shadow-lg ${selectedAvatar === ruta + avatar ? 'border-4 border-blue-500' : ''}`}
+          onClick={() => handleClick(ruta + avatar)}
         />
       ))}
     </article>

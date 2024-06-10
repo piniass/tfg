@@ -32,7 +32,7 @@ export default function RutinasContainer() {
     const fetchData = async () => {
       await getRutinas();
       await getClientes();
-      console.log(cliente);
+      // console.log(cliente);
     };
   
     fetchData();

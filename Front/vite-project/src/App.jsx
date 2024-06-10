@@ -1,3 +1,4 @@
+// App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -10,19 +11,21 @@ import ClienteDetalles from './pages/ClienteDetalles';
 import Login from './pages/Login';
 import PaginaRutinas from './pages/PaginaRutinas';
 import PaginaRutinaId from './pages/PaginaRutinaId';
+import RutaProtegida from './components/RutaProtegida';
+
 export default function App() {
   return (
-      <Router>
-          <Routes>
-              <Route path="/" element={<PaginaFormulario />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/tareas" element={<Tareas/>} />
-              {/* <Route path="/registrar" element={<CrearCliente/>} /> */}
-              <Route path="/detalles" element={<ClienteDetalles/>} />
-              <Route path="/login" element={<Login/>} />
-              <Route path="/rutinas" element={<PaginaRutinas/>} />
-              <Route path="/rutina/:id" element={<PaginaRutinaId/>} />
-          </Routes>
-      </Router>
+    <Router>
+      <Routes>
+        <Route path="/" element={<PaginaFormulario />} />
+        <Route path="/dashboard" element={<RutaProtegida element={<Dashboard />} />} />
+        <Route path="/tareas" element={<RutaProtegida element={<Tareas />} />} />
+        {/* <Route path="/registrar" element={<CrearCliente />} /> */}
+        <Route path="/detalles" element={<RutaProtegida element={<ClienteDetalles />} />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/rutinas" element={<RutaProtegida element={<PaginaRutinas />} />} />
+        <Route path="/rutina/:id" element={<RutaProtegida element={<PaginaRutinaId />} />} />
+      </Routes>
+    </Router>
   );
 }

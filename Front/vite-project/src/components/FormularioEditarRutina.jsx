@@ -5,17 +5,17 @@ import axios from 'axios'; // Importa axios
 import qs from 'qs'; // Importa qs si lo estás utilizando
 import useValidaciones from '../hooks/HooksValidaciones';
 
-
 export default function FormularioEditarRutina({ rutina, actualizarRutinas, setForm }) {
     const imagenes = ["gorila.jpg", "tiburon.jpg", "cocodrilo.jpg", "leon.jpg", "ornitorrinco.jpg", "tortuga.jpg", "lobo.jpg"];
     const [selectedImg, setSelectedImg] = useState(rutina.foto || '');
     const [nombreRutina, setNombreRutina] = useState(rutina.nombre || '');
-    const ruta = "/img-rutinas/" + selectedImg;
+    const ruta = "../../public/img-rutinas/" + selectedImg;
     const id_entrenador = sessionStorage.getItem("id");
-    const url = `http://tfg-backend-piniass-projects.vercel.app/rutinas/${rutina.id}/`;
-    const { errores, validarCampo } = useValidaciones();
-
-
+    const url = `http://127.0.0.1:8000/rutinas/${rutina.id}/`;
+    const { validarCampo } = useValidaciones();
+    const [nombreValido, setNombre] = useState(true);
+    const [ImgValida, setImgValida] = useState(true);
+        
     useEffect(() => {
         setSelectedImg(rutina.foto || '');
         setNombreRutina(rutina.nombre || '');
@@ -28,7 +28,7 @@ export default function FormularioEditarRutina({ rutina, actualizarRutinas, setF
     const handleImgChange = (event) => {
         const selectedValue = event.target.value;
         setSelectedImg(selectedValue);
-        console.log("Imagen seleccionada:", selectedValue);
+        // console.log("Imagen seleccionada:", selectedValue);
     };
 
     const handleNombreChange = (event) => {
@@ -38,37 +38,42 @@ export default function FormularioEditarRutina({ rutina, actualizarRutinas, setF
 
     const handleSubmit = async (ev) => {
         ev.preventDefault();
-        const nombreValido = validarCampo('rutina', nombreRutina);
-        const ImgValida = validarCampo('avatar', selectedImg);
-        if (!nombreValido) {
-            return alert("El nombre debe empezar por mayúscula y no contener ninguna más.");
+        const validarNombre = validarCampo('rutina', nombreRutina);
+        const validarImg = validarCampo('avatar', selectedImg);
+        
+        if(!validarNombre){
+            setNombre(false)
         }
-        if (!ImgValida) {
-            return alert('Por favor, selecciona una Imagen.');;
+        if(!validarImg){
+            setImgValida(false)
         }
+        // console.log(validarNombre)
 
-        try {
-            const data = {
-                nombre: nombreRutina, 
-                foto: selectedImg,
-                id_entrenador: id_entrenador
-            };
-            console.log(data);
-            const options = {
-                method: 'PUT',
-                headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                data: qs.stringify(data),
-                url,
-            };
+        if (validarNombre && validarImg) {
+            // console.log("entro")
+            try {
+                const data = {
+                    nombre: nombreRutina, 
+                    foto: selectedImg,
+                    id_entrenador: id_entrenador
+                };
+                // console.log(data);
+                const options = {
+                    method: 'PUT',
+                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+                    data: qs.stringify(data),
+                    url,
+                };
 
-            const res = await axios(options);
-            console.log(res.data);
+                const res = await axios(options);
+                // console.log(res.data);
 
-            actualizarRutinas(); 
-            setForm(false); 
+                actualizarRutinas(); 
+                setForm(false); 
 
-        } catch (error) {
-            console.log("Errores:", error.response.data.detail);
+            } catch (error) {
+                // console.log("Errores:", error.response.data.detail);
+            }
         }
     };
 
@@ -100,7 +105,10 @@ export default function FormularioEditarRutina({ rutina, actualizarRutinas, setF
                         </option>
                     ))}
                 </select>
+                {!ImgValida && <p className='p-1 mt-3 bg-red-500 text-white rounded-md'>Por favor, selecciona una Imagen.</p>}
                 <input value={nombreRutina} onChange={handleNombreChange} type="text" placeholder='Introduce el nombre de la rutina' className='p-2 border' />
+                {!nombreValido && <p className='p-1 mt-3 bg-red-500 text-white rounded-md'>El nombre debe empezar por mayúscula y no contener ninguna más.</p>}
+
                 <input type="submit" value="Actualizar rutina" className='bg-green-500 p-2 text-white cursor-pointer' />
             </form>
         </section>

@@ -4,34 +4,55 @@ import PesoContainer from './PesoContainer';
 import EjerciciosContainer from './EjerciciosContainer';
 import usePeso from '../hooks/HookPeso';
 import useRutinas from "../hooks/HookRutinas";
-
 import Spinner from '../svgs/Spinner';
 
 export default function DetallesContainer(props) {
-  const id = props.state.id;
-  const { peso, getPeso, actualizarPeso, loading } = usePeso(id);
+  const { id, id_rutina } = props.state;
+  const { peso, getPeso, actualizarPeso,handleEliminar, loading } = usePeso(id);
   const { rutinas, getRutinasId } = useRutinas();
-
+  
+  const [state, setState] = useState(props.state);
 
   useEffect(() => {
-      getPeso();
-      getRutinasId(id)
-    
-  }, [id]);
+    const fetchData = async () => {
+        try {
+            // Ejecutamos getRutinasId con el id
+            await getRutinasId(id);
+            await getPeso();
+        } catch (error) {
+            console.error("Error fetching data: ", error);
+            // Verificar si el error es debido a CORS
+            if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+                // Vuelve a ejecutar la función para intentar nuevamente
+                console.log('Error de CORS. Volviendo a ejecutar la función...');
+                fetchData();
+            }
+        }
+    };
+
+    fetchData(); // Llama a la función para que ejecute las llamadas
+}, [id]);
+
+  
+  
+
+  // Función para actualizar el estado
+  const updateState = (newState) => {
+    setState(prevState => ({ ...prevState, ...newState }));
+  };
 
   return (
     <section className='flex flex-col p-3 md:p-5 w-4/5 gap-2 h-screen overflow-auto'>
-      <InfoDetalles state={props.state} />
-      {
-        loading ? <Spinner /> :
-        <PesoContainer
-          state={props.state}
+      <InfoDetalles state={state} />
+      <PesoContainer
+          state={state}
           peso={peso}
           actualizarPeso={actualizarPeso}
+          handleEliminar={handleEliminar}
           loading={loading}
-        />
-      }
-      <EjerciciosContainer state={props.state} rutinas={rutinas} />
+      />
+      
+      <EjerciciosContainer state={state} rutinas={rutinas} updateState={updateState} />
     </section>
   );
 }

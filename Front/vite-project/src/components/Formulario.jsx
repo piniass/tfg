@@ -1,103 +1,115 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import User from '../svgs/User';
-import Lock from '../svgs/Lock';
-import Spinner from '../svgs/Spinner';
+import qs from 'qs';
+import useHasheo from '../hooks/HookHasheo';
+
 
 export default function Formulario() {
 
-    const [correo, setCorreo] = useState('');
-    const [contrasenia, setContrasenia] = useState('');
-    const [datosRecibidos, setDatosRecibidos] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate(); 
 
-    const login = () => {
-        navigate("/login")
-    }
+  const [correo, setCorreo] = useState('');
+  const [contrasenia, setContrasenia] = useState('');
+  const [datosRecibidos, setDatosRecibidos] = useState(null);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate(); 
+  const {  encryptData } = useHasheo();
 
-    const handleSubmit = async (event) => {
-        console.log("hola")
-        event.preventDefault();
-        try {
-            setLoading(true)
-            // Realizar la petición GET a la API
-            const response = await axios.get('https://tfg-backend-piniass-projects.vercel.app/entrenadores');
-            // Actualizar el estado con los datos recibidos
-            setDatosRecibidos(response.data);
-            // Verificar coincidencia entre correo y contraseña ingresados y los datos recibidos
-            const coincidencia = response.data.find(entrenador => entrenador.correo === correo && entrenador.password === contrasenia);
-            setLoading(false)
-            if (coincidencia) {
-                // Utilizar navigate para navegar a la ruta del dashboard (Home)
-                sessionStorage.setItem("id", coincidencia.id);
-                sessionStorage.setItem("nombre", coincidencia.nombre);
-                sessionStorage.setItem("apellido", coincidencia.apellido);
-                sessionStorage.setItem("foto", coincidencia.avatar);
+  const login = () => {
+    navigate("/login");
+  }
 
-                console.log(coincidencia.id)
-                navigate('/dashboard');
-            } else {
-                alert('No se encontraron coincidencias.');
-            }
-        } catch (error) {
-            // Manejar errores de la petición
-            setError(error);
-        }
-    };
-  return (
-    <section className='p-2 md:p-5 h-full w-full'>
-        <form onSubmit={handleSubmit} className='flex flex-col p-2 md:p-5 gap-4 '>
-            <h2 className='text-center text-2xl text-white'>Iniciar Sesion</h2>
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-            <label className='text-white relative w-full' htmlFor='correo'>Introduce tu correo
-            <span className='absolute top-8 left-1 text-gray-500'>
-                <User />
-            </span>
-            
-            <input 
-                className='p-2 pl-8 w-full text-black'
-                type="text" 
-                placeholder="Correo electronico"
-                id="correo"
-                name='email'
-                value={correo}
-                onChange={(e) => setCorreo(e.target.value)}
-                />
-            </label>
-            <label htmlFor='contrasenia' className='text-white relative w-full'>Contraseña
-            <span className='absolute top-8 left-1 text-gray-500'>
-                <Lock />
-            </span>
-            <input 
-                className='p-2 pl-8 w-full text-black'
-                type="password" 
-                placeholder="Contraseña"
-                id="contrasenia"
-                onChange={(e) => setContrasenia(e.target.value)}
-                value={contrasenia} />
-            </label>
-            {
-                loading ? (<div className='w-full bg-gray-300 p-2 flex items-center justify-center rounded'>
-                    <Spinner/>
-                    </div>)
-                : (<input 
-                    type="submit" 
-                    value="Iniciar Sesion"
-                    className='rounded cursor-pointer bg-green-600 p-2 text-white'
-                    />)
-            }
-            
-            <input
-                type='button'
-                value='Registrarse'
-                className='rounded cursor-pointer  bg-blue-600 p-2 text-white'
-                onClick={login}
-            />
-        </form>
-    </section>
+    try {
+      // Realizar la petición POST a la API
+      const url = 'http://127.0.0.1:8000/entrenador/login';
+      const data = {
+        correo: correo,
+        password: contrasenia
+      };
+
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        data: qs.stringify(data),
+        url: url,
+      };
+
+      const res = await axios(options);
+
+      if (res.data.token) {
+        const tiempo = 1800;
+        const expTime = new Date(new Date().getTime() + (tiempo * 1000));
+
+        // Establecer la cookie
+        document.cookie = `token=${res.data.token}; expires=${expTime.toUTCString()}; path=/`;
+        const encryptedId = encryptData(res.data.entrenador.id.toString());
+        const encryptedNombre = encryptData(res.data.entrenador.nombre);
+        const encryptedApellido = encryptData(res.data.entrenador.apellido);
+        const encryptedFoto = encryptData(res.data.entrenador.avatar);
     
+        // Almacenar en sessionStorage
+        sessionStorage.setItem("id", encryptedId);
+        sessionStorage.setItem("nombre", encryptedNombre);
+        sessionStorage.setItem("apellido", encryptedApellido);
+        sessionStorage.setItem("foto", encryptedFoto);
+        setError(null)
+
+        // Redirigir a otra página
+        navigate("/dashboard");
+      }else{
+        setError(res.data)
+        // alert(res.data)
+      }
+      setDatosRecibidos(res.data);
+    } catch (error) {
+      // Manejar errores de la petición
+      setError(error);
+      console.log(error)
+    }
+  };
+
+  // Efecto para imprimir el userId cuando cambia
+
+  return (
+    <section className=''>
+      <form onSubmit={handleSubmit} className=' w-80 flex flex-col p-8 gap-4 '>
+        <h2 className='text-center text-2xl text-white'>Iniciar Sesion</h2>
+
+        <label className='text-white' htmlFor='correo'>Introduce tu correo</label>
+        <input 
+          className='p-2'
+          type="text" 
+          placeholder="Correo electronico"
+          id="correo"
+          name='email'
+          value={correo}
+          onChange={(e) => setCorreo(e.target.value)}
+        />
+        <label htmlFor='contrasenia' className='text-white'>Contraseña</label>
+        <input 
+          className='p-2'
+          type="password" 
+          placeholder="Contraseña"
+          id="contrasenia"
+          onChange={(e) => setContrasenia(e.target.value)}
+          value={contrasenia} 
+        />
+        { error && <p className='text-white'>{error}</p>}
+        <input 
+          type="submit" 
+          value="Iniciar Sesion"
+          className='rounded cursor-pointer bg-green-600 p-2 text-white'
+        />
+        <input
+          type='button'
+          value='Registrarse'
+          className='rounded cursor-pointer bg-blue-600 p-2 text-white'
+          onClick={login}
+        />
+      </form>
+    </section>
   );
 }

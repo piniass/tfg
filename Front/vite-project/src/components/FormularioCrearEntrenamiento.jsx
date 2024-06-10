@@ -7,36 +7,38 @@ import useValidaciones from '../hooks/HooksValidaciones';
 export default function FormularioCrearEntrenamiento(props) {
   const [nombreEntrenamiento, setNombreEntrenamiento] = useState('');
   const [diaSeleccionado, setDiaSeleccionado] = useState('');
-  const id = props.rutina.id
- console.log("props form", props)
-
+  const id = props.rutina.id;
   const diasSemana = [
     'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
   ];
 
   const url = `http://tfg-backend-piniass-projects.vercel.app/entrenamientos/rutina`;
   const { errores, validarCampo } = useValidaciones();
-
+  const [errors, setErrors] = useState({
+    nombre: '',
+    dia: ''
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const nombreValido = validarCampo('rutina', nombreEntrenamiento);
     const diaValido = validarCampo('dia', diaSeleccionado);
-    if (!nombreValido) {
-        return alert("El nombre debe empezar por mayúscula y no contener ninguna más.");
+
+    if (!nombreValido || !diaValido) {
+      setErrors({
+        nombre: nombreValido ? '' : "El nombre debe empezar por mayúscula y no contener ninguna más.",
+        dia: diaValido ? '' : 'Por favor, selecciona un día de la semana.'
+      });
+      return;
     }
-    if (!diaValido) {
-        return alert('Por favor, selecciona un dia de la semana.');;
-    }
-    
+
     try {
       const data = {
         nombre: nombreEntrenamiento,
         dia_semana: diaSeleccionado,
         id_rutina: id
       };
-
-      console.log(data)
 
       const options = {
         method: 'POST',
@@ -46,22 +48,22 @@ export default function FormularioCrearEntrenamiento(props) {
       };
 
       const res = await axios(options);
-      console.log(res.data);
+      // console.log(res.data);
 
       // Actualizar la lista de rutinas después de crear el entrenamiento
-    //   props.actualizarRutinas();
+      // props.actualizarRutinas();
+      props.getEntrenamiento();
     } catch (error) {
-      console.log("Errores:", error.response.data.detail);
+      // console.log("Errores:", error.response.data.detail);
     }
 
     // Cerrar el formulario después de enviar
     props.setForm(false);
-    props.getEntrenamiento()
-  }
+  };
 
   const handleCloseForm = () => {
     props.setForm(false);
-  }
+  };
 
   return (
     <article className='p-4 w-52 sm:w-80 border rounded-md absolute top-52 right-0 left-0 ml-auto mr-auto bg-white flex flex-col'>
@@ -71,14 +73,15 @@ export default function FormularioCrearEntrenamiento(props) {
           <CloseIcon />
         </button>
       </div>
-      <form onSubmit={handleSubmit} className='flex flex-col '>
-        <input 
-          type="text" 
-          placeholder='Nombre del entrenamiento' 
+      <form onSubmit={handleSubmit} className='flex flex-col'>
+        <input
+          type="text"
+          placeholder='Nombre del entrenamiento'
           className='p-2 border rounded-lg'
           value={nombreEntrenamiento}
           onChange={(e) => setNombreEntrenamiento(e.target.value)}
         />
+        {errors.nombre && <p className='p-1 mt-3 bg-red-500 text-white rounded-md'>{errors.nombre}</p>}
         <select
           name="diaSemana"
           id="diaSemana"
@@ -91,10 +94,11 @@ export default function FormularioCrearEntrenamiento(props) {
             <option key={index} value={dia}>{dia}</option>
           ))}
         </select>
-        <input 
-          type="submit" 
-          value="Crear Entrenamiento" 
-          className='bg-green-500 p-2 text-white cursor-pointer mt-4 rounded-md' 
+        {errors.dia && <p className='p-1 mt-3 bg-red-500 text-white rounded-md'>{errors.dia}</p>}
+        <input
+          type="submit"
+          value="Crear Entrenamiento"
+          className='bg-green-500 p-2 text-white cursor-pointer mt-4 rounded-md'
         />
       </form>
     </article>

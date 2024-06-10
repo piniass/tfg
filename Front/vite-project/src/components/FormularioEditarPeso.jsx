@@ -6,41 +6,52 @@ import useValidaciones from '../hooks/HooksValidaciones';
 export default function FormularioEditarPeso(props) {
     const [peso, setPeso] = useState('')
     const id = props.state.id
-    const url = `http://tfg-backend-piniass-projects.vercel.app/pesos/${props.pesoNuevo?.id || ''}`;
-    const { errores, validarCampo } = useValidaciones();
+    const url = `http://127.0.0.1:8000/pesos/${props.pesoNuevo?.id || ''}`;
+    const { validarCampo } = useValidaciones();
+    const [pesoValido,setValido] = useState(true)
+
 
     const handleCancelar = () => {
         props.setNuevo('');
+        setValido(true)
+
     }
 
     const handleSubmitEditar = async (ev) => {
         ev.preventDefault()
-        try {
-            const pesoValido = validarCampo('peso', peso);
-          if (!pesoValido) {
-              return alert("El peso tiene que ser entre 0 y 150");
-          }
-            const data = {
-                id: props.pesoNuevo.id,
-                peso: peso
-            };
-
-            const options = {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                data: qs.stringify(data),
-                url: url,
-            };
-
-            const res = await axios(options);
-            console.log(res.data);
-            props.actualizarPeso()
-        } catch (error) {
-            console.error('Error al editar peso:', error);
+        const pesoValido = validarCampo('peso', peso);
+            if (!pesoValido) {
+                setValido(false)
+              }
+        if(pesoValido){
+            try {
+            
+                const data = {
+                    id: props.pesoNuevo.id,
+                    peso: peso
+                };
+    
+                const options = {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    data: qs.stringify(data),
+                    url: url,
+                };
+                setValido(true)
+    
+                const res = await axios(options);
+                console.log(res.data);
+                props.actualizarPeso()
+            } catch (error) {
+                console.error('Error al editar peso:', error);
+            }
         }
+       
     }
 
     return (
+        <div className='flex flex-col mb-2'>
+
         <form onSubmit={handleSubmitEditar} className='flex flex-col gap-2 p-2 w-full'>
             <h2 className='text-2xl'>Editar peso</h2>
             <div className='flex gap-5 w-full'>
@@ -60,5 +71,8 @@ export default function FormularioEditarPeso(props) {
             }
             </div>
         </form>
+    {!pesoValido && (<p className='p-2 mt-3 bg-red-500 text-white rounded-md'>El peso tiene que ser entre 0 y 150</p>)}
+
+        </div>
     )
 }

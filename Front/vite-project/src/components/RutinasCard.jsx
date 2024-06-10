@@ -22,7 +22,7 @@ export default function RutinasCard(props) {
     const handleAdd = () => {
         props.setRutinaId(id)
         props.setModal(true)
-        console.log("id rutina: ",id)
+        // console.log("id rutina: ",id)
     }
 
     return (
@@ -33,9 +33,9 @@ export default function RutinasCard(props) {
         <button onClick={handleEdit}>Ver Detalles</button>
         </div>
       <div className='flex items-center justify-around p-2'>
-        <button onClick={props.handleEdit}><Edit /></button> {/* Botón de editar */}
-            <button onClick={handleEliminar}><DeleteIcon/></button>
-            <button onClick={handleAdd}><Add/></button>
+        <button onClick={props.handleEdit} className='hover:border-yellow-400'><Edit /></button> {/* Botón de editar */}
+            <button onClick={handleEliminar} className='hover:border-red-500'><DeleteIcon/></button>
+            <button onClick={handleAdd} className='hover:border-green-500'><Add/></button>
         </div>
     </div>
   )

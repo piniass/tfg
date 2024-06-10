@@ -4,20 +4,22 @@ import FormulariosTareas from '../components/FormulariosTareas';
 import ListaDeTareas from '../components/ListaTareas';
 import useTarea from '../hooks/HookTareas';
 import { useEffect } from 'react';
+import useHasheo from '../hooks/HookHasheo';
 
 export default function Tareas() {
-    var id = sessionStorage.getItem("id");
+  const {decryptData } = useHasheo();
+  const id = decryptData(sessionStorage.getItem("id"));
     const { getTareas, handleEliminar, handleEditar, handleConfirmar, actualizarTareas, tareas } = useTarea({ id });
 
 
     useEffect(() => {
       getTareas()
-      console.log("prueba")
+      // console.log("prueba")
     }, []);
 
 
 
-   console.log("Estado tareas:",tareas)
+  //  console.log("Estado tareas:",tareas)
   return (
     <div className='flex'>
       <Aside id={id}/>

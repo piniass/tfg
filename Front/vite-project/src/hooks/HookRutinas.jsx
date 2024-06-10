@@ -1,16 +1,21 @@
 import axios from 'axios';
 import { useState } from 'react';
 import qs from 'qs'
+import useHasheo from '../hooks/HookHasheo';
 
 const useRutinas = () => {
-    var id = sessionStorage.getItem("id");
+  const {decryptData } = useHasheo();
+  const id = decryptData(sessionStorage.getItem("id"));
     const [error, setError] = useState(null);
     const [rutinas, setRutinas] = useState([]);
 
     const getRutinas = async () => {
+      
         try {
+          setTimeout(() => {
 
-          const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id}`);
+          }, 2000);
+          const response = await axios.get(`http://127.0.0.1:8000/rutinas/entrenador/${id}`);
           setRutinas(response.data);
         } catch (err) {
           setError(err);
@@ -18,23 +23,22 @@ const useRutinas = () => {
       };
 
       const getRutinasId = async (id_cliente) => {
-        console.log("id parametro hook: ",id_cliente)
         try {
-          const response = await axios.get(`http://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id_cliente}`);
+          const response = await axios.get(`http://127.0.0.1:8000/rutinas/entrenador/${id_cliente}`);
           setRutinas(response.data);
-          console.log("Rutina: ",response.data)
         } catch (err) {
           setError(err);
+          // console.log(err)
         }
       };
 
       const  actualizarRutinas = async() => {
         try {
-            const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id}`);
-            console.log("actualizo tareas")
+            const response = await axios.get(`http://127.0.0.1:8000/rutinas/entrenador/${id}`);
+            // console.log("actualizo tareas")
             setRutinas(response.data);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     
       }
@@ -45,8 +49,8 @@ const useRutinas = () => {
           const confirmDelete = true
   
           if (confirmDelete) {
-            const response = await axios.delete(`https://tfg-backend-piniass-projects.vercel.app/rutinas/${id}`);
-            console.log(response.data.message); 
+            const response = await axios.delete(`http://127.0.0.1:8000/rutinas/${id}`);
+            // console.log(response.data.message); 
             actualizarRutinas()
           }
     

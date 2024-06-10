@@ -4,7 +4,6 @@ import axios from 'axios';
 import qs from 'qs';
 import useValidaciones from '../hooks/HooksValidaciones';
 
-
 export default function FormularioEditarEntrenamiento(props) {
   const [nombreEntrenamiento, setNombreEntrenamiento] = useState(props.entrenamiento.nombre || '');
   const [diaSeleccionado, setDiaSeleccionado] = useState(props.entrenamiento.dia_semana || '');
@@ -14,33 +13,34 @@ export default function FormularioEditarEntrenamiento(props) {
   const diasSemana = [
     'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
   ];
-      console.log(nombreEntrenamiento)
-      console.log(diaSeleccionado)
-  const url = `http://tfg-backend-piniass-projects.vercel.app/entrenamientos/${id}`;
-  const { errores, validarCampo } = useValidaciones();
 
+  const url = `http://127.0.0.1:8000/entrenamientos/${id}`;
+  const { errores, validarCampo } = useValidaciones();
+  const [errors, setErrors] = useState({
+    nombre: '',
+    dia: ''
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const nombreValido = validarCampo('rutina', nombreEntrenamiento);
     const diaValido = validarCampo('dia', diaSeleccionado);
-    if (!nombreValido) {
-        return alert("El nombre debe empezar por mayúscula y no contener ninguna más.");
-    }
-    if (!diaValido) {
-        return alert('Por favor, selecciona un dia de la semana.');;
-    }
-    
-    try {
-      
 
+    setErrors({
+      nombre: nombreValido ? '' : "El nombre debe empezar por mayúscula y no contener ninguna más.",
+      dia: diaValido ? '' : 'Por favor, selecciona un día de la semana.'
+    });
+
+    if (!nombreValido || !diaValido) {
+      return;
+    }
+
+    try {
       const data = {
         nombre: nombreEntrenamiento,
         dia_semana: diaSeleccionado,
         id_rutina: rutinaId
       };
-
-      console.log(data)
 
       const options = {
         method: 'PUT',
@@ -50,12 +50,12 @@ export default function FormularioEditarEntrenamiento(props) {
       };
 
       const res = await axios(options);
-      console.log(res.data);
+      // console.log(res.data);
 
       // Actualizar la lista de entrenamientos después de editar el entrenamiento
       props.getEntrenamiento();
     } catch (error) {
-      console.log("Errores:", error.response?.data?.detail || error.message);
+      // console.log("Errores:", error.response?.data?.detail || error.message);
     }
 
     // Cerrar el formulario después de enviar
@@ -74,14 +74,15 @@ export default function FormularioEditarEntrenamiento(props) {
           <CloseIcon />
         </button>
       </div>
-      <form onSubmit={handleSubmit} className='flex flex-col '>
-        <input 
-          type="text" 
-          placeholder='Nombre del entrenamiento' 
+      <form onSubmit={handleSubmit} className='flex flex-col'>
+        <input
+          type="text"
+          placeholder='Nombre del entrenamiento'
           className='p-2 border rounded-lg'
           value={nombreEntrenamiento}
           onChange={(e) => setNombreEntrenamiento(e.target.value)}
         />
+        {errors.nombre && <p className='p-1 mt-3 bg-red-500 text-white rounded-md'>{errors.nombre}</p>}
         <select
           name="diaSemana"
           id="diaSemana"
@@ -94,10 +95,11 @@ export default function FormularioEditarEntrenamiento(props) {
             <option key={index} value={dia}>{dia}</option>
           ))}
         </select>
-        <input 
-          type="submit" 
-          value="Editar Entrenamiento" 
-          className='bg-green-500 p-2 text-white cursor-pointer mt-4 rounded-md' 
+        {errors.dia && <p className='p-1 mt-3 bg-red-500 text-white rounded-md'>{errors.dia}</p>}
+        <input
+          type="submit"
+          value="Editar Entrenamiento"
+          className='bg-green-500 p-2 text-white cursor-pointer mt-4 rounded-md'
         />
       </form>
     </article>

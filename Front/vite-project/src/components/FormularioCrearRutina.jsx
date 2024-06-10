@@ -5,18 +5,20 @@ import axios from 'axios'; // Importa axios
 import qs from 'qs'; // Importa qs si lo estás utilizando
 // Importa navigate desde @reach/router si es necesario
 import useValidaciones from '../hooks/HooksValidaciones';
+import useHasheo from '../hooks/HookHasheo';
 
 export default function FormularioCrearRutina(props) {
     const imagenes = ["gorila.jpg", "tiburon.jpg", "cocodrilo.jpg", "leon.jpg", "ornitorrinco.jpg", "tortuga.jpg", "lobo.jpg"];
     const [selectedImg, setSelectedImg] = useState('');
-    // const ruta = "../../public/img-rutinas/" + selectedImg;
-    const ruta = "/img-rutinas/" + selectedImg;
-
-    const id_entrenador = sessionStorage.getItem("id");
-    const url = `https://tfg-backend-piniass-projects.vercel.app/rutinas/cliente/`;
-    console.log(props)
-    const [rutinaNueva, setRutinaNueva] = useState(''); // Estado para el nombre de la rutina
+    const [rutinaNueva, setRutinaNueva] = useState('');
+    const [ImgValida, setImgValida] = useState(true);
+    const {decryptData } = useHasheo();
+    const id_entrenador = decryptData(sessionStorage.getItem("id"));
+    const url = `http://127.0.0.1:8000/rutinas/cliente/`;
+    const [nombreValido, setNombre] = useState(true)
     const { errores, validarCampo } = useValidaciones();
+
+    // console.log(props);
 
     const handleCloseForm = () => {
         props.setForm(false);
@@ -25,7 +27,7 @@ export default function FormularioCrearRutina(props) {
     const handleImgChange = (event) => {
         const selectedValue = event.target.value;
         setSelectedImg(selectedValue);
-        console.log("Imagen seleccionada:", selectedValue);
+        // console.log("Imagen seleccionada:", selectedValue);
     };
 
     const handleNombreChange = (event) => {
@@ -35,37 +37,47 @@ export default function FormularioCrearRutina(props) {
 
     const handleSubmit = async (ev) => {
         ev.preventDefault();
-        const nombreValido = validarCampo('rutina', rutinaNueva);
-        const ImgValida = validarCampo('avatar', selectedImg);
-        if (!nombreValido) {
-            return alert("El nombre debe empezar por mayúscula y no contener ninguna más.");
-        }
-        if (!ImgValida) {
-            return alert('Por favor, selecciona una Imagen.');;
+        const validarNombre = validarCampo('rutina', rutinaNueva);
+        const validarImg = validarCampo('avatar', selectedImg);
+        // setNombreValido(nombreValido);
+        // setImgValida(ImgValida);
+
+        if (!validarNombre) {
+            setNombre(false)
+            
         }
 
-        try {
-            const data = {
-                nombre: rutinaNueva, // Usar el estado rutinaNueva
-                foto: selectedImg,
-                id: id_entrenador
-            };
-            console.log(data)
-            const options = {
-                method: 'POST',
-                headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                data: qs.stringify(data),
-                url,
-            };
-
-            const res = await axios(options);
-            console.log(res.data);
-
-        } catch (error) {
-            console.log("Errores:", error.response.data.detail);
+        if (!validarImg) {
+            setImgValida(false)
+            
         }
-        props.actualizarRutinas()
-        props.setForm(false);
+
+        if(validarNombre && validarCampo){
+            try {
+                const data = {
+                    nombre: rutinaNueva, // Usar el estado rutinaNueva
+                    foto: selectedImg,
+                    id: id_entrenador
+                };
+                // console.log(data);
+                const options = {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+                    data: qs.stringify(data),
+                    url,
+                };
+    
+                const res = await axios(options);
+                // console.log(res.data);
+    
+            } catch (error) {
+                // console.log("Errores:", error.response.data.detail);
+            }
+            props.actualizarRutinas();
+            props.setForm(false);
+        }
+
+        
     };
 
     const formatOptionText = (imagen) => {
@@ -83,7 +95,7 @@ export default function FormularioCrearRutina(props) {
 
             <form className='flex flex-col gap-4 p-2' onSubmit={handleSubmit}>
                 {selectedImg ? (
-                    <img src={ruta} alt="Rutina" />
+                    <img src={`../../public/img-rutinas/${selectedImg}`} alt="Rutina" />
                 ) : (
                     <img src={avatardefault} alt="Avatar por defecto" />
                 )}
@@ -96,7 +108,10 @@ export default function FormularioCrearRutina(props) {
                         </option>
                     ))}
                 </select>
+                {!ImgValida && (<p className='p-1 mt-3 bg-red-500 text-white rounded-md'>Por favor, selecciona una imagen.</p>)}
                 <input value={rutinaNueva} onChange={handleNombreChange} type="text" placeholder='Introduce el nombre de la rutina' className='p-2 border' />
+                {!nombreValido && (<p className='p-1 mt-3 bg-red-500 text-white rounded-md'>El nombre debe empezar por mayúscula y no contener ninguna más.</p>)}
+
                 <input type="submit" value="Crear rutina" className='bg-green-500 p-2 text-white cursor-pointer' />
             </form>
         </section>

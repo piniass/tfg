@@ -2,19 +2,25 @@ import React from 'react'
 import axios from 'axios';
 import { useState } from 'react';
 import qs from 'qs'
+// import { useUser } from '../context/UserProvider';
+import useHasheo from '../hooks/HookHasheo';
+
 const useTarea = () => {
-    var id = sessionStorage.getItem("id");
+  const {decryptData } = useHasheo();
+  const id = decryptData(sessionStorage.getItem("id"));
+
     const [error, setError] = useState(null);
     const [tareas, setTareas] = useState([]);
   
   
     const getTareas = async () => {
       try {
-        const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/tareas/entrenador/${id}`);
+        // console.log("fetch tareas id:",id)
+        const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
         setTareas(response.data);
-        console.log(tareas)
+        // console.log(tareas)
 
-        console.log('Datos recibidos del backend:', response.data); // Agregar este console.log
+        // console.log('Datos recibidos del backend:', response.data); // Agregar este console.log
         return tareas
       } catch (err) {
         setError(err);
@@ -28,8 +34,8 @@ const useTarea = () => {
         const confirmDelete = true
 
         if (confirmDelete) {
-          const response = await axios.delete(`https://tfg-backend-piniass-projects.vercel.app/tareas/${id}`);
-          console.log(response.data.message); 
+          const response = await axios.delete(`http://127.0.0.1:8000/tareas/${id}`);
+          // console.log(response.data.message); 
           actualizarTareas()
         }
   
@@ -40,12 +46,12 @@ const useTarea = () => {
   
     const  actualizarTareas = async() => {
       try {
-          const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/tareas/entrenador/${id}`);
-          console.log("actualizo tareas")
+          const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
+          // console.log("actualizo tareas")
           setTareas(response.data);
-          console.log(tareas)
+          // console.log(tareas)
       } catch (error) {
-          console.log(error);
+          // console.log(error);
       }
   
     }
@@ -64,7 +70,7 @@ const useTarea = () => {
           method: 'PUT',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           data: qs.stringify(data),
-          url: `https://tfg-backend-piniass-projects.vercel.app/tareas/estado/${id}`
+          url: `http://127.0.0.1:8000/tareas/estado/${id}`
         };
         const res = await axios(options);
         actualizarTareas() 

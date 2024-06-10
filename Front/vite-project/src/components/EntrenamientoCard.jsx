@@ -25,9 +25,12 @@ export default function EntrenamientoCard(props) {
             <h4 className='text-xl'>{props.sesion.dia_semana}</h4>
             <p>{props.sesion.nombre}</p>
             <div className='flex flex-col gap-2'>
-                <button onClick={handleEdit}>Editar Entrenamiento</button>
-                <button onClick={handleDetails}>Añadir Ejercicio</button>
-                <button onClick={handleEliminarEntrenamiento}>Eliminar Entrenamiento</button>
+                <button className='sm:hidden flex items-center justify-center' onClick={handleEdit}><Edit/></button>
+                <button className='hidden sm:block' onClick={handleEdit}>Editar Entrenamiento</button>
+                <button className='sm:hidden flex items-center justify-center' onClick={handleDetails}><Add/></button>
+                <button className='hidden sm:block' onClick={handleDetails}>Añadir Ejercicio</button>
+                <button className='sm:hidden flex items-center justify-center' onClick={handleEliminarEntrenamiento}><DeleteIcon/></button>
+                <button className='hidden sm:block' onClick={handleEliminarEntrenamiento}>Eliminar Entrenamiento</button>
             </div>
         </div>
     );

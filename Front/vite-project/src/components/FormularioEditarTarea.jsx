@@ -11,38 +11,43 @@ export default function FormularioEditarTarea(props) {
   const id = tarea.id
   const tareaAntigua = tarea.tarea;
   const [tareaNueva, setTareaNueva] = useState(tareaAntigua);
-  const { validarCampo, errores } = useValidaciones(); // Usa el hook de validaciones
+  const { validarCampo } = useValidaciones(); // Usa el hook de validaciones
+  const [tareaValida, setValida] = useState(true)
 
 
   const handleSubmitActualizar = async (event) => {
     event.preventDefault();
     const esTareaValida = validarCampo('tarea', tareaNueva);
     if (!esTareaValida) {
-      return alert('El campo no puede estar vacio ');;
+      setValida(false)
+
     }
-    try {
-      const data = {
-        tarea: tareaNueva,
-        id_entrenador:id_entrenador
-      };
-  
-      const options = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        data: qs.stringify(data),
-        url: `https://tfg-backend-piniass-projects.vercel.app/tareas/${id}`    // Aquí está la URL de la ruta
-      };
-      console.log(data)
-      const res = await axios(options);
-      console.log(res.data);
-      console.log(props)
-      actualizarTareas()
-      // window.location.reload()
-      setEstadoForm(false)
-    } catch (error) {
-      console.error('Error al crear tarea:', error);
+    if(esTareaValida){
+      try {
+        const data = {
+          tarea: tareaNueva,
+          id_entrenador:id_entrenador
+        };
+    
+        const options = {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          data: qs.stringify(data),
+          url: `http://127.0.0.1:8000/tareas/${id}`    // Aquí está la URL de la ruta
+        };
+        console.log(data)
+        const res = await axios(options);
+        console.log(res.data);
+        console.log(props)
+        actualizarTareas()
+        // window.location.reload()
+        setEstadoForm(false)
+      } catch (error) {
+        console.error('Error al crear tarea:', error);
+      }
+      console.log(`Editando tarea con ID: ${id}`);
     }
-    console.log(`Editando tarea con ID: ${id}`);
+    
   };
   
   const cerrarForm = () => {
@@ -67,6 +72,7 @@ export default function FormularioEditarTarea(props) {
           placeholder="Nueva Tarea"
           className="resize-none mb-2 p-2 border-2" 
         />
+        {!tareaValida && <p className='p-1 mb-2 bg-red-500 text-white rounded-md'>El campo no puede estar vacio </p>}
         <button className='bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded' type="submit">Editar</button>
       </form>
     </div>

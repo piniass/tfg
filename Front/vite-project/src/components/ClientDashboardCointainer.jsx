@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import FormularioCrearCliente from './FormularioCrearCliente';
 import FormularioEditarCliente from './FormularioEditarCliente';
 import useCliente from '../hooks/HookCliente';
+import useHasheo from '../hooks/HookHasheo';
 
 export default function ClientDashboardContainer() {
-  const id = sessionStorage.getItem("id");
+  const {decryptData } = useHasheo();
+  const id = decryptData(sessionStorage.getItem("id"));
   const navigate = useNavigate();
   const [buscador, setBuscador] = useState('');
   const [showForm, setForm] = useState(false);
@@ -17,7 +19,6 @@ export default function ClientDashboardContainer() {
 
   useEffect(() => {
       getClientes();
-      console.log(cliente)
   }, [id]);
 
   const handleForm = async () => {

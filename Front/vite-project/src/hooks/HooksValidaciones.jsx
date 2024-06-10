@@ -1,8 +1,6 @@
 import { useState } from 'react';
 
 const useValidaciones = () => {
-  const [errores, setErrores] = useState({});
-
   const validarEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
@@ -18,8 +16,7 @@ const useValidaciones = () => {
   const validarNombreApellido = (nombreApellido) => {
     const regex = /^[A-ZÑ][a-zñ]+$/;
     return regex.test(nombreApellido);
-};
-
+  };
 
   const validarNoVacio = (campo) => campo.trim() !== '';
 
@@ -31,157 +28,54 @@ const useValidaciones = () => {
 
   const validarSeleccion = (seleccion) => seleccion !== '';
 
-  const validarTextoMayuscula = (texto) => /^[A-ZÑ](?:[a-zñ]*\s?)*[A-ZÑ]*[a-zñ]*$/.test(texto);
+  const validarTextoMayuscula = (texto) => /^[A-ZÁÉÍÓÚÑ](?:[a-záéíóúñ]*\s?)*[A-ZÁÉÍÓÚÑ]*[a-záéíóúñ]*$/.test(texto);
 
   const validarDiaSemana = (dia) => ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'].includes(dia);
 
-  const validarGrupoMuscular = (grupo) => ['abductor','abdominales','pectoral','bíceps','tríceps','cuádriceps','espalda','deltoides','gemelos','glúteo'].includes(grupo);
+  const validarGrupoMuscular = (grupo) => ['abductor','abdominales','pectoral','bíceps','tríceps','cuádriceps','espalda','deltoides','femoral','gemelos','glúteo'].includes(grupo);
 
   const validarSeriesRepes = (valor) => valor > 0;
 
   const validarCampo = (campo, valor) => {
-    const nuevosErrores = { ...errores };
-    console.log(valor)
-
-
     switch (campo) {
       case 'email':
-        if (!validarEmail(valor)) {
-          nuevosErrores[campo] = 'Correo inválido';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarEmail(valor);
       case 'password':
-        if (!validarPassword(valor, 5, 12)) {
-          nuevosErrores[campo] = 'Contraseña inválida';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarPassword(valor, 5, 12);
       case 'nombre':
       case 'apellido':
-        if (!validarNombreApellido(valor)) {
-          nuevosErrores[campo] = 'Debe comenzar con mayúscula';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarNombreApellido(valor);
       case 'edad':
-        if (!validarEdad(valor)) {
-          nuevosErrores[campo] = 'Edad fuera de rango';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarEdad(valor);
       case 'altura':
-        if (!validarAltura(valor)) {
-          nuevosErrores[campo] = 'Altura fuera de rango';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarAltura(valor);
       case 'peso':
-        if (!validarPeso(valor)) {
-          nuevosErrores[campo] = 'Peso fuera de rango';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarPeso(valor);
       case 'patologia':
-        if (!validarNoVacio(valor)) {
-          nuevosErrores[campo] = 'Patología no puede estar vacío';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarNoVacio(valor);
       case 'avatar':
-        if (!validarSeleccion(valor)) {
-          nuevosErrores[campo] = 'Debe seleccionar un avatar';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarSeleccion(valor);
       case 'tarea':
-        if (!validarNoVacio(valor)) {
-          nuevosErrores[campo] = 'Tarea no puede estar vacía';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarNoVacio(valor);
       case 'rutina':
-        if (!validarTextoMayuscula(valor)) {
-          nuevosErrores[campo] = 'Rutina debe comenzar con mayúscula';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        if (!validarNoVacio(valor)) {
-          nuevosErrores[campo] = 'Rutina no puede estar vacía';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarTextoMayuscula(valor) && validarNoVacio(valor);
       case 'entrenamiento':
-        if (!validarNoVacio(valor)) {
-          nuevosErrores[campo] = 'Entrenamiento no puede estar vacío';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        if (!validarTextoMayuscula(valor)) {
-          nuevosErrores[campo] = 'Entrenamiento debe comenzar con mayúscula';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarNoVacio(valor) && validarTextoMayuscula(valor);
       case 'dia':
-        if (!validarDiaSemana(valor)) {
-          nuevosErrores[campo] = 'Día de la semana no válido';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarDiaSemana(valor);
       case 'ejercicio':
-        if (!validarTextoMayuscula(valor)) {
-          nuevosErrores[campo] = 'Ejercicio debe comenzar con mayúscula';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        if (!validarNoVacio(valor)) {
-          nuevosErrores[campo] = 'Ejercicio no puede estar vacío';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarTextoMayuscula(valor) && validarNoVacio(valor);
       case 'grupoMuscular':
-        console.log(valor)
-        if (!validarGrupoMuscular(valor.toLowerCase())) {
-          nuevosErrores[campo] = 'Grupo muscular no válido';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarGrupoMuscular(valor.toLowerCase());
       case 'series':
       case 'repeticiones':
-        if (!validarSeriesRepes(valor)) {
-          nuevosErrores[campo] = 'Series y repeticiones deben ser mayores que 0';
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarSeriesRepes(valor);
       default:
-        if (!validarNoVacio(valor)) {
-          nuevosErrores[campo] = `${campo} no puede estar vacío`;
-        } else {
-          delete nuevosErrores[campo];
-        }
-        break;
+        return validarNoVacio(valor);
     }
-
-    setErrores(nuevosErrores);
-    return Object.keys(nuevosErrores).length === 0;
   };
 
-  return { errores, validarCampo };
+  return { validarCampo };
 };
 
 export default useValidaciones;

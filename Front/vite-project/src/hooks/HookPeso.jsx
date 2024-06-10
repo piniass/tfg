@@ -12,14 +12,14 @@ const usePeso = (id) => {
       setLoading(true)
       setTimeout(() => {
 
-      }, 3000);
+      }, 1000);
       try {
-        console.log("Entro al get")
+        // console.log("Entro al get")
         
-        const response = await axios.get(`http://tfg-backend-piniass-projects.vercel.app/pesos/cliente/${idPersona}`);
+        const response = await axios.get(`http://127.0.0.1:8000/pesos/cliente/${idPersona}`);
         setPeso(response.data);
         setLoading(false)
-        console.log('Datos recibidos del backend:', response.data); // Agregar este console.log
+        // console.log('Datos recibidos del backend:', response.data); // Agregar este console.log
         return peso
       } catch (err) {
         setError(err);
@@ -32,9 +32,9 @@ const usePeso = (id) => {
         const confirmDelete = true
 
         if (confirmDelete) {
-          const response = await axios.delete(`http://tfg-backend-piniass-projects.vercel.app/pesos/cliente/${id}`);
-          console.log(response.data.message); 
-          actualizarTareas()
+          const response = await axios.delete(`http://127.0.0.1:8000/pesos/cliente/${id}`);
+          // console.log(response.data.message); 
+          getPeso()
         }
   
       } catch (err) {
@@ -45,11 +45,11 @@ const usePeso = (id) => {
     const  actualizarPeso = async() => {
       try {
         setLoading(true)
-          const response = await axios.get(`http://tfg-backend-piniass-projects.vercel.app/pesos/cliente/${idPersona}`);
+          const response = await axios.get(`http://127.0.0.1:8000/pesos/cliente/${idPersona}`);
           setPeso(response.data);
           setLoading(false)
       } catch (error) {
-          console.log(error);
+          // console.log(error);
       }
   
     }
@@ -59,6 +59,7 @@ const usePeso = (id) => {
         getPeso,
         actualizarPeso,
         peso,
+        handleEliminar,
         loading
     }
   
