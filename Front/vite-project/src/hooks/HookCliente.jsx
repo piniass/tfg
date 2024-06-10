@@ -22,7 +22,7 @@ const useCliente = () => {
     try {
       const confirmDelete = true;
       if (confirmDelete) {
-        await axios.delete(`https://tfg-backend-piniass-projects.vercel.app/tfg-backend-piniass-projects.vercel.app/cliente/${cliente}`);
+        await axios.delete(`https://tfg-backend-piniass-projects.vercel.app/cliente/${cliente}`);
         getClientes(); // Refresca la lista de clientes después de eliminar
       }
     } catch (err) {
