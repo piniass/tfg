@@ -30,7 +30,7 @@ export default function ClientsContainer(props) {
             </div>}
             
             {cliente.length === 0 && !loading ? (
-                <p>No hay clientes todavía</p>
+                <p className='p-4'>No hay clientes todavía</p>
             ) : (
                 props.buscador !== '' ? (
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
