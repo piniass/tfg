@@ -6,7 +6,7 @@ import CheckIcon from '../svgs/CheckIcon'
 import CloseIcon from '../svgs/CloseIcon';
 
 export default function ModalRutinas({ rutinas, id_usuario, getRutinas, id_rutina,id_entrenador,updateState,setModal }) {
-    console.log("modal rutinas props", { rutinas, id_usuario, getRutinas, id_rutina });
+    // console.log("modal rutinas props", { rutinas, id_usuario, getRutinas, id_rutina });
     const [rutinaActual,setRutina] = useState(null)
 
     useEffect(() => {
@@ -19,7 +19,7 @@ export default function ModalRutinas({ rutinas, id_usuario, getRutinas, id_rutin
 
     const handleSubmit = async(e, id_rutina) => {
         e.preventDefault();
-        console.log("rutina: ", id_rutina, "usuario", id_usuario);
+        // console.log("rutina: ", id_rutina, "usuario", id_usuario);
 
         
 
@@ -40,9 +40,9 @@ export default function ModalRutinas({ rutinas, id_usuario, getRutinas, id_rutin
             getRutinas(id_entrenador)
             updateState({ id_rutina }); // Actualiza el estado con la nueva id de rutina
 
-            console.log(res.data);
+            // console.log(res.data);
         } catch (error) {
-            console.log("Errores:", error.response.data.detail);
+            // console.log("Errores:", error.response.data.detail);
         }
     }
 

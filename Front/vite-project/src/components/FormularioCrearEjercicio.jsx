@@ -111,10 +111,10 @@ export default function FormularioCrearEjercicio(props) {
       };
 
       const res = await axios(options);
-      console.log(res.data);
+      // console.log(res.data);
       props.getEjercicios();
     } catch (error) {
-      console.log("Errores:", error.response ? error.response.data.detail : error.message);
+      // console.log("Errores:", error.response ? error.response.data.detail : error.message);
     }
   };
 

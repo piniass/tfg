@@ -18,7 +18,7 @@ export default function FormularioCrearRutina(props) {
     const [nombreValido, setNombre] = useState(true)
     const { errores, validarCampo } = useValidaciones();
 
-    console.log(props);
+    // console.log(props);
 
     const handleCloseForm = () => {
         props.setForm(false);
@@ -27,7 +27,7 @@ export default function FormularioCrearRutina(props) {
     const handleImgChange = (event) => {
         const selectedValue = event.target.value;
         setSelectedImg(selectedValue);
-        console.log("Imagen seleccionada:", selectedValue);
+        // console.log("Imagen seleccionada:", selectedValue);
     };
 
     const handleNombreChange = (event) => {
@@ -59,7 +59,7 @@ export default function FormularioCrearRutina(props) {
                     foto: selectedImg,
                     id: id_entrenador
                 };
-                console.log(data);
+                // console.log(data);
                 const options = {
                     method: 'POST',
                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -68,10 +68,10 @@ export default function FormularioCrearRutina(props) {
                 };
     
                 const res = await axios(options);
-                console.log(res.data);
+                // console.log(res.data);
     
             } catch (error) {
-                console.log("Errores:", error.response.data.detail);
+                // console.log("Errores:", error.response.data.detail);
             }
             props.actualizarRutinas();
             props.setForm(false);

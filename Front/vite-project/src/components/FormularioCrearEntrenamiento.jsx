@@ -48,13 +48,13 @@ export default function FormularioCrearEntrenamiento(props) {
       };
 
       const res = await axios(options);
-      console.log(res.data);
+      // console.log(res.data);
 
       // Actualizar la lista de rutinas después de crear el entrenamiento
       // props.actualizarRutinas();
       props.getEntrenamiento();
     } catch (error) {
-      console.log("Errores:", error.response.data.detail);
+      // console.log("Errores:", error.response.data.detail);
     }
 
     // Cerrar el formulario después de enviar

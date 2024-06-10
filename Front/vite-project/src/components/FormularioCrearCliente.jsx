@@ -53,7 +53,7 @@ export default function FormularioCrearCliente(props) {
           ...formData,
           id_entrenador: id
         };
-        console.log(data)
+        // console.log(data)
 
         const options = {
           method: 'POST',
@@ -63,19 +63,19 @@ export default function FormularioCrearCliente(props) {
         };
 
         const res = await axios(options);
-        console.log(res.data);
+        // console.log(res.data);
         props.getClientes();
         props.setForm(false);
 
       } catch (error) {
-        console.log("Errores:", error.response.data.detail);
+        // console.log("Errores:", error.response.data.detail);
       }
     }
   };
 
   const sacarImagen = (src) => {
     const recortado = src.substring(13);
-    console.log(recortado)
+    // console.log(recortado)
     setFormData({
       ...formData,
       avatar: recortado

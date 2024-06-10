@@ -22,7 +22,7 @@ export default function RutinasCard(props) {
     const handleAdd = () => {
         props.setRutinaId(id)
         props.setModal(true)
-        console.log("id rutina: ",id)
+        // console.log("id rutina: ",id)
     }
 
     return (

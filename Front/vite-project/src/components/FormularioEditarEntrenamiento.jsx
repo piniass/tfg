@@ -50,12 +50,12 @@ export default function FormularioEditarEntrenamiento(props) {
       };
 
       const res = await axios(options);
-      console.log(res.data);
+      // console.log(res.data);
 
       // Actualizar la lista de entrenamientos después de editar el entrenamiento
       props.getEntrenamiento();
     } catch (error) {
-      console.log("Errores:", error.response?.data?.detail || error.message);
+      // console.log("Errores:", error.response?.data?.detail || error.message);
     }
 
     // Cerrar el formulario después de enviar

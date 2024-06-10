@@ -33,7 +33,7 @@ const usePeso = (id) => {
 
         if (confirmDelete) {
           const response = await axios.delete(`http://127.0.0.1:8000/pesos/cliente/${id}`);
-          console.log(response.data.message); 
+          // console.log(response.data.message); 
           getPeso()
         }
   
@@ -49,7 +49,7 @@ const usePeso = (id) => {
           setPeso(response.data);
           setLoading(false)
       } catch (error) {
-          console.log(error);
+          // console.log(error);
       }
   
     }

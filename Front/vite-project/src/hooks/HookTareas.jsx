@@ -15,7 +15,7 @@ const useTarea = () => {
   
     const getTareas = async () => {
       try {
-        console.log("fetch tareas id:",id)
+        // console.log("fetch tareas id:",id)
         const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
         setTareas(response.data);
         // console.log(tareas)
@@ -35,7 +35,7 @@ const useTarea = () => {
 
         if (confirmDelete) {
           const response = await axios.delete(`http://127.0.0.1:8000/tareas/${id}`);
-          console.log(response.data.message); 
+          // console.log(response.data.message); 
           actualizarTareas()
         }
   
@@ -47,11 +47,11 @@ const useTarea = () => {
     const  actualizarTareas = async() => {
       try {
           const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
-          console.log("actualizo tareas")
+          // console.log("actualizo tareas")
           setTareas(response.data);
-          console.log(tareas)
+          // console.log(tareas)
       } catch (error) {
-          console.log(error);
+          // console.log(error);
       }
   
     }

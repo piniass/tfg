@@ -28,7 +28,7 @@ export default function FormularioEditarRutina({ rutina, actualizarRutinas, setF
     const handleImgChange = (event) => {
         const selectedValue = event.target.value;
         setSelectedImg(selectedValue);
-        console.log("Imagen seleccionada:", selectedValue);
+        // console.log("Imagen seleccionada:", selectedValue);
     };
 
     const handleNombreChange = (event) => {
@@ -47,17 +47,17 @@ export default function FormularioEditarRutina({ rutina, actualizarRutinas, setF
         if(!validarImg){
             setImgValida(false)
         }
-        console.log(validarNombre)
+        // console.log(validarNombre)
 
         if (validarNombre && validarImg) {
-            console.log("entro")
+            // console.log("entro")
             try {
                 const data = {
                     nombre: nombreRutina, 
                     foto: selectedImg,
                     id_entrenador: id_entrenador
                 };
-                console.log(data);
+                // console.log(data);
                 const options = {
                     method: 'PUT',
                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -66,13 +66,13 @@ export default function FormularioEditarRutina({ rutina, actualizarRutinas, setF
                 };
 
                 const res = await axios(options);
-                console.log(res.data);
+                // console.log(res.data);
 
                 actualizarRutinas(); 
                 setForm(false); 
 
             } catch (error) {
-                console.log("Errores:", error.response.data.detail);
+                // console.log("Errores:", error.response.data.detail);
             }
         }
     };

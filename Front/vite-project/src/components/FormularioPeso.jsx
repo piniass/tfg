@@ -14,31 +14,34 @@ export default function FormularioPeso(props) {
 
     const handleSubmitCrear = async(ev) => {
         ev.preventDefault()
-        try {
-          const pesoValido = validarCampo('peso', peso);
-          if (!pesoValido) {
+        const validarPeso = validarCampo('peso', peso);
+          if (!validarPeso) {
             setValido(false)
+          } else {
+            try {
+          
+          
+              const data = {
+                  id_cliente: id,
+                  peso: peso
+              };
+        
+              const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                data: qs.stringify(data),
+                url: url,
+              };
+              setValido(true)
+              const res = await axios(options);
+              // console.log(res.data);
+              // window.location.reload()
+              props.actualizarPeso()
+            } catch (error) {
+              console.error('Error al crear tarea:', error);
+            }
           }
-            const data = {
-                id_cliente: id,
-                peso: peso
-            };
-      
-            const options = {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-              data: qs.stringify(data),
-              url: url,
-            };
-            setValido(true)
-      
-            const res = await axios(options);
-            console.log(res.data);
-            // window.location.reload()
-            props.actualizarPeso()
-          } catch (error) {
-            console.error('Error al crear tarea:', error);
-          }
+        
     }
   return (
     <div className='flex flex-col mb-2'>

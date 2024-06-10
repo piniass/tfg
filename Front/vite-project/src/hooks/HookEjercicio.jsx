@@ -10,7 +10,7 @@ const useEjercicio = (id_entrenamiento) => {
         try {
             const response = await axios.get(`http://127.0.0.1:8000/ejercicios/entrenamiento/${entrenamientoId}`);
             setEjercicio(response.data);
-            console.log("Fetch ejercicios", ejercicio)
+            // console.log("Fetch ejercicios", ejercicio)
             return ejercicio;
         } catch (err) {
             setError(err);
@@ -22,9 +22,9 @@ const useEjercicio = (id_entrenamiento) => {
             //const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este ejercicio?");
             //if (confirmDelete) {
                 const response = await axios.delete(`http://127.0.0.1:8000/ejercicios/${id}`);
-                console.log(response.data.message); 
+                // console.log(response.data.message); 
                 getEjercicios();
-                console.log("hago el get")
+                // console.log("hago el get")
             //}
         } catch (err) {
             setError(err);

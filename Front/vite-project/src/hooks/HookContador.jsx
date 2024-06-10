@@ -10,7 +10,7 @@ const useContador = () => {
     setLoading(true)
     setTimeout(() => {
 
-    }, 4000);
+    }, 2000);
     try {
         
         const response = await axios.get(`http://localhost:8000/ejercicios/rutina/cliente/${id_cliente}`);
@@ -18,7 +18,7 @@ const useContador = () => {
         setCounter(response.data);
     } catch (err) {
         setError(err);
-        console.log(error);
+        // console.log(error);
     }
   };
 

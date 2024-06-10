@@ -41,7 +41,7 @@ export default function VerRutina(props) {
     useEffect(() => {
         if (entrenamientoId) {
             getEjercicios();
-            console.log(ejercicio)
+            // console.log(ejercicio)
         }
     }, [entrenamientoId]);
 
@@ -54,7 +54,7 @@ export default function VerRutina(props) {
     }
 
     const getEntrenamientoId = (id) => {
-        console.log("click: ",entrenamientoId)
+        // console.log("click: ",entrenamientoId)
         setEntrenamientoId(id);
     };
 

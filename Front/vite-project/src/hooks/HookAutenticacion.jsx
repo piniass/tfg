@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 export function useAutenticacion() {
   const [autenticado, setAutenticado] = useState(() => {
     const token = getCookie('token');
-    console.log(token);
+    // console.log(token);
     return !!token; // Convierte el token en un valor booleano
   });
 

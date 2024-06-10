@@ -28,17 +28,17 @@ const useRutinas = () => {
           setRutinas(response.data);
         } catch (err) {
           setError(err);
-          console.log(err)
+          // console.log(err)
         }
       };
 
       const  actualizarRutinas = async() => {
         try {
             const response = await axios.get(`http://127.0.0.1:8000/rutinas/entrenador/${id}`);
-            console.log("actualizo tareas")
+            // console.log("actualizo tareas")
             setRutinas(response.data);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     
       }
@@ -50,7 +50,7 @@ const useRutinas = () => {
   
           if (confirmDelete) {
             const response = await axios.delete(`http://127.0.0.1:8000/rutinas/${id}`);
-            console.log(response.data.message); 
+            // console.log(response.data.message); 
             actualizarRutinas()
           }
     

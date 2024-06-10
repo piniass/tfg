@@ -18,7 +18,7 @@ const useCliente = () => {
   };
 
   const handleEliminar = async (cliente) => {
-    console.log(cliente)
+    // console.log(cliente)
     try {
       const confirmDelete = true;
       if (confirmDelete) {
