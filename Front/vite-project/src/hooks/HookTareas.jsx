@@ -16,7 +16,7 @@ const useTarea = () => {
     const getTareas = async () => {
       try {
         // console.log("fetch tareas id:",id)
-        const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
+        const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/tareas/entrenador/${id}`);
         setTareas(response.data);
         // console.log(tareas)
 
@@ -34,7 +34,7 @@ const useTarea = () => {
         const confirmDelete = true
 
         if (confirmDelete) {
-          const response = await axios.delete(`http://127.0.0.1:8000/tareas/${id}`);
+          const response = await axios.delete(`https://tfg-backend-piniass-projects.vercel.app/tareas/${id}`);
           // console.log(response.data.message); 
           actualizarTareas()
         }
@@ -46,7 +46,7 @@ const useTarea = () => {
   
     const  actualizarTareas = async() => {
       try {
-          const response = await axios.get(`http://127.0.0.1:8000/tareas/entrenador/${id}`);
+          const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/tareas/entrenador/${id}`);
           // console.log("actualizo tareas")
           setTareas(response.data);
           // console.log(tareas)
@@ -70,7 +70,7 @@ const useTarea = () => {
           method: 'PUT',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           data: qs.stringify(data),
-          url: `http://127.0.0.1:8000/tareas/estado/${id}`
+          url: `https://tfg-backend-piniass-projects.vercel.app/tareas/estado/${id}`
         };
         const res = await axios(options);
         actualizarTareas() 

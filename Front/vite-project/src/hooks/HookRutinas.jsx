@@ -15,7 +15,7 @@ const useRutinas = () => {
           setTimeout(() => {
 
           }, 2000);
-          const response = await axios.get(`http://127.0.0.1:8000/rutinas/entrenador/${id}`);
+          const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id}`);
           setRutinas(response.data);
         } catch (err) {
           setError(err);
@@ -24,7 +24,7 @@ const useRutinas = () => {
 
       const getRutinasId = async (id_cliente) => {
         try {
-          const response = await axios.get(`http://127.0.0.1:8000/rutinas/entrenador/${id_cliente}`);
+          const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id_cliente}`);
           setRutinas(response.data);
         } catch (err) {
           setError(err);
@@ -34,7 +34,7 @@ const useRutinas = () => {
 
       const  actualizarRutinas = async() => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/rutinas/entrenador/${id}`);
+            const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id}`);
             // console.log("actualizo tareas")
             setRutinas(response.data);
         } catch (error) {
@@ -49,7 +49,7 @@ const useRutinas = () => {
           const confirmDelete = true
   
           if (confirmDelete) {
-            const response = await axios.delete(`http://127.0.0.1:8000/rutinas/${id}`);
+            const response = await axios.delete(`https://tfg-backend-piniass-projects.vercel.app/rutinas/${id}`);
             // console.log(response.data.message); 
             actualizarRutinas()
           }

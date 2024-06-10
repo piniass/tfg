@@ -25,7 +25,7 @@ export default function ModalClientes(props) {
 
     const handlePutRutina = async (userId) => {
         try {
-            const url = `http://tfg-backend-piniass-projects.vercel.app/cliente/rutina/${userId}`;
+            const url = `https://tfg-backend-piniass-projects.vercel.app/cliente/rutina/${userId}`;
             const data = {
                 id_rutina: rutina.id
             };
@@ -42,9 +42,9 @@ export default function ModalClientes(props) {
             props.getClientes();
             setLoaderUsers(loaderUsers.filter(id => id !== userId)); // Elimina userId de la lista de cargadores
 
-            console.log(res.data);
+            // console.log(res.data);
         } catch (error) {
-            console.log("Errores:", error.response.data.detail);
+            // console.log("Errores:", error.response.data.detail);
         }
     };
 

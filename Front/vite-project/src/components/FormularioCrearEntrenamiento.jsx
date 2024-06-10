@@ -12,7 +12,7 @@ export default function FormularioCrearEntrenamiento(props) {
     'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
   ];
 
-  const url = `http://tfg-backend-piniass-projects.vercel.app/entrenamientos/rutina`;
+  const url = `https://tfg-backend-piniass-projects.vercel.app/entrenamientos/rutina`;
   const { errores, validarCampo } = useValidaciones();
   const [errors, setErrors] = useState({
     nombre: '',

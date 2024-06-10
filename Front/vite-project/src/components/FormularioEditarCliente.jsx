@@ -24,7 +24,7 @@ export default function FormularioEditarCliente(props) {
   });
 
   const { errores, validarCampo } = useValidaciones();
-  const url = `http://127.0.0.1:8000/cliente/${cliente.id}`;
+  const url = `https://tfg-backend-piniass-projects.vercel.app/cliente/${cliente.id}`;
 
   useEffect(() => {
     if (cliente) {
@@ -69,12 +69,12 @@ export default function FormularioEditarCliente(props) {
         };
 
         const res = await axios(options);
-        console.log(res.data);
+        // console.log(res.data);
         props.getClientes();
         props.setEdit(false);
 
       } catch (error) {
-        console.log("Errores:", error.response.data.detail);
+        // console.log("Errores:", error.response.data.detail);
       }
     }
   };

@@ -14,7 +14,7 @@ export default function FormularioCrearRutina(props) {
     const [ImgValida, setImgValida] = useState(true);
     const {decryptData } = useHasheo();
     const id_entrenador = decryptData(sessionStorage.getItem("id"));
-    const url = `http://127.0.0.1:8000/rutinas/cliente/`;
+    const url = `https://tfg-backend-piniass-projects.vercel.app/rutinas/cliente/`;
     const [nombreValido, setNombre] = useState(true)
     const { errores, validarCampo } = useValidaciones();
 

@@ -10,7 +10,7 @@ const useEntrenamiento = (id_rutina) => {
     const getEntrenamiento = async () => {
         try {
           // console.log("El id por parametro: ", id_rutina)
-          const response = await axios.get(`http://127.0.0.1:8000/entrenamientos/rutina/${rutinaId}`);
+          const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/entrenamientos/rutina/${rutinaId}`);
           setEntrenamiento(response.data);
           return entrenamiento
         } catch (err) {
@@ -24,7 +24,7 @@ const useEntrenamiento = (id_rutina) => {
           const confirmDelete = true
   
           if (confirmDelete) {
-            const response = await axios.delete(`http://127.0.0.1:8000/entrenamientos/${id}`);
+            const response = await axios.delete(`https://tfg-backend-piniass-projects.vercel.app/entrenamientos/${id}`);
             console.log(response.data.message); 
             getEntrenamiento()
           }

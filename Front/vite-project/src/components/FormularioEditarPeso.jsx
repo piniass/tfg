@@ -6,7 +6,7 @@ import useValidaciones from '../hooks/HooksValidaciones';
 export default function FormularioEditarPeso(props) {
     const [peso, setPeso] = useState('')
     const id = props.state.id
-    const url = `http://127.0.0.1:8000/pesos/${props.pesoNuevo?.id || ''}`;
+    const url = `https://tfg-backend-piniass-projects.vercel.app/pesos/${props.pesoNuevo?.id || ''}`;
     const { validarCampo } = useValidaciones();
     const [pesoValido,setValido] = useState(true)
 
@@ -40,7 +40,7 @@ export default function FormularioEditarPeso(props) {
                 setValido(true)
     
                 const res = await axios(options);
-                console.log(res.data);
+                // console.log(res.data);
                 props.actualizarPeso()
             } catch (error) {
                 console.error('Error al editar peso:', error);

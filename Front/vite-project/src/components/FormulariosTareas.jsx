@@ -15,7 +15,7 @@ export default function FormulariosTareas(props) {
   const [tareaNueva, setTareaNueva] = useState('');
   const { validarCampo, errores } = useValidaciones(); // Usa el hook de validaciones
   const [tareaValida, setValida] = useState(true)
-  const url = 'http://127.0.0.1:8000/tareas';
+  const url = 'https://tfg-backend-piniass-projects.vercel.app/tareas';
 
   const handleSubmitCrear = async (event) => {
     event.preventDefault();

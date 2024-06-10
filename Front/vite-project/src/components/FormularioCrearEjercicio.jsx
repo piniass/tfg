@@ -40,7 +40,7 @@ export default function FormularioCrearEjercicio(props) {
     "Peso Muerto Rumano": "Femoral",
   };
 
-  const url = `http://127.0.0.1:8000/ejercicios/entreanmiento`;
+  const url = `https://tfg-backend-piniass-projects.vercel.app/ejercicios/entreanmiento`;
   const { errores, validarCampo } = useValidaciones();
 
   const [nombreEjercicio, setNombreEjercicio] = useState('');

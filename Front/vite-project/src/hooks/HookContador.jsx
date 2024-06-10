@@ -13,7 +13,7 @@ const useContador = () => {
     }, 2000);
     try {
         
-        const response = await axios.get(`http://localhost:8000/ejercicios/rutina/cliente/${id_cliente}`);
+        const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/ejercicios/rutina/cliente/${id_cliente}`);
         setLoading(false)
         setCounter(response.data);
     } catch (err) {

@@ -40,7 +40,7 @@ export default function FormularioEditarEjercicio(props) {
     "Peso Muerto Rumano": "Femoral",
   };
 
-  const url = `http://127.0.0.1:8000/ejercicios/${ejercicio.id}`;
+  const url = `https://tfg-backend-piniass-projects.vercel.app/ejercicios/${ejercicio.id}`;
   const { errores, validarCampo } = useValidaciones();
 
   const [nombreEjercicio, setNombreEjercicio] = useState(ejercicio.nombre || '');
@@ -110,11 +110,11 @@ export default function FormularioEditarEjercicio(props) {
       };
 
       const res = await axios(options);
-      console.log(res.data);
+      // console.log(res.data);
       getEjercicios();
       setFormEditEjercicio(false);
     } catch (error) {
-      console.log("Errores:", error.response ? error.response.data.detail : error.message);
+      // console.log("Errores:", error.response ? error.response.data.detail : error.message);
     }
   };
 

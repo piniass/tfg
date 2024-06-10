@@ -24,7 +24,7 @@ export default function Formulario() {
 
     try {
       // Realizar la petición POST a la API
-      const url = 'http://127.0.0.1:8000/entrenador/login';
+      const url = 'https://tfg-backend-piniass-projects.vercel.app/entrenador/login';
       const data = {
         correo: correo,
         password: contrasenia

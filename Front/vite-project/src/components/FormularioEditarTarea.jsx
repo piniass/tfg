@@ -33,19 +33,18 @@ export default function FormularioEditarTarea(props) {
           method: 'PUT',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           data: qs.stringify(data),
-          url: `http://127.0.0.1:8000/tareas/${id}`    // Aquí está la URL de la ruta
+          url: `https://tfg-backend-piniass-projects.vercel.app/tareas/${id}`    // Aquí está la URL de la ruta
         };
-        console.log(data)
+        // console.log(data)
         const res = await axios(options);
-        console.log(res.data);
-        console.log(props)
+        // console.log(res.data);
+        // console.log(props)
         actualizarTareas()
-        // window.location.reload()
         setEstadoForm(false)
       } catch (error) {
-        console.error('Error al crear tarea:', error);
+        // console.error('Error al crear tarea:', error);
       }
-      console.log(`Editando tarea con ID: ${id}`);
+      // console.log(`Editando tarea con ID: ${id}`);
     }
     
   };

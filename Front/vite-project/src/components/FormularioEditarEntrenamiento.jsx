@@ -14,7 +14,7 @@ export default function FormularioEditarEntrenamiento(props) {
     'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
   ];
 
-  const url = `http://127.0.0.1:8000/entrenamientos/${id}`;
+  const url = `https://tfg-backend-piniass-projects.vercel.app/entrenamientos/${id}`;
   const { errores, validarCampo } = useValidaciones();
   const [errors, setErrors] = useState({
     nombre: '',

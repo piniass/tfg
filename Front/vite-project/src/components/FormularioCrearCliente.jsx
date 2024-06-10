@@ -26,7 +26,7 @@ export default function FormularioCrearCliente(props) {
   });
 
   const { errores, validarCampo } = useValidaciones();
-  const url = 'http://127.0.0.1:8000/cliente';
+  const url = 'http://tfg-backend-piniass-projects.vercel.app/cliente';
 
   const handleChange = (e) => {
     const { name, value } = e.target;

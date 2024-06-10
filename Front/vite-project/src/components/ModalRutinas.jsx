@@ -24,7 +24,7 @@ export default function ModalRutinas({ rutinas, id_usuario, getRutinas, id_rutin
         
 
         try {
-            const url = `http://127.0.0.1:8000/cliente/rutina/${id_usuario}`;
+            const url = `https://tfg-backend-piniass-projects.vercel.app/cliente/rutina/${id_usuario}`;
             const data = {
                 id_rutina: id_rutina
             };
