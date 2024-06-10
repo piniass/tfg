@@ -10,9 +10,9 @@ const usePeso = (id) => {
   
     const getPeso = async () => {
       setLoading(true)
-      setTimeout(() => {
+      // setTimeout(() => {
 
-      }, 1000);
+      // }, 1000);
       try {
         // console.log("Entro al get")
         
