@@ -12,9 +12,6 @@ const useRutinas = () => {
     const getRutinas = async () => {
       
         try {
-          setTimeout(() => {
-
-          }, 2000);
           const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/rutinas/entrenador/${id}`);
           setRutinas(response.data);
         } catch (err) {
