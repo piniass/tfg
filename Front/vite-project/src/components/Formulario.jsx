@@ -21,54 +21,58 @@ export default function Formulario() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    try {
-      // Realizar la petición POST a la API
-      const url = 'https://tfg-backend-piniass-projects.vercel.app/entrenador/login';
-      const data = {
-        correo: correo,
-        password: contrasenia
-      };
-
-      const options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        data: qs.stringify(data),
-        url: url,
-      };
-
-      const res = await axios(options);
-
-      if (res.data.token) {
-        const tiempo = 1800;
-        const expTime = new Date(new Date().getTime() + (tiempo * 1000));
-
-        // Establecer la cookie
-        document.cookie = `token=${res.data.token}; expires=${expTime.toUTCString()}; path=/`;
-        const encryptedId = encryptData(res.data.entrenador.id.toString());
-        const encryptedNombre = encryptData(res.data.entrenador.nombre);
-        const encryptedApellido = encryptData(res.data.entrenador.apellido);
-        const encryptedFoto = encryptData(res.data.entrenador.avatar);
-    
-        // Almacenar en sessionStorage
-        sessionStorage.setItem("id", encryptedId);
-        sessionStorage.setItem("nombre", encryptedNombre);
-        sessionStorage.setItem("apellido", encryptedApellido);
-        sessionStorage.setItem("foto", encryptedFoto);
-        setError(null)
-
-        // Redirigir a otra página
-        navigate("/dashboard");
-      }else{
-        setError(res.data)
-        // alert(res.data)
+    if(correo != '' && contrasenia != ''){
+      try {
+        // Realizar la petición POST a la API
+        const url = 'https://tfg-backend-piniass-projects.vercel.app/entrenador/login';
+        const data = {
+          correo: correo,
+          password: contrasenia
+        };
+  
+        const options = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          data: qs.stringify(data),
+          url: url,
+        };
+  
+        const res = await axios(options);
+  
+        if (res.data.token) {
+          const tiempo = 1800;
+          const expTime = new Date(new Date().getTime() + (tiempo * 1000));
+  
+          // Establecer la cookie
+          document.cookie = `token=${res.data.token}; expires=${expTime.toUTCString()}; path=/`;
+          const encryptedId = encryptData(res.data.entrenador.id.toString());
+          const encryptedNombre = encryptData(res.data.entrenador.nombre);
+          const encryptedApellido = encryptData(res.data.entrenador.apellido);
+          const encryptedFoto = encryptData(res.data.entrenador.avatar);
+      
+          // Almacenar en sessionStorage
+          sessionStorage.setItem("id", encryptedId);
+          sessionStorage.setItem("nombre", encryptedNombre);
+          sessionStorage.setItem("apellido", encryptedApellido);
+          sessionStorage.setItem("foto", encryptedFoto);
+          setError(null)
+  
+          // Redirigir a otra página
+          navigate("/dashboard");
+        }else{
+          setError(res.data)
+          // alert(res.data)
+        }
+        setDatosRecibidos(res.data);
+      } catch (error) {
+        // Manejar errores de la petición
+        setError(error);
+        console.log(error)
       }
-      setDatosRecibidos(res.data);
-    } catch (error) {
-      // Manejar errores de la petición
-      setError(error);
-      console.log(error)
+    } else {
+      setError('Rellena los campos vacios')
     }
+   
   };
 
   // Efecto para imprimir el userId cuando cambia
