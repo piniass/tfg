@@ -26,7 +26,7 @@ export default function FormularioCrearCliente(props) {
   });
 
   const { errores, validarCampo } = useValidaciones();
-  const url = 'http://tfg-backend-piniass-projects.vercel.app/cliente';
+  const url = 'https://tfg-backend-piniass-projects.vercel.app/cliente';
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,11 +74,11 @@ export default function FormularioCrearCliente(props) {
   };
 
   const sacarImagen = (src) => {
-    const recortado = src.substring(13);
+    // const recortado = src.substring(13);
     // console.log(recortado)
     setFormData({
       ...formData,
-      avatar: recortado
+      avatar: src
     });
   };
 

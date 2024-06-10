@@ -80,10 +80,10 @@ export default function FormularioEditarCliente(props) {
   };
 
   const sacarImagen = (src) => {
-    const recortado = src.substring(13);
+    // const recortado = src.substring(13);
     setFormData({
       ...formData,
-      avatar: recortado
+      avatar: src
     });
   };
 

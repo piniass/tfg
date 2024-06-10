@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 const AvataresContainer = ({ sacarImagen }) => {
-  const ruta = '../../public/';
-  // const ruta = '/';
+  // const ruta = '../../public/';
+  const ruta = '/';
   const avatares = [
     "gorila.jpg",
     "elefante.jpg",

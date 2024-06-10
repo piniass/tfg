@@ -5,8 +5,8 @@ import AvataresContainer from './AvataresContainer'
 
 export default function Multistep_3(props) {
     const sacarImagen = (src) => {
-        const recortado = src;
-        props.setAvatar(recortado);
+        // const recortado = src;
+        props.setAvatar(src);
     };
 
     const handlePrev = () => {
