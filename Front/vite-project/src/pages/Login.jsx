@@ -55,6 +55,8 @@ export default function Login() {
                 navigate("/");
             } catch (err) {
                 const errorResponse = err.response.data.detail;
+                setLoading(false)
+
                 setError({ general: errorResponse });
             }
         }
