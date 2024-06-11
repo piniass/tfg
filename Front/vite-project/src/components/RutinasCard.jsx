@@ -9,7 +9,7 @@ export default function RutinasCard(props) {
     // const foto = props.rutina.foto
     const { id, nombre, foto } = props.rutina;
     
-    const ruta = + foto;
+    const ruta = foto;
     const navigate = useNavigate()
 
     const handleEliminar = () => {
