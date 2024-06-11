@@ -9,7 +9,7 @@ export default function FormularioEditarRutina({ rutina, actualizarRutinas, setF
     const imagenes = ["gorila.jpg", "tiburon.jpg", "cocodrilo.jpg", "leon.jpg", "ornitorrinco.jpg", "tortuga.jpg", "lobo.jpg"];
     const [selectedImg, setSelectedImg] = useState(rutina.foto || '');
     const [nombreRutina, setNombreRutina] = useState(rutina.nombre || '');
-    const ruta = "/img-rutinas/" + selectedImg;
+    const ruta =selectedImg;
     const id_entrenador = sessionStorage.getItem("id");
     const url = `https://tfg-backend-piniass-projects.vercel.app/rutinas/${rutina.id}/`;
     const { validarCampo } = useValidaciones();
