@@ -26,7 +26,7 @@ export default function FormularioCrearRutina(props) {
 
     const handleImgChange = (event) => {
         const selectedValue = event.target.value;
-        setSelectedImg("/img-rutinas/" +selectedValue);
+        setSelectedImg(selectedValue);
         // console.log("Imagen seleccionada:", selectedValue);
     };
 
