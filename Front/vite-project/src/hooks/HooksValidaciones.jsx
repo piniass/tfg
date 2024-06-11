@@ -28,7 +28,7 @@ const useValidaciones = () => {
 
   const validarSeleccion = (seleccion) => seleccion !== '';
 
-  const validarTextoMayuscula = (texto) => /^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]*(?:\s[A-ZÁÉÍÓÚÑa-záéíóúñ]+)*$/.test(texto);
+  const validarTextoMayuscula = (texto) => /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+(?:\s+[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+){1,5}(?<!\s)$/.test(texto);
 
   const validarDiaSemana = (dia) => ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'].includes(dia);
 
