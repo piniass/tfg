@@ -45,7 +45,7 @@ export default function Multistep_2(props) {
                     className='w-full p-2 mb-2' 
                     placeholder='Introduce tu correo...'
                 />
-                {error.email && <p className='p-1 bg-red-500 text-white rounded-md'>{error.email}</p>}
+                {error.email && <p className='p-1 bg-red-500 mb-2 text-white rounded-md'>{error.email}</p>}
                 <input 
                     type="password" 
                     name="pwd" 
@@ -53,7 +53,7 @@ export default function Multistep_2(props) {
                     className='w-full p-2 mb-2' 
                     placeholder='Introduce tu contraseña...'
                 />
-                {error.password && <p className='p-1 bg-red-500 text-white rounded-md'>{error.password}</p>}
+                {error.password && <p className='p-1 bg-red-500 mb-2 text-white rounded-md'>{error.password}</p>}
             </div>
             <button type="button" value="Atrás" className='bg-slate-50 w-full p-2 mt-auto' onClick={handlePrev}>Atrás</button>
             <button type="button" value="Siguiente" className='bg-slate-50 w-full p-2 mt-auto' onClick={handleNext}>Siguiente</button>

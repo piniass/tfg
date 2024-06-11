@@ -44,7 +44,7 @@ export default function Multistep_1(props) {
                     className='w-full p-2 mb-2' 
                     placeholder='Introduce tu nombre...'
                 />
-                {error.nombre && <p className='p-1 bg-red-500 text-white rounded-md'>{error.nombre}</p>}
+                {error.nombre && <p className='p-1 bg-red-500 text-white mb-2 rounded-md'>{error.nombre}</p>}
                 <input 
                     type="text" 
                     name="apellido" 
@@ -52,7 +52,7 @@ export default function Multistep_1(props) {
                     className='w-full p-2 mb-2' 
                     placeholder='Introduce tu apellido...'
                 />
-                {error.apellido && <p className='p-1 bg-red-500 text-white rounded-md'>{error.apellido}</p>}
+                {error.apellido && <p className='p-1 bg-red-500 text-white mb-2 rounded-md'>{error.apellido}</p>}
             </div>
             <button type="button" value="Siguiente" className='bg-slate-50 w-full p-2 mt-auto' onClick={handleNext}>Siguiente</button>
             <button type="button" value="Volver" className='bg-slate-50 w-full p-2 mt-auto' onClick={handleBack}>Volver</button>
