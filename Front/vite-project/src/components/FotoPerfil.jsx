@@ -13,7 +13,7 @@ export default function FotoPerfil() {
     }
   }, [decryptData]);
 
-  const ruta = avatar ? `${avatar}` : '';
+  const ruta = avatar ? `/${avatar}` : '';
 
   return (
     <img 

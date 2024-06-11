@@ -3,7 +3,7 @@ import { useState } from 'react'
 export default function InfoDetalles(props) {
     // console.log(props)
     const [detalles, setDetalles] = useState(props.state)
-    const ruta = '/' + detalles.avatar
+    const ruta = detalles.avatar
     const nombre = detalles.nombre + ' ' + detalles.apellido
     const edad = detalles.edad
     const altura = detalles.altura
