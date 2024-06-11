@@ -27,7 +27,7 @@ export default function FormularioEditarRutina({ rutina, actualizarRutinas, setF
 
     const handleImgChange = (event) => {
         const selectedValue = event.target.value;
-        setSelectedImg("/img-rutinas/" +selectedValue);
+        setSelectedImg(selectedValue);
         // console.log("Imagen seleccionada:", selectedValue);
     };
 
@@ -100,7 +100,7 @@ export default function FormularioEditarRutina({ rutina, actualizarRutinas, setF
                 <select name="img" id="img" className='p-2 border' onChange={handleImgChange} value={selectedImg}>
                     <option value="">Selecciona una imagen</option>
                     {imagenes.map((imagen, index) => (
-                        <option key={index} value={imagen}>
+                        <option key={index} value={`/img-rutinas/${imagen}`}>
                             {formatOptionText(imagen)}
                         </option>
                     ))}
