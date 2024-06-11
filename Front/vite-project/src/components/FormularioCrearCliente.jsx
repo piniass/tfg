@@ -108,7 +108,7 @@ export default function FormularioCrearCliente(props) {
           type="text"
           name="apellido"
           id="apellido"
-          placeholder='Apellidos'
+          placeholder='Apellido'
           value={formData.apellido}
           onChange={handleChange}
         />
