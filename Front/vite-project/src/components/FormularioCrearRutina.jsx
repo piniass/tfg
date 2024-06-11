@@ -103,7 +103,7 @@ export default function FormularioCrearRutina(props) {
                 <select name="img" id="img" className='p-2 border' onChange={handleImgChange} value={selectedImg}>
                     <option value="">Selecciona una imagen</option>
                     {imagenes.map((imagen, index) => (
-                        <option key={index} value={imagen}>
+                        <option key={index} value={'/img-rutinas/${imagen}'}>
                             {formatOptionText(imagen)}
                         </option>
                     ))}
