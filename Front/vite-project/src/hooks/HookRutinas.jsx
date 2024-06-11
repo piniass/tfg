@@ -53,6 +53,7 @@ const useRutinas = () => {
     
         } catch (err) {
           setError(err);
+          console.log(error)
         }
       };
 
@@ -61,7 +62,8 @@ const useRutinas = () => {
         actualizarRutinas,
         getRutinasId,
         handleEliminar,
-        rutinas
+        rutinas,
+        error
       }
 
 }

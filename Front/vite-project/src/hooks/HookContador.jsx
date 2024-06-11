@@ -25,7 +25,8 @@ const useContador = () => {
   return {
     counterEj,
     getCounter,
-    loading
+    loading,
+    error
   };
 };
 

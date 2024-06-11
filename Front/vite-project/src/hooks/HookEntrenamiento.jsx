@@ -37,7 +37,8 @@ const useEntrenamiento = (id_rutina) => {
       return {
         getEntrenamiento,
         handleEliminar,
-        entrenamiento
+        entrenamiento,
+        error
       }
 
 }

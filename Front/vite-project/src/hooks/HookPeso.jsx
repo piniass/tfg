@@ -60,7 +60,8 @@ const usePeso = (id) => {
         actualizarPeso,
         peso,
         handleEliminar,
-        loading
+        loading,
+        error
     }
   
   }

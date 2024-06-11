@@ -9,6 +9,7 @@ import Multistep_3 from '../components/Multistep_3';
 import avatardefault from '../../public/avatardefault.png';
 import ProgesionForm from '../components/ProgesionForm';
 import useValidaciones from '../hooks/HooksValidaciones';
+import Spinner from '../svgs/Spinner';
 
 export default function Login() {
 
@@ -19,6 +20,7 @@ export default function Login() {
     const [avatar, setAvatar] = useState('');
     const [error, setError] = useState({});
     const url = 'https://tfg-backend-piniass-projects.vercel.app/entrenadores';
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
     const { validarCampo } = useValidaciones();
 
@@ -46,7 +48,10 @@ export default function Login() {
             };
 
             try {
+                setLoading(true)
                 const res = await axios(options);
+                setLoading(false)
+
                 navigate("/");
             } catch (err) {
                 const errorResponse = err.response.data.detail;
@@ -56,8 +61,8 @@ export default function Login() {
     };
 
     const showAvatar = () => {
-        return avatar ? 
-            (<img src={avatar} className='rounded-full p-4'/>) :
+        return avatar ?
+            (<img src={avatar} className='rounded-full p-4' />) :
             (<img className='rounded-full p-4' src={avatardefault} />);
     };
 
@@ -85,10 +90,22 @@ export default function Login() {
                             <Multistep_3 setAvatar={setAvatar} setEmail={setEmail} setPwd={setPwd} setName={setName} setApellido={setApellido} />
                             {error.avatar && <p className='p-1 bg-red-500 text-white rounded-md mb-2'>{error.avatar}</p>}
                             {error.general && <p className='p-1 bg-red-500 text-white rounded-md mb-2'>{error.general}</p>}
-                            <input type="submit" value="Crear Usuario" className='bg-green-600 text-white cursor-pointer p-2 rounded-lg' />
+                            {
+                                loading ? (
+                                    <button
+                                        type="button"
+                                        disabled
+                                        className='rounded flex items-center justify-center cursor-pointer bg-gray-300 p-2 text-white'
+                                    ><Spinner /></button>
+                                )
+                                    : (
+                                        <input type="submit" value="Crear Usuario" className='bg-green-600 text-white cursor-pointer p-2 rounded-lg' />
+
+                                    )
+                            }
                         </>
                     }
-                    
+
                 </form>
             </section>
         </main>

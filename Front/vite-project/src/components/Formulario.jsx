@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 import useHasheo from '../hooks/HookHasheo';
+import Spinner from '../svgs/Spinner';
 
 
 export default function Formulario() {
@@ -13,6 +14,7 @@ export default function Formulario() {
   const [datosRecibidos, setDatosRecibidos] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
+  const [loading, setLoading] = useState(false);
   const {  encryptData } = useHasheo();
 
   const login = () => {
@@ -23,8 +25,10 @@ export default function Formulario() {
     event.preventDefault();
     if(correo != '' && contrasenia != ''){
       try {
+        setLoading(true)
         // Realizar la petición POST a la API
         const url = 'https://tfg-backend-piniass-projects.vercel.app/entrenador/login';
+        
         const data = {
           correo: correo,
           password: contrasenia
@@ -38,7 +42,7 @@ export default function Formulario() {
         };
   
         const res = await axios(options);
-  
+        setLoading(false)
         if (res.data.token) {
           const tiempo = 1800;
           const expTime = new Date(new Date().getTime() + (tiempo * 1000));
@@ -102,11 +106,19 @@ export default function Formulario() {
           value={contrasenia} 
         />
         { error && <p className='text-white'>{error}</p>}
+        { loading ? <button 
+          type="button" 
+          disabled
+          className='rounded flex items-center justify-center cursor-pointer bg-gray-300 p-2 text-white'
+        ><Spinner/></button>
+        :
         <input 
-          type="submit" 
-          value="Iniciar Sesion"
-          className='rounded cursor-pointer bg-green-600 p-2 text-white'
-        />
+        type="submit" 
+        value="Iniciar Sesion"
+        className='rounded cursor-pointer bg-green-600 p-2 text-white'
+      />
+        }
+        
         <input
           type='button'
           value='Registrarse'

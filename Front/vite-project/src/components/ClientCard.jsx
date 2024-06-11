@@ -25,7 +25,7 @@ export default function ClientCard(props) {
     }
 
     const verDetalles = () => {
-        navigate(`/detalles/`, { state: props.cliente });
+        navigate(`/detalles/${props.cliente.id}`, { state: props.cliente });
     }
  
     const handleEdit = () => {

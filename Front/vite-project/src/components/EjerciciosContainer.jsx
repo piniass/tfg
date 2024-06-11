@@ -10,7 +10,7 @@ export default function EjerciciosContainer(props) {
     const id = props.state.id;
     const id_rutina = props.state.id_rutina
     const id_entrenador = props.state.id_entrenador
-    const {counterEj, getCounter,loading} = useContador( {id} );
+    const {counterEj, getCounter,loading, error} = useContador( {id} );
     const updateState  = props.updateState 
     
     useEffect(() => {
@@ -41,7 +41,10 @@ export default function EjerciciosContainer(props) {
             {
                 !loading ?  
                 <div className='flex items-center justify-center'>
-                    <GraficaGruposMusc counterEj={counterEj}/>
+                    {
+                    error ? (<p className='p-2'>Hubo un error en la conexión, recagar la página.</p>)
+                     : <GraficaGruposMusc counterEj={counterEj} />
+                     }
                 </div>
                 :
                 <div className='flex flex-col items-center justify-center'>

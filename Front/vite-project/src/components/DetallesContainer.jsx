@@ -9,7 +9,7 @@ import Spinner from '../svgs/Spinner';
 export default function DetallesContainer(props) {
   const { id, id_rutina } = props.state;
   const { peso, getPeso, actualizarPeso,handleEliminar, loading } = usePeso(id);
-  const { rutinas, getRutinasId } = useRutinas();
+  const { rutinas, getRutinasId, error } = useRutinas();
   
   const [state, setState] = useState(props.state);
 
@@ -41,6 +41,7 @@ export default function DetallesContainer(props) {
     setState(prevState => ({ ...prevState, ...newState }));
   };
 
+
   return (
     <section className='flex flex-col p-3 md:p-5 w-4/5 gap-2 h-screen overflow-auto'>
       <InfoDetalles state={state} />
@@ -51,8 +52,10 @@ export default function DetallesContainer(props) {
           handleEliminar={handleEliminar}
           loading={loading}
       />
-      
-      <EjerciciosContainer state={state} rutinas={rutinas} updateState={updateState} />
+      {
+        error && (<p>Error de cors</p>)
+      }
+      <EjerciciosContainer state={state} rutinas={rutinas} updateState={updateState} error={error} />
     </section>
   );
 }
