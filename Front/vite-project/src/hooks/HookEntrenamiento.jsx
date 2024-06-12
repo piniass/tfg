@@ -6,11 +6,14 @@ const useEntrenamiento = (id_rutina) => {
     const rutinaId = typeof id_rutina === 'object' ? id_rutina.rutinaId : id_rutina;
     const [error, setError] = useState(null);
     const [entrenamiento, setEntrenamiento] = useState([]);
+    const [loading, setLoading] = useState(false)
 
     const getEntrenamiento = async () => {
         try {
           // console.log("El id por parametro: ", id_rutina)
+          setLoading(true)
           const response = await axios.get(`https://tfg-backend-piniass-projects.vercel.app/entrenamientos/rutina/${rutinaId}`);
+          setLoading(false)
           setEntrenamiento(response.data);
           return entrenamiento
         } catch (err) {
@@ -38,7 +41,8 @@ const useEntrenamiento = (id_rutina) => {
         getEntrenamiento,
         handleEliminar,
         entrenamiento,
-        error
+        error,
+        loading
       }
 
 }

@@ -1,16 +1,51 @@
 import React, { useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
+import useContador from '../hooks/HookContador';
+import Spinner from '../svgs/Spinner';
 
 export default function GraficaGruposMusc(props) {
-    const grupos = props.counterEj;
-    const claves = grupos ? Object.keys(grupos) : []; 
-    const valores = grupos ? Object.values(grupos) : []; 
-    
+    const { id, id_rutina, rutinas } = props;
+    const { counterEj, getCounter, loading, error } = useContador({ id });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (id) {
+                    await getCounter(id);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+                    fetchData();
+                }
+            }
+        };
+
+        fetchData();
+    }, [id, id_rutina]);
+
+    if (loading) {
+        return (
+            <div className='flex flex-col items-center justify-center'>
+                <Spinner />
+                <p>Cargando información</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return <p className='p-2'>Hubo un error en la conexión, recargar la página.</p>;
+    }
+
+    const grupos = counterEj;
+    const claves = grupos ? Object.keys(grupos) : [];
+    const valores = grupos ? Object.values(grupos) : [];
+
     return (
         <div className='w-[250px] md:w-[450px]'>
-            <h3 className='text-center text-xl'>Grafica de ejercicios</h3>
+            <h3 className='text-center text-xl'>Gráfica de ejercicios</h3>
             <Pie 
-                data = {{
+                data={{
                     labels: claves,
                     datasets: [
                         {

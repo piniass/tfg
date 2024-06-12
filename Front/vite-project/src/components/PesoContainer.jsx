@@ -8,9 +8,9 @@ import TablaPeso from './TablaPeso'
 import Spinner from '../svgs/Spinner'
 
 export default function PesoContainer(props) {
-    // const id = props.state.id
-    // const {peso, getPeso, actualizarPeso, loading} = usePeso(id)
-    const { state, peso, actualizarPeso,handleEliminar,loading } = props;
+    const id = props.state.id
+    const {peso, getPeso, actualizarPeso, handleEliminar,loading} = usePeso(id)
+    // const { state, peso, actualizarPeso,handleEliminar,loading } = props;
 
     const [pesoNuevo, setNuevo] = useState()
 
@@ -24,11 +24,16 @@ export default function PesoContainer(props) {
     const nPeso = peso.slice(indexIni,indexFin)
     const nPage = Math.ceil(peso.length / pesoQt)
 
-    // useEffect(() => {
-    //     if (id) {
-    //         getPeso(); // Llamar a getPeso solo si id es válido
-    //     }
-    // }, [id]);
+    useEffect(() => {
+      const fetchPeso = () => {
+          if (id) {
+              getPeso();
+          }
+      };
+  
+      fetchPeso();
+  }, [id]);
+  
 
   return (
     <div className='flex flex-col border-2 items-center justify-around p-2 w-full'>

@@ -49,7 +49,7 @@ export default function ListaDeTareas(props) {
             <div key={tarea.id} className="border-2 p-4 rounded-md flex items-center justify-between "> {/* Agregué la clase flex y items-center */}
               <div className='overflow-auto'>
               <p className={`text-lg font-semibold mb-2 flex-1 flex-wrap  ${tarea.confirmado ? 'line-through' : ''}`}>{tarea.tarea}</p> {/* Agregué la clase flex-1 */}
-              <p className={`text-lg font-semibold mb-2 flex-1 ${tarea.confirmado ? 'line-through' : ''}`}>Fecha de creacion: <br/>{tarea.fecha_creacion.substr(0,10)}</p>
+              <p className='text-lg font-semibold mb-2 flex-1'>Fecha de creacion: <br/>{tarea.fecha_creacion.substr(0,10)}</p>
               </div>
               <div className="flex items-center ms-auto flex-col md:flex-row gap-2"> {/* Mantuve esta clase flex para los botones */}
                 {

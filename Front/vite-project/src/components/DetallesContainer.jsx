@@ -8,8 +8,8 @@ import Spinner from '../svgs/Spinner';
 
 export default function DetallesContainer(props) {
   const { id, id_rutina } = props.state;
-  const { peso, getPeso, actualizarPeso,handleEliminar, loading } = usePeso(id);
-  const { rutinas, getRutinasId, error } = useRutinas();
+  // const { peso, getPeso, actualizarPeso,handleEliminar, loading } = usePeso(id);
+  // const { rutinas, getRutinasId, error } = useRutinas();
   
   const [state, setState] = useState(props.state);
 
@@ -17,8 +17,8 @@ export default function DetallesContainer(props) {
     const fetchData = async () => {
         try {
             // Ejecutamos getRutinasId con el id
-            await getRutinasId(id);
-            await getPeso();
+            // await getRutinasId(id);
+            // await getPeso();
         } catch (error) {
             console.error("Error fetching data: ", error);
             // Verificar si el error es debido a CORS
@@ -38,24 +38,27 @@ export default function DetallesContainer(props) {
 
   // Función para actualizar el estado
   const updateState = (newState) => {
+    console.log("Actualizando gráfica")
     setState(prevState => ({ ...prevState, ...newState }));
+    console.log("state: ",state)
   };
 
+  // console.log("rutina: ",rutinas)
+  // console.log("error de rutinas", error)
 
   return (
     <section className='flex flex-col p-3 md:p-5 w-4/5 gap-2 h-screen overflow-auto'>
       <InfoDetalles state={state} />
       <PesoContainer
           state={state}
-          peso={peso}
-          actualizarPeso={actualizarPeso}
-          handleEliminar={handleEliminar}
-          loading={loading}
+          // peso={peso}
+          // actualizarPeso={actualizarPeso}
+          // handleEliminar={handleEliminar}
+          // loading={loading}
       />
-      {
-        error && (<p>Error de cors</p>)
-      }
-      <EjerciciosContainer state={state} rutinas={rutinas} updateState={updateState} error={error} />
+      {/* <EjerciciosContainer state={state} rutinas={rutinas} updateState={updateState} error={error} /> */}
+      <EjerciciosContainer state={state} updateState={updateState} />
+
     </section>
   );
 }
