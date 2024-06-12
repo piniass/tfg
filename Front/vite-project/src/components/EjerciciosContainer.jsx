@@ -25,7 +25,7 @@ export default function EjerciciosContainer(props) {
         };
 
         fetchData();
-        console.log("id rutina: ", id_rutina);
+        // console.log("id rutina: ", id_rutina);
     }, [id, id_rutina]);
 
     return (
